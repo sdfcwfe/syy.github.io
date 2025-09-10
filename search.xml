@@ -29,6 +29,8 @@
 <h2 id="卷积的性质"><a href="#卷积的性质" class="headerlink" title="卷积的性质"></a>卷积的性质</h2><ul>
 <li>1.分配律</li>
 <li>2.交换律</li>
+<li>3.$ \frac{(h(t)*x(t))}{dt} &#x3D; \frac{h(t)}{dt} + x(t)$</li>
+<li>4.$ h(t+t_0)+x(t-t_0) &#x3D; h(t)+x(t) $</li>
 </ul>
 <hr>
 <blockquote>
