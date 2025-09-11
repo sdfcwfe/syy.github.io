@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>信号与系统001</title>
+    <url>/syy.github.io/2025/09/08/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<!-- ![美女压图](/img/s002.jpg)
+
+-->
+
+<h1 id="信号与系统001"><a href="#信号与系统001" class="headerlink" title="信号与系统001"></a>信号与系统001</h1><p>目前还是测试的,具体内容往后再看看;</p>
+<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><h3 id="卷积的性质"><a href="#卷积的性质" class="headerlink" title="卷积的性质"></a>卷积的性质</h3><ul>
+<li>1.分配律</li>
+<li>2.交换律</li>
+<li>3.两个信号卷积后的微分，等于其中一个信号的微分与另一个信号的卷积</li>
+<li><ol start="4">
+<li>( h(t+t_0) * x(t-t_0) &#x3D; h(t) * x(t) )</li>
+</ol>
+</li>
+<li>LTI 系统稳定的充要条件是<br>$$ \int_{-\infty}^{+\infty} |h(t)| , dt &lt; +\infty $$<br>或<br>$$ \sum_{k&#x3D;-\infty}^{+\infty} |h[k]| &lt; +\infty $$</li>
+</ul>
+<h3 id="LTI系统的因果充要条件"><a href="#LTI系统的因果充要条件" class="headerlink" title="LTI系统的因果充要条件"></a>LTI系统的因果充要条件</h3><ul>
+<li>h(t)&#x3D;0,当t&lt;0时,或者h[n]&#x3D;0,当n&lt;0时</li>
+<li>因果的定义：输出 ( y(t) ) 在 ( t_0 ) 时刻的 ( y(t_0) )，只有 ( t \leq t_0 ) 时刻的 ( x(t) ) 决定。</li>
+</ul>
+<hr>
+<blockquote>
+<p>学习是一个持续的过程，每一小步都是进步。</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>专业课</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>freertos</title>
     <url>/syy.github.io/2025/09/11/hello-world/</url>
     <content><![CDATA[<h1 id="freertos002"><a href="#freertos002" class="headerlink" title="freertos002"></a>freertos002</h1><p>测试中</p>
@@ -34,40 +66,8 @@
 </code></pre>
 ]]></content>
       <tags>
+        <tag>理论学习</tag>
         <tag>嵌入式</tag>
-        <tag>理论学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>信号与系统001</title>
-    <url>/syy.github.io/2025/09/08/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<!-- ![美女压图](/img/s002.jpg)
-
--->
-
-<h1 id="信号与系统001"><a href="#信号与系统001" class="headerlink" title="信号与系统001"></a>信号与系统001</h1><p>目前还是测试的,具体内容往后再看看;</p>
-<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><h3 id="卷积的性质"><a href="#卷积的性质" class="headerlink" title="卷积的性质"></a>卷积的性质</h3><ul>
-<li>1.分配律</li>
-<li>2.交换律</li>
-<li>3.两个信号卷积后的微分，等于其中一个信号的微分与另一个信号的卷积</li>
-<li><ol start="4">
-<li>( h(t+t_0) * x(t-t_0) &#x3D; h(t) * x(t) )</li>
-</ol>
-</li>
-<li>LTI 系统稳定的充要条件是<br>$$ \int_{-\infty}^{+\infty} |h(t)| , dt &lt; +\infty $$<br>或<br>$$ \sum_{k&#x3D;-\infty}^{+\infty} |h[k]| &lt; +\infty $$</li>
-</ul>
-<h3 id="LTI系统的因果充要条件"><a href="#LTI系统的因果充要条件" class="headerlink" title="LTI系统的因果充要条件"></a>LTI系统的因果充要条件</h3><ul>
-<li>h(t)&#x3D;0,当t&lt;0时,或者h[n]&#x3D;0,当n&lt;0时</li>
-<li>因果的定义：输出 ( y(t) ) 在 ( t_0 ) 时刻的 ( y(t_0) )，只有 ( t \leq t_0 ) 时刻的 ( x(t) ) 决定。</li>
-</ul>
-<hr>
-<blockquote>
-<p>学习是一个持续的过程，每一小步都是进步。</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>专业课</tag>
       </tags>
   </entry>
 </search>
