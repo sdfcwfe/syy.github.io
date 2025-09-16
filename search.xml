@@ -18,6 +18,21 @@
 <p>study for schematic diagram</p>
 </blockquote>
 <h2 id="gpio和门电路">GPIO和门电路</h2>
+<p><img src="img.png" alt="img.png"></p>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>理论学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>freertos</title>
+    <url>/syy.github.io/2025/09/11/hello-world/</url>
+    <content><![CDATA[<h1>freertos002</h1>
+<p>测试中</p>
+<h2 id="1-硬件初始化">1.硬件初始化</h2>
+<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
         <tag>嵌入式</tag>
@@ -49,20 +64,6 @@
         <tag>lvgl</tag>
         <tag>freertos</tag>
         <tag>游戏</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>freertos</title>
-    <url>/syy.github.io/2025/09/11/hello-world/</url>
-    <content><![CDATA[<h1>freertos002</h1>
-<p>测试中</p>
-<h2 id="1-硬件初始化">1.硬件初始化</h2>
-<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>理论学习</tag>
       </tags>
   </entry>
   <entry>
