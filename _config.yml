@@ -14,6 +14,7 @@ timezone: ''
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://sdfcwfe.github.io/syy.github.io #http://example.com
+# root: /syy.github.io/  # 与 url 中的二级目录一致
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -111,3 +112,5 @@ search:
   field: all            # 搜索范围：post（仅文章）、all（文章+页面）
   format: html           # 内容格式（默认即可）
   limit: 1000            # 每篇文章提取的内容长度（默认即可）
+
+
