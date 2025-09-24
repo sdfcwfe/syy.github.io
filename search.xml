@@ -157,6 +157,23 @@ muted control loop autoplay</p>
 <p>从上到下,先整体再局部;</p>
 <p>补充:如果文字里面要插入标签<br>
 打一个空格,a加herf…</p>
+<h3 id="列表">列表</h3>
+<p>布局内容排列整齐是区域<br>
+分类;无序列表,有序列表,定义列表</p>
+<h4 id="无序列表">无序列表</h4>
+<p>布局排列整齐的不需要归定顺序的区域<br>
+ul嵌套li,ul为无序<br>
+<img src="/syy.github.io/img/st011.jpg" alt=""><br>
+ul标签里面只能包裹li;<br>
+li里面可以包裹任何内容;</p>
+<h4 id="有序列表">有序列表</h4>
+<p>布局排列整齐的需要归定顺序的区域<br>
+ol嵌套li,ol为无序</p>
+<h4 id="定义列表">定义列表</h4>
+<p>标签: dl 嵌套 dt 和 dd, dl 是定义列表, dt 是定义列表的标题, dd 是定义列表的描述/详情。</p>
+<h3 id="表格">表格</h3>
+<p>和execl类似<br>
+标签: table嵌套tr, tr嵌套td / th。</p>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
@@ -196,8 +213,8 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 <img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>理论学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -239,8 +256,8 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>理论学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
