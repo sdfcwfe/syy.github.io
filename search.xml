@@ -38,6 +38,26 @@
 ]]></content>
   </entry>
   <entry>
+    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
+    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
+    <content><![CDATA[<blockquote>
+<p>写大作业遇到的问题有感,天生无才</p>
+</blockquote>
+<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
+发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
+<p>调查的时候,在终端调用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
+<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
+<h2 id="解决方法">解决方法</h2>
+<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
+<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>问题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>贝塞尔曲线法</title>
     <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
     <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
@@ -213,8 +233,8 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 <img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
 ]]></content>
       <tags>
-        <tag>理论学习</tag>
         <tag>嵌入式</tag>
+        <tag>理论学习</tag>
       </tags>
   </entry>
   <entry>
@@ -256,8 +276,8 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>理论学习</tag>
         <tag>嵌入式</tag>
+        <tag>理论学习</tag>
       </tags>
   </entry>
   <entry>
