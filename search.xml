@@ -45,8 +45,8 @@
 </blockquote>
 <h1>c#的学习</h1>
 <p>面向对象语言, 使用.net的框架, 使用flash(跨平台性),<br>
-<img src="/syy.github.io/img/know/one.jpg" alt="111"><br>
-<img src="/syy.github.io/img/one.jpg" alt="111"></p>
+<img src="/syy.github.io/img/know/one.jpg" alt="111"></p>
+<h1>c# 项目</h1>
 ]]></content>
       <categories>
         <category>语言</category>
@@ -63,12 +63,51 @@
 <p>世界上最遥远的距离，不是从源码到二进制，而是 CMake 说 “找不到头文件”，但文件明明就在眼前</p>
 </blockquote>
 <p><img src="/syy.github.io/img/a001.jpg" alt="111"></p>
-<h1></h1>
-<p>预处理-&gt;编译-&gt;汇编-&gt;链接-&gt;可执行程序</p>
-<p>创建一个脚本文件,makefile</p>
-<p>还有一种,cmake,比makefile更高级,根据不同平台直接生成makefile</p>
-<p>有两种库,动态库和静态库,引入第三方现目使用,</p>
-<h1>准备工作</h1>
+<h1>介绍</h1>
+<p>预处理-&gt;编译-&gt;汇编-&gt;链接-&gt;可执行程序<br>
+创建一个脚本文件,makefile<br>
+还有一种,cmake,比makefile更高级,根据不同平台直接生成makefile<br>
+有两种库,动态库和静态库,引入第三方现目使用</p>
+<h1>基本语法</h1>
+<p>1、指定 CMake 的最低版本要求：<br>
+cmake_minimum_required(VERSION <version>)</p>
+<p>2、定义项目的名称和使用的编程语言：<br>
+project(&lt;project_name&gt; [<language>…])<br>
+例如： project(MyProject CXX)</p>
+<p>3、指定要生成的可执行文件和其源文件：<br>
+add_executable(<target> &lt;source_files&gt;…)<br>
+例如： add_executable(MyExecutable main.cpp other_file.cpp)</p>
+<p>4、创建一个库（静态库或动态库）及其源文件：***<br>
+add_library(<target> &lt;source_files&gt;…)<br>
+这条指令告诉 CMake：“目标 A (target) 的运行或编译依赖于库 B (library)。”<br>
+例如：<br>
+add_library(MyLibrary STATIC library.cpp)</p>
+<p>5、链接目标文件与其他库：<br>
+target_link_libraries(<target> <libraries>…)<br>
+例如：<br>
+target_link_libraries(MyExecutable MyLibrary)</p>
+<p>6、添加头文件搜索路径：<br>
+include_directories(<dirs>…)<br>
+例如：<br>
+include_directories(${PROJECT_SOURCE_DIR}/include)<br>
+现代 CMake 的替代方案：target_include_directories (强烈推荐)<br>
+在现代 CMake 实践中，我们更倾向于使用 target_include_directories。<br>
+为什么？<br>
+include_directories 像是一个“全局开关”，而 target_include_directories 是“点对点设置”。<br>
+示例对比：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># --- 旧方式 (全局) ---</span><br><span class="line">include_directories(include/)</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">add_executable(App main.cpp) # App 也会被迫搜索 include/，即使它不需要</span><br><span class="line"></span><br><span class="line"># --- 新方式 (目标关联) ---</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">target_include_directories(LibA PUBLIC include/)</span><br></pre></td></tr></table></figure>
+<p>PRIVATE (私有)：<br>
+含义：只有 LibA 自己的源文件（.cpp）在编译时会用到这个目录。<br>
+外部影响：如果另一个程序 App 链接了 LibA，App 不会自动获得这个头文件路径。<br>
+INTERFACE (接口)：<br>
+含义：LibA 自己的源文件在编译时不使用这个目录。<br>
+外部影响：谁链接了 LibA，谁才会获得这个路径。常用于“纯头文件库”（Header-only library）。<br>
+PUBLIC (公开)：<br>
+含义：PRIVATE + INTERFACE。<br>
+效果：LibA 自己编译时要用这个路径，而且任何链接到 LibA 的目标也必须自动带上这个路径。</p>
+<p>7、设置变量的值：<br>
+set(-variable -value…)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.16) # 最低要求的版本号</span><br><span class="line">project(test)</span><br><span class="line">set(SRC_LIST one.cpp)</span><br><span class="line">add_executable(app  $&#123;SRC_LIST&#125;)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
