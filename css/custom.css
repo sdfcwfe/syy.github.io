@@ -1,0 +1,50 @@
+
+/* 让首页标题容器强制居中 */
+#site-info {
+    text-align: center !important;
+    width: 100%;
+    padding: 0 10px;
+    position: absolute; /* 确保它在背景图正中间 */
+    top: 43%;           /* 垂直位置，可根据喜好微调 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 首页主标题样式 */
+#site-title {
+    font-size: 10vw !important;
+    font-family: 'Noto Serif SC', serif !important;
+    font-weight: 900;
+    letter-spacing: 5px;
+    line-height: 1.2;
+    margin: 0;
+
+    /* --- 核心：颜色渐变部分 --- */
+    /* 颜色解释：#d6d1b1 是月光灰黄，#ffffff 是纯白 */
+    background: linear-gradient(to bottom, #e2e2e2 0%, #fff9d1 50%, #ffffff 100%);
+    -webkit-background-clip: text; /* 将背景裁剪到文字上 */
+    -webkit-text-fill-color: transparent; /* 让文字本身的颜色透明 */
+    background-clip: text;
+
+    /* --- 辅助：让文字更有质感 --- */
+    /* 渐变文字无法直接使用 text-shadow，我们用 filter 代替发光效果 */
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+}
+
+/* 首页副标题样式 */
+#site-subtitle {
+    font-size: 1.8rem !important;
+    font-weight: 400;
+    margin-top: 15px;
+    display: block; /* 确保占据一行，实现上下居中对齐 */
+}
+
+/* 如果是手机端，字体缩小一点防止溢出 */
+@media screen and (max-width: 768px) {
+    #site-title {
+        font-size: 3rem !important;
+    }
+    #site-subtitle {
+        font-size: 1.2rem !important;
+    }
+}
