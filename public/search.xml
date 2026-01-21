@@ -3,12 +3,189 @@
   <entry>
     <title>友链</title>
     <url>/syy.github.io/2025/09/13/friend-blog/</url>
-    <content><![CDATA[<p>感谢朋友的支持,以下是友链,请多多支持:<br>
-<img src="/syy.github.io/syy.github/img/dd002.jpg" alt="小海"><br>
-小海:<a href="https://norubias.site">https://norubias.site</a></p>
-<p><img src="/syy.github.io/syy.github/img/dd001.jpg" alt="柊野"> <!-- 和封面图一样，用 /img/ 开头 --><br>
-柊野:<a href="https://zhongye1.github.io/">https://zhongye1.github.io/</a>, 专用笔记库:<a href="https://zhongye1.github.io/Arknight-notes/">https://zhongye1.github.io/Arknight-notes/</a></p>
+    <content><![CDATA[<style>
+.friend-link-row {
+  display: flex;
+  align-items: flex-start; /* 按内容顶部对齐 */
+  gap: 20px; /* 友链项之间的间距 */
+  margin-bottom: 20px;
+}
+.friend-link-item {
+  flex: 1; /* 让每个友链项平分剩余空间 */
+}
+.friend-link-item img {
+  max-width: 100px; /* 限制图片宽度，可根据需要调整 */
+  height: auto;
+}
+</style>
+<p>网络的经纬交织起奇妙的联结，每一次点击都是跨越屏幕的握手。<br>
+以下这些名字与站点，是散落在赛博世界里的星辰，各自闪烁着独特的光芒 —— 感谢它们的存在，让这片数字疆域有了更温暖的温度。</p>
+<div class="friend-link-row">
+  <!-- 小海的图片超链接 -->
+  <div class="friend-link-item">
+    <a href="https://norubias.site">
+      <img src="/syy.github.io/img/dd002.jpg" alt="小海">
+    </a>
+  </div>
+  <!-- 柊野的图片超链接 -->
+  <div class="friend-link-item">
+    <a href="https://zhongye1.github.io/">
+      <img src="/syy.github.io/img/dd001.jpg" alt="柊野">
+    </a>
+  </div>
+</div>
+<p><img src="/syy.github.io/img/s010.jpeg" alt=""></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>c#</title>
+    <url>/syy.github.io/2026/01/01/hash/</url>
+    <content><![CDATA[<blockquote>
+<p>命里有时终须有，命里无时莫强求</p>
+</blockquote>
+<h1>c#的学习</h1>
+<p>面向对象语言, 使用.net的框架, 使用flash(跨平台性),<br>
+<img src="/syy.github.io/img/know/one.jpg" alt="111"></p>
+<h1>c#基本代码</h1>
+<p>一个 C# 程序主要包括以下部分：</p>
+<ul>
+<li>命名空间声明（Namespace declaration）</li>
+<li>一个 class</li>
+<li>Class 方法</li>
+<li>Class 属性</li>
+<li>一个 Main 方法</li>
+<li>语句（Statements）&amp; 表达式（Expressions）</li>
+<li>注释</li>
+</ul>
+<p>C# 文件的后缀为 .cs。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System; <span class="comment">//- using 关键字用于在程序中包含 System 命名空间。 一个程序一般有多个 using 语句。</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">one</span> <span class="comment">//命名空间</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">Program</span> <span class="comment">// 类</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 方法, 函数</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 逻辑代码</span></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Hello, World!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>语言</category>
+      </categories>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>c#</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cmake_study</title>
+    <url>/syy.github.io/2025/12/30/cmake-study/</url>
+    <content><![CDATA[<blockquote>
+<p>世界上最遥远的距离，不是从源码到二进制，而是 CMake 说 “找不到头文件”，但文件明明就在眼前</p>
+</blockquote>
+<p><img src="/syy.github.io/img/a001.jpg" alt="111"></p>
+<h1>目录</h1>
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">1. 介绍</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">2. 基本语法</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91">3. 如何编译</a></li>
+</ul>
+<h1>介绍 <a id="介绍"></a></h1>
+<p>预处理-&gt;编译-&gt;汇编-&gt;链接-&gt;可执行程序<br>
+创建一个脚本文件,makefile<br>
+还有一种,cmake,比makefile更高级,根据不同平台直接生成makefile<br>
+有两种库,动态库和静态库,引入第三方现目使用</p>
+<h1>基本语法 <a id="基本语法"></a></h1>
+<h3 id="1-指定-cmake-的最低版本要求：">1、指定 CMake 的最低版本要求：</h3>
+<p>cmake_minimum_required(VERSION <version>)</p>
+<h3 id="2-定义项目的名称和使用的编程语言：">2、定义项目的名称和使用的编程语言：</h3>
+<p>project(&lt;project_name&gt; [<language>…])<br>
+例如： project(MyProject CXX)</p>
+<h3 id="3-指定要生成的可执行文件和其源文件：">3、指定要生成的可执行文件和其源文件：</h3>
+<p>add_executable(<target> &lt;source_files&gt;…)<br>
+例如： add_executable(MyExecutable main.cpp other_file.cpp)</p>
+<h3 id="4-创建一个库-静态库或动态库-及其源文件：">4、创建一个库（静态库或动态库）及其源文件：***</h3>
+<p>add_library(<target> &lt;source_files&gt;…)<br>
+这条指令告诉 CMake：“目标 A (target) 的运行或编译依赖于库 B (library)。”<br>
+例如：<br>
+add_library(MyLibrary STATIC library.cpp)</p>
+<h3 id="5-链接目标文件与其他库：">5、链接目标文件与其他库：</h3>
+<p>target_link_libraries(<target> <libraries>…)<br>
+例如：<br>
+target_link_libraries(MyExecutable MyLibrary)</p>
+<h3 id="6-添加头文件搜索路径：">6、添加头文件搜索路径：</h3>
+<p>include_directories(<dirs>…)<br>
+例如：<br>
+include_directories(${PROJECT_SOURCE_DIR}/include)<br>
+现代 CMake 的替代方案：target_include_directories (强烈推荐)<br>
+在现代 CMake 实践中，我们更倾向于使用 target_include_directories。<br>
+为什么？<br>
+include_directories 像是一个“全局开关”，而 target_include_directories 是“点对点设置”。<br>
+示例对比：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># --- 旧方式 (全局) ---</span><br><span class="line">include_directories(include/)</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">add_executable(App main.cpp) # App 也会被迫搜索 include/，即使它不需要</span><br><span class="line"></span><br><span class="line"># --- 新方式 (目标关联) ---</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">target_include_directories(LibA PUBLIC include/)</span><br></pre></td></tr></table></figure>
+<p>PRIVATE (私有)：<br>
+含义：只有 LibA 自己的源文件（.cpp）在编译时会用到这个目录。<br>
+外部影响：如果另一个程序 App 链接了 LibA，App 不会自动获得这个头文件路径。<br>
+INTERFACE (接口)：<br>
+含义：LibA 自己的源文件在编译时不使用这个目录。<br>
+外部影响：谁链接了 LibA，谁才会获得这个路径。常用于“纯头文件库”（Header-only library）。<br>
+PUBLIC (公开)：<br>
+含义：PRIVATE + INTERFACE。<br>
+效果：LibA 自己编译时要用这个路径，而且任何链接到 LibA 的目标也必须自动带上这个路径。</p>
+<h3 id="7-设置变量的值：">7、设置变量的值：</h3>
+<p>set(-variable  -value…)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.16) # 最低要求的版本号</span><br><span class="line">project(test)</span><br><span class="line">set(SRC_LIST one.cpp)</span><br><span class="line">add_executable(app  $&#123;SRC_LIST&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="8-设置目标属性：">8、设置目标属性：</h3>
+<p>target_include_directories(TARGET target_name<br>
+[BEFORE | AFTER]<br>
+[SYSTEM] [PUBLIC | PRIVATE | INTERFACE]<br>
+[items1…])<br>
+例如： target_include_directories(MyExecutable PRIVATE ${PROJECT_SOURCE_DIR}/include)<br>
+解释; target_include_directories(目标名称 关键字 路径)<br>
+假设你的项目文件夹是这样的：</p>
+<blockquote>
+<p>/MyProject<br>
+├── main.cpp<br>
+├── /include (放公开的头文件)<br>
+│     └── my_lib.h<br>
+├── /src     (放内部的头文件)<br>
+│     └── internal.h<br>
+└── /third_party/bad_code (别人写的烂代码库)</p>
+</blockquote>
+<p>你的 CMakeLists.txt 应该这么写：<br>
+code<br>
+Cmake<br>
+add_executable(MyApp main.cpp)</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(MyApp main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(MyApp </span><br><span class="line">    <span class="comment"># 1. 自己的内部头文件，设置为 PRIVATE</span></span><br><span class="line">    <span class="comment"># 只有 MyApp 能搜到 internal.h</span></span><br><span class="line">    PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 对外的接口头文件，设置为 PUBLIC</span></span><br><span class="line">    <span class="comment"># 如果以后有人链接了 MyApp，他们也能搜到 my_lib.h</span></span><br><span class="line">    PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 第三方库，设置为 SYSTEM</span></span><br><span class="line">    <span class="comment"># 哪怕这个库里有一万个警告，编译时也不会弹出来烦你</span></span><br><span class="line">    SYSTEM PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/third_party/bad_code</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h1>如何编译 <a id="如何编译"></a></h1>
+<h3 id="第一步：进入项目文件夹">第一步：进入项目文件夹</h3>
+<p>首先，确保你在包含 CMakeLists.txt 的那个目录下。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/code</span><br></pre></td></tr></table></figure>
+<h3 id="第二步：创建并进入-build-目录-外部构建">第二步：创建并进入 build 目录（外部构建）</h3>
+<p>为了不让编译产生的临时文件弄乱你的源代码，我们通常创建一个专门的 build 文件夹。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
+<h3 id="第三步：运行-cmake-进行配置">第三步：运行 CMake 进行配置</h3>
+<p>这一步 CMake 会检查你的系统环境，并生成 Makefile 文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake ..</span><br></pre></td></tr></table></figure>
+<h3 id="第四步：执行编译">第四步：执行编译</h3>
+<p>使用 make 命令（或者 cmake --build .）来正式调用编译器（g++）。<br>
+就一个make;</p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>cmake</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
+    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
+    <content><![CDATA[<blockquote>
+<p>写大作业遇到的问题有感,天生无才</p>
+</blockquote>
+<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
+发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
+<p>调查的时候,在终端调用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
+<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
+<h2 id="解决方法">解决方法</h2>
+<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
+<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>问题</tag>
+      </tags>
   </entry>
   <entry>
     <title>贝塞尔曲线法</title>
@@ -22,20 +199,20 @@
 给定n+1个数据点,p0-pn,生成一条曲线,使该曲线与这些点描述的形状相符;</p>
 <h2 id="推导">推导</h2>
 <h3 id="一次贝塞尔曲线">一次贝塞尔曲线</h3>
-<p>设<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)">\(P_0\)</span>，<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)">\(P_1\)</span>两个控制点，t取值范围为<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)">\([0,1]\)</span>。<br>
+<p>设<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>，<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>两个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<br>
 直线<br>
-则贝塞尔曲线生成点可以表达为：<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…">\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
+则贝塞尔曲线生成点可以表达为：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…'>\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
 t可以为时间<br>
-<img src="/syy.github.io/syy.github/img/st005.jpg" alt="1"></p>
+<img src="/syy.github.io/img/st005.jpg" alt="1"></p>
 <h3 id="二阶">二阶</h3>
-<p>设P0，P1，P2三个控制点，t取值范围为<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)">\([0,1]\)</span>。<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)">\(P_0\)</span>和<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)">\(P_1\)</span>构成一阶，<br>
-<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)">\(P_1\)</span>和<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)">\(P_2\)</span>也构成一阶，即：<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}">\(\begin{cases}</span><br>
+<p>设P0，P1，P2三个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>构成一阶，<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)'>\(P_2\)</span>也构成一阶，即：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}'>\(\begin{cases}</span><br>
 $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\\
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="mspace newline"></span></span></span>p_{1,2}(t) = (1 - t)P_1 + tP_2<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow></mrow><annotation encoding="application/x-tex">
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>\end{cases})<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</mtext></mrow><annotation encoding="application/x-tex">在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">基</span><span class="mord cjk_fallback">础</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">贝</span><span class="mord cjk_fallback">塞</span><span class="mord cjk_fallback">尔</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>(p_2(t) = (1 - t)p_{1,1} + tp_{1,2})$<br>
-<img src="/syy.github.io/syy.github/img/st006.jpg" alt="1"></p>
+<img src="/syy.github.io/img/st006.jpg" alt="1"></p>
 <h3 id="三阶">三阶</h3>
-<p><img src="/syy.github.io/syy.github/img/st007.jpg" alt="1"></p>
+<p><img src="/syy.github.io/img/st007.jpg" alt="1"></p>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
@@ -62,7 +239,7 @@ $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><
 <li>单标签:<br>换行; <hr>水平线</li>
 </ul>
 <h3 id="基本骨架">基本骨架</h3>
-<p><img src="/syy.github.io/syy.github/img/st003.jpg" alt="1"></p>
+<p><img src="/syy.github.io/source/img/st003.jpg" alt="1"></p>
 <p>html:整个网络<br>
 head;网络的头部,存放给浏览器看的代码,例如css<br>
 body:网络的主体,存放用户看的代码,例如图片,文字<br>
@@ -82,12 +259,11 @@ title:网络标题</p>
 标签名字:h1-h6(双标签 ),h1一个网页只用一次</p>
 <h3 id="段落标签">段落标签</h3>
 <p>一段文字的标签<br>
-标签</p><p>双标签</p>
+标签<p>双标签</p>
 <h3 id="换行和水平线标签">换行和水平线标签</h3>
 <p>单标签:<br>换行; <hr> 水平线</p>
 <h3 id="文本格式化标签">文本格式化标签</h3>
-<p><img src="/syy.github.io/syy.github/st004.jpg" alt><br>
-<img src="/syy.github.io/syy.github/img/st004.jpg" alt><br>
+<p><img src="/syy.github.io/img/st004.jpg" alt=""><br>
 strong-加粗; em-倾斜;ins-下划线;del-删除线; 工作中推荐<br>
 b-加粗; l-倾斜;u-下划线;s-删除线;</p>
 <h3 id="图像标签">图像标签</h3>
@@ -111,10 +287,43 @@ window从盘符出发<br>
 window默认,其他是/(window二者都可以,推荐这个)</p>
 <p>在线网址也是绝对路径<br>
 友情链接;跳到对应的网站</p>
-<h4 id="超链接标签">超链接标签</h4>
+<h3 id="超链接标签">超链接标签</h3>
 <p>点击字或者图跳到其他页面;<br>
 公式为<br>
-<img src="/syy.github.io/syy.github/source/_posts/web-study/img.png" alt="img.png"></p>
+<img src="/syy.github.io/img/st008.jpg" alt=""></p>
+<p>如何是自己的链接,就换成相对路劲的值来换,<br>
+跳转后原网址已经关闭;<br>
+加属性,在href=“xx” target= “_blank”(同一个&lt;和.),打开新窗口,旧网址保留有<br>
+开发的初期,不知道地址,href可以填#</p>
+<h3 id="音频标签和视频标签">音频标签和视频标签</h3>
+<p>1.音频<br>
+公式;<br>
+<img src="/syy.github.io/img/st009.jpg" alt=""><br>
+2.视频<br>
+公式:<br>
+<img src="/syy.github.io/img/st010.jpg" alt=""><br>
+muted control loop autoplay</p>
+<h3 id="综合案例一">综合案例一;</h3>
+<p>从上到下,先整体再局部;</p>
+<p>补充:如果文字里面要插入标签<br>
+打一个空格,a加herf…</p>
+<h3 id="列表">列表</h3>
+<p>布局内容排列整齐是区域<br>
+分类;无序列表,有序列表,定义列表</p>
+<h4 id="无序列表">无序列表</h4>
+<p>布局排列整齐的不需要归定顺序的区域<br>
+ul嵌套li,ul为无序<br>
+<img src="/syy.github.io/img/st011.jpg" alt=""><br>
+ul标签里面只能包裹li;<br>
+li里面可以包裹任何内容;</p>
+<h4 id="有序列表">有序列表</h4>
+<p>布局排列整齐的需要归定顺序的区域<br>
+ol嵌套li,ol为无序</p>
+<h4 id="定义列表">定义列表</h4>
+<p>标签: dl 嵌套 dt 和 dd, dl 是定义列表, dt 是定义列表的标题, dd 是定义列表的描述/详情。</p>
+<h3 id="表格">表格</h3>
+<p>和execl类似<br>
+标签: table嵌套tr, tr嵌套td / th。</p>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
@@ -137,7 +346,7 @@ window默认,其他是/(window二者都可以,推荐这个)</p>
 1.配置引脚功能;<br>
 2.输出引脚,写值到某个寄存器里面去;</p>
 <p>GPIO:通用输出外设<br>
-<img src="/syy.github.io/syy.github/img/st001.jpg" alt="三极管"><br>
+<img src="/syy.github.io/img/st001.jpg" alt="三极管"><br>
 上拉电阻:对于输入引脚,可以用输入电平;</p>
 <h2 id="与门-或门等门电路">与门,或门等门电路</h2>
 <p>非门: B != A;<br>
@@ -151,11 +360,11 @@ window默认,其他是/(window二者都可以,推荐这个)</p>
 2440开发板与pc机通信;一条线,输出引脚;<br>
 TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
 (电平转换芯片:电压不一样,来转接)<br>
-<img src="/syy.github.io/syy.github/img/st002.jpg" alt="三极管"></p>
+<img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>理论学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -163,8 +372,8 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
     <url>/syy.github.io/2025/09/12/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8%E5%88%B6%E4%BD%9C/</url>
     <content><![CDATA[<h1>植物大战僵尸</h1>
 <p>目前打算先用cpp实现在电脑,再移植到stm32f407(lvgl,freertos)[还在实现中]</p>
-<h2 id="cpp实现植物大战僵尸-1-2">cpp实现植物大战僵尸(1.2)</h2>
-<p>目前已经实现僵尸</p>
+<h2 id="cpp实现植物大战僵尸-1-5">cpp实现植物大战僵尸(1.5)</h2>
+<p>目前打算实现基础功能后不再添加了;</p>
 <h3 id="视频">视频</h3>
 <p><a href="https://www.bilibili.com/video/BV1ZkpLzEEzJ/?vd_source=412f8565a7b49e67b294f55bcccff7ca">https://www.bilibili.com/video/BV1ZkpLzEEzJ/?vd_source=412f8565a7b49e67b294f55bcccff7ca</a></p>
 <h3 id="cpp实现思路">cpp实现思路</h3>
@@ -173,7 +382,7 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 <li>2.植物生长动画图片实现:在updateGame函数中，根据时间间隔更新植物动画帧。每次更新时，植物的frameIndex递增，若超出图片序列范围则重置为 0 ;</li>
 <li>3.阳光产生:通过rand()时间随机生成,在草坪的随机位置;其次,制作一个阳光数组,循环利用,而不是频繁生成并删除;</li>
 <li>4.收集阳光:定义初始的阳光值,确定植物的else,怎么判断阳光位置:;(1.1)</li>
-<li>5.僵尸实现:类似于阳光</li>
+<li>5.僵尸实现:类似于阳光,实现了死亡,吃植物等功能</li>
 </ul>
 <h3 id="cpp代码实现-1-0">cpp代码实现(1.0)</h3>
 <p>cpp代码的实现思路是参考b站某up主的<br>
@@ -197,8 +406,8 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>理论学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -215,17 +424,17 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 <li>1.分配律</li>
 <li>2.交换律</li>
 <li>3.两个信号卷积后的微分，等于其中一个信号的微分与另一个信号的卷积</li>
-<li>4.<span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ h(t+t_0) * x(t…">\( h(t+t_0) * x(t-t_0) = h(t) * x(t) \)</span></li>
-<li>LTI 系统稳定的充要条件是<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></msubsup><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi><mtext> </mtext><mi>d</mi><mi>t</mi><mo>&lt;</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\int_{-\infty}^{+\infty} |h(t)| \, dt &lt; +\infty 
+<li>4.<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ h(t+t_0) * x(t…'>\( h(t+t_0) * x(t-t_0) = h(t) * x(t) \)</span></li>
+<li>LTI 系统稳定的充要条件是<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></msubsup><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi><mtext> </mtext><mi>d</mi><mi>t</mi><mo>&lt;</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\int_{-\infty}^{+\infty} |h(t)| \, dt &lt; +\infty 
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.491512em;vertical-align:-0.970281em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5212310000000002em;"><span style="top:-1.7880500000000001em;margin-left:-0.44445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.8129000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.970281em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mclose">)</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span></span></p>
-或<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munderover><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">[</mo><mi>k</mi><mo stretchy="false">]</mo><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\sum_{k=-\infty}^{+\infty} |h[k]| &lt; +\infty 
+或<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munderover><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">[</mo><mi>k</mi><mo stretchy="false">]</mo><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\sum_{k=-\infty}^{+\infty} |h[k]| &lt; +\infty 
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.11878em;vertical-align:-1.360444em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7583360000000003em;"><span style="top:-1.8478869999999998em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.360444em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathdefault">h</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span></span></p>
 </li>
 </ul>
 <h3 id="lti系统的因果充要条件">LTI系统的因果充要条件</h3>
 <ul>
 <li>h(t)=0,当t&lt;0时,或者h[n]=0,当n&lt;0时</li>
-<li>因果的定义：输出 <span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ y(t) \)">\( y(t) \)</span>在 $( t_0 ) $时刻的 <span class="katex-error" title="ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ y(t_0) \)">\( y(t_0) \)</span>，只有$ ( t \leq t_0 ) $时刻的 $( x(t) ) $决定。</li>
+<li>因果的定义：输出 <span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ y(t) \)'>\( y(t) \)</span>在 $( t_0 ) $时刻的 <span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ y(t_0) \)'>\( y(t_0) \)</span>，只有$ ( t \leq t_0 ) $时刻的 $( x(t) ) $决定。</li>
 </ul>
 <hr>
 <blockquote>
@@ -236,5 +445,175 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
         <tag>理论学习</tag>
         <tag>专业课</tag>
       </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/footer_beautify.js</url>
+    <content><![CDATA[function runtime() {
+    window.setTimeout("runtime()", 1000);
+
+    // 1. 本站运行时间逻辑
+    var start_time = new Date("2025/09/08 00:00:00"); // 这里修改为你建站的时间
+    var now_time = new Date();
+    var diff_time = now_time.getTime() - start_time.getTime();
+    var days = Math.floor(diff_time / (24 * 3600 * 1000));
+    var hours = Math.floor((diff_time % (24 * 3600 * 1000)) / (3600 * 1000));
+    var mins = Math.floor(((diff_time % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
+    var secs = Math.floor((((diff_time % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
+
+    var runtime_html = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
+    if (document.getElementById("runtime-show")) {
+        document.getElementById("runtime-show").innerHTML = runtime_html;
+    }
+
+    // 2. 旅行者 1 号距离逻辑 (这是一个模拟数值，根据速度实时累加)
+    var voyager_start = new Date("2025/09/08 00:00:00"); // 距离参考点
+    var voyager_base = 24264952436; // 初始距离(千米)
+    var seconds_passed = (now_time.getTime() - voyager_start.getTime()) / 1000;
+    var current_dist = voyager_base + (seconds_passed * 17); // 假设速度 17km/s
+    var au_dist = (current_dist / 149597870.7).toFixed(6); // 转为天文单位
+
+    var voyager_html = "旅行者 1 号当前距离地球 " + Math.floor(current_dist) + " 千米，约为 " + au_dist + " 个天文单位 🚀";
+    if (document.getElementById("voyager-show")) {
+        document.getElementById("voyager-show").innerHTML = voyager_html;
+    }
+}
+runtime();]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/css/custom.css</url>
+    <content><![CDATA[
+/* 1. 让首页标题容器强制居中 */
+#site-info {
+    text-align: center !important;
+    width: 100%;
+    padding: 0 10px;
+    position: absolute;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;         /* 提高层级，确保在遮罩上方 */
+}
+
+/* 2. 首页主标题：月光渐变色 */
+#site-title {
+    font-size: 8vw !important;
+    font-family: 'Noto Serif SC', serif !important;
+    font-weight: 900;
+    letter-spacing: 5px;
+    line-height: 1.2;
+    margin: 0;
+
+    /* 核心：月光色渐变 (灰黄到纯白) */
+    background: linear-gradient(to bottom, #e2e2e2 0%, #fff9d1 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    /* 发光感 */
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
+}
+
+/* 3. 首页副标题样式 */
+#site-subtitle {
+    font-size: 1.8rem !important;
+    font-weight: 400;
+    margin-top: 15px;
+    display: block;
+    color: #ffffff;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+/* 4. 响应式：手机端适配 */
+@media screen and (max-width: 768px) {
+    #site-title {
+        font-size: 3.5rem !important;
+    }
+    #site-subtitle {
+        font-size: 1.2rem !important;
+    }
+}
+
+
+/* 6. 删除了卡片向上偏移，改回正常间距 */
+#content-inner {
+    margin-top: 20px !important; /* 恢复正常间距 */
+    position: relative;
+    z-index: 10;
+}
+
+/* 7. 卡片样式微调（保留毛玻璃，但去掉重叠） */
+.recent-post-item, .aside-list-item, #aside-sidebar .card-widget {
+    border-radius: 15px !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05) !important;
+    transition: all 0.3s ease !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(10px);
+}
+
+
+/* 8. 全局背景色（淡粉白） */
+body {
+    background: #fdf5f6 !important;
+}
+
+/* 9. 顶部背景图整体调暗一点点（可选） */
+#page-header.full_page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+/* 3. 首页副标题：打字机文字颜色 */
+#subtitle {
+    font-size: 1.5rem !important;
+    color: #fff5e6 !important; /* 奶油米黄色 */
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+}
+
+/* 4. 打字机光标颜色：调成暖橘色 */
+.typed-cursor {
+    color: #fda085 !important; /* 朝阳的暖橙色 */
+    font-size: 1.5rem !important;
+}
+/* 强制更换全局鼠标指针 */
+/* 默认状态 */
+html, body {
+    cursor: url('/syy.github.io/img/001.svg'), auto !important;
+}
+
+/* 悬停在链接、按钮、文章卡片、侧边栏上的状态 */
+a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
+    cursor: url('/syy.github.io/img/002.svg'), auto !important;
+}
+
+
+
+
+#footer {
+    background: transparent !important; /* 配合你背景图的丝滑过渡 */
+}
+
+#runtime-show, #voyager-show {
+    color: #ffffff; /* 文字颜色 */
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* 防止背景太杂看不清字 */
+    margin: 5px 0;
+}
+
+/* 截图右侧那个 127.0.0.1 的云朵效果 */
+/* 这是一个典型的“小工具”或悬浮卡片 */
+.ip-cloud {
+    background: white;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; /* 模拟云朵不规则形状 */
+    padding: 10px 20px;
+    color: #00dbde;
+    font-weight: bold;
+}]]></content>
   </entry>
 </search>
