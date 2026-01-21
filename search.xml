@@ -38,37 +38,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>c#</title>
-    <url>/syy.github.io/2026/01/01/hash/</url>
-    <content><![CDATA[<blockquote>
-<p>命里有时终须有，命里无时莫强求</p>
-</blockquote>
-<h1>c#的学习</h1>
-<p>面向对象语言, 使用.net的框架, 使用flash(跨平台性),<br>
-<img src="/syy.github.io/img/know/one.jpg" alt="111"></p>
-<h1>c#基本代码</h1>
-<p>一个 C# 程序主要包括以下部分：</p>
-<ul>
-<li>命名空间声明（Namespace declaration）</li>
-<li>一个 class</li>
-<li>Class 方法</li>
-<li>Class 属性</li>
-<li>一个 Main 方法</li>
-<li>语句（Statements）&amp; 表达式（Expressions）</li>
-<li>注释</li>
-</ul>
-<p>C# 文件的后缀为 .cs。</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System; <span class="comment">//- using 关键字用于在程序中包含 System 命名空间。 一个程序一般有多个 using 语句。</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">one</span> <span class="comment">//命名空间</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">Program</span> <span class="comment">// 类</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 方法, 函数</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 逻辑代码</span></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Hello, World!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>语言</category>
-      </categories>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>c#</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>cmake_study</title>
     <url>/syy.github.io/2025/12/30/cmake-study/</url>
     <content><![CDATA[<blockquote>
@@ -168,6 +137,57 @@ add_executable(MyApp main.cpp)</p>
       </tags>
   </entry>
   <entry>
+    <title>freertos</title>
+    <url>/syy.github.io/2025/09/11/hello-world/</url>
+    <content><![CDATA[<h1>freertos002</h1>
+<p>测试中</p>
+<h2 id="1-硬件初始化">1.硬件初始化</h2>
+<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读原理图</title>
+    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
+    <content><![CDATA[<h1>硬件</h1>
+<blockquote>
+<p>study for schematic diagram</p>
+</blockquote>
+<h2 id="gpio">GPIO</h2>
+<!-- 
+    ![111](/syy.github.io/img/img.jpg) 
+-->
+<p>输出引脚{高点平:1;低电平:0;} ,用万用表读取高低电平;</p>
+<p>怎么用:<br>
+1.配置引脚功能;<br>
+2.输出引脚,写值到某个寄存器里面去;</p>
+<p>GPIO:通用输出外设<br>
+<img src="/syy.github.io/img/st001.jpg" alt="三极管"><br>
+上拉电阻:对于输入引脚,可以用输入电平;</p>
+<h2 id="与门-或门等门电路">与门,或门等门电路</h2>
+<p>非门: B != A;<br>
+与门: B = A1 &amp; A2;<br>
+或门: B = A1 || A2;<br>
+或非门: $ B = \neg(A1 &amp; A2) $<br>
+与非门: $ B = \neg(A1 \lor A2) $</p>
+<h2 id="协议类">协议类</h2>
+<h3 id="串口">串口</h3>
+<p>(1)UART 串口<br>
+2440开发板与pc机通信;一条线,输出引脚;<br>
+TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
+(电平转换芯片:电压不一样,来转接)<br>
+<img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于pycharm终端和解释器不是同一个的解决方法</title>
     <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
     <content><![CDATA[<blockquote>
@@ -185,38 +205,6 @@ add_executable(MyApp main.cpp)</p>
       <tags>
         <tag>python</tag>
         <tag>问题</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>贝塞尔曲线法</title>
-    <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
-    <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
-<p>局部路径规划算法</p>
-<h2 id="贝塞尔算法思想">贝塞尔算法思想</h2>
-<p>贝塞尔曲线是应用于二维图形应用程序的数学曲线，由一组称为控制点的向量来确定，给定的控制点按顺序连接构成控制多边形，<br>
-贝塞尔曲线逼近这个多边形，进而通过调整控制点坐标改变曲线的形状。<br>
-对于车辆系统,规划的轨迹应该满足以下准则:轨迹连续,轨迹曲率连续,轨迹容易被车辆跟踪,而且容易生成;<br>
-给定n+1个数据点,p0-pn,生成一条曲线,使该曲线与这些点描述的形状相符;</p>
-<h2 id="推导">推导</h2>
-<h3 id="一次贝塞尔曲线">一次贝塞尔曲线</h3>
-<p>设<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>，<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>两个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<br>
-直线<br>
-则贝塞尔曲线生成点可以表达为：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…'>\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
-t可以为时间<br>
-<img src="/syy.github.io/img/st005.jpg" alt="1"></p>
-<h3 id="二阶">二阶</h3>
-<p>设P0，P1，P2三个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>构成一阶，<br>
-<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)'>\(P_2\)</span>也构成一阶，即：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}'>\(\begin{cases}</span><br>
-$p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\\
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="mspace newline"></span></span></span>p_{1,2}(t) = (1 - t)P_1 + tP_2<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow></mrow><annotation encoding="application/x-tex">
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>\end{cases})<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</mtext></mrow><annotation encoding="application/x-tex">在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">基</span><span class="mord cjk_fallback">础</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">贝</span><span class="mord cjk_fallback">塞</span><span class="mord cjk_fallback">尔</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>(p_2(t) = (1 - t)p_{1,1} + tp_{1,2})$<br>
-<img src="/syy.github.io/img/st006.jpg" alt="1"></p>
-<h3 id="三阶">三阶</h3>
-<p><img src="/syy.github.io/img/st007.jpg" alt="1"></p>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>路径规划</tag>
       </tags>
   </entry>
   <entry>
@@ -331,86 +319,6 @@ ol嵌套li,ol为无序</p>
       </tags>
   </entry>
   <entry>
-    <title>读原理图</title>
-    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
-    <content><![CDATA[<h1>硬件</h1>
-<blockquote>
-<p>study for schematic diagram</p>
-</blockquote>
-<h2 id="gpio">GPIO</h2>
-<!-- 
-    ![111](/syy.github.io/img/img.jpg) 
--->
-<p>输出引脚{高点平:1;低电平:0;} ,用万用表读取高低电平;</p>
-<p>怎么用:<br>
-1.配置引脚功能;<br>
-2.输出引脚,写值到某个寄存器里面去;</p>
-<p>GPIO:通用输出外设<br>
-<img src="/syy.github.io/img/st001.jpg" alt="三极管"><br>
-上拉电阻:对于输入引脚,可以用输入电平;</p>
-<h2 id="与门-或门等门电路">与门,或门等门电路</h2>
-<p>非门: B != A;<br>
-与门: B = A1 &amp; A2;<br>
-或门: B = A1 || A2;<br>
-或非门: $ B = \neg(A1 &amp; A2) $<br>
-与非门: $ B = \neg(A1 \lor A2) $</p>
-<h2 id="协议类">协议类</h2>
-<h3 id="串口">串口</h3>
-<p>(1)UART 串口<br>
-2440开发板与pc机通信;一条线,输出引脚;<br>
-TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
-(电平转换芯片:电压不一样,来转接)<br>
-<img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>植物大战僵尸制作</title>
-    <url>/syy.github.io/2025/09/12/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8%E5%88%B6%E4%BD%9C/</url>
-    <content><![CDATA[<h1>植物大战僵尸</h1>
-<p>目前打算先用cpp实现在电脑,再移植到stm32f407(lvgl,freertos)[还在实现中]</p>
-<h2 id="cpp实现植物大战僵尸-1-5">cpp实现植物大战僵尸(1.5)</h2>
-<p>目前打算实现基础功能后不再添加了;</p>
-<h3 id="视频">视频</h3>
-<p><a href="https://www.bilibili.com/video/BV1ZkpLzEEzJ/?vd_source=412f8565a7b49e67b294f55bcccff7ca">https://www.bilibili.com/video/BV1ZkpLzEEzJ/?vd_source=412f8565a7b49e67b294f55bcccff7ca</a></p>
-<h3 id="cpp实现思路">cpp实现思路</h3>
-<ul>
-<li>1.图片卡牌等静止的加载:依据计算出的图片位置的坐标,利用putimage或putimagePNG函数绘制实现;</li>
-<li>2.植物生长动画图片实现:在updateGame函数中，根据时间间隔更新植物动画帧。每次更新时，植物的frameIndex递增，若超出图片序列范围则重置为 0 ;</li>
-<li>3.阳光产生:通过rand()时间随机生成,在草坪的随机位置;其次,制作一个阳光数组,循环利用,而不是频繁生成并删除;</li>
-<li>4.收集阳光:定义初始的阳光值,确定植物的else,怎么判断阳光位置:;(1.1)</li>
-<li>5.僵尸实现:类似于阳光,实现了死亡,吃植物等功能</li>
-</ul>
-<h3 id="cpp代码实现-1-0">cpp代码实现(1.0)</h3>
-<p>cpp代码的实现思路是参考b站某up主的<br>
-由于代码太长,不能完全展示出来,我上传在GitHub:<a href="https://github.com/sdfcwfe/-cpp-">https://github.com/sdfcwfe/-cpp-</a></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS  </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;graphics.h&gt;</span><span class="comment">//引用图形库头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;conio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;tools.h&quot;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIN_WIDTH 900 <span class="comment">//游戏窗口宽度</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIN_HEIGHT 600 <span class="comment">//游戏窗口高度</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> &#123;WAN_DOU, XIANG_RI_KUI, ZHI_WU_COUNT&#125;;</span><br><span class="line"></span><br><span class="line">IMAGE imgBg; <span class="comment">//表示背景图片</span></span><br><span class="line">IMAGE imgBar; <span class="comment">//表示游戏中的任务栏</span></span><br><span class="line">IMAGE imgCards[ZHI_WU_COUNT];</span><br><span class="line">IMAGE* imgZhiWu[ZHI_WU_COUNT][<span class="number">20</span>]; <span class="comment">//表示植物图片</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> curX, curY; <span class="comment">//表示当前鼠标的坐标</span></span><br><span class="line"><span class="type">int</span> curZhiWu = <span class="number">0</span>; <span class="comment">//表示当前选中的植物 0未选中,1豌豆射手,2向日葵</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">zhiwu</span>&#123;</span><br><span class="line">	<span class="type">int</span> type; <span class="comment">//0:没有植物;1:有植物;</span></span><br><span class="line">	<span class="type">int</span> frameIndex; <span class="comment">//当前播放到第几帧</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">zhiwu</span> map[<span class="number">3</span>][<span class="number">9</span>]; <span class="comment">//表示游戏中的植物</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sunshineBall</span> &#123;</span><br><span class="line">	<span class="type">int</span> x, y; <span class="comment">//阳光的坐标 </span></span><br><span class="line">	<span class="type">int</span> frameIndex; <span class="comment">//当前播放到第几帧</span></span><br><span class="line">	<span class="type">int</span> destY; <span class="comment">//阳光掉落的目标y坐标</span></span><br><span class="line">	<span class="type">int</span> used; <span class="comment">//是否被使用 0:未使用 1:已使用 </span></span><br><span class="line">&#125;; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>lvgl</tag>
-        <tag>freertos</tag>
-        <tag>游戏</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>freertos</title>
-    <url>/syy.github.io/2025/09/11/hello-world/</url>
-    <content><![CDATA[<h1>freertos002</h1>
-<p>测试中</p>
-<h2 id="1-硬件初始化">1.硬件初始化</h2>
-<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>信号与系统</title>
     <url>/syy.github.io/2025/09/08/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<!--
@@ -447,9 +355,136 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
       </tags>
   </entry>
   <entry>
+    <title>贝塞尔曲线法</title>
+    <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
+    <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
+<p>局部路径规划算法</p>
+<h2 id="贝塞尔算法思想">贝塞尔算法思想</h2>
+<p>贝塞尔曲线是应用于二维图形应用程序的数学曲线，由一组称为控制点的向量来确定，给定的控制点按顺序连接构成控制多边形，<br>
+贝塞尔曲线逼近这个多边形，进而通过调整控制点坐标改变曲线的形状。<br>
+对于车辆系统,规划的轨迹应该满足以下准则:轨迹连续,轨迹曲率连续,轨迹容易被车辆跟踪,而且容易生成;<br>
+给定n+1个数据点,p0-pn,生成一条曲线,使该曲线与这些点描述的形状相符;</p>
+<h2 id="推导">推导</h2>
+<h3 id="一次贝塞尔曲线">一次贝塞尔曲线</h3>
+<p>设<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>，<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>两个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<br>
+直线<br>
+则贝塞尔曲线生成点可以表达为：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…'>\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
+t可以为时间<br>
+<img src="/syy.github.io/img/st005.jpg" alt="1"></p>
+<h3 id="二阶">二阶</h3>
+<p>设P0，P1，P2三个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>构成一阶，<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)'>\(P_2\)</span>也构成一阶，即：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}'>\(\begin{cases}</span><br>
+$p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\\
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="mspace newline"></span></span></span>p_{1,2}(t) = (1 - t)P_1 + tP_2<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>\end{cases})<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</mtext></mrow><annotation encoding="application/x-tex">在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">基</span><span class="mord cjk_fallback">础</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">贝</span><span class="mord cjk_fallback">塞</span><span class="mord cjk_fallback">尔</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>(p_2(t) = (1 - t)p_{1,1} + tp_{1,2})$<br>
+<img src="/syy.github.io/img/st006.jpg" alt="1"></p>
+<h3 id="三阶">三阶</h3>
+<p><img src="/syy.github.io/img/st007.jpg" alt="1"></p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>路径规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c#</title>
+    <url>/syy.github.io/2026/01/01/hash/</url>
+    <content><![CDATA[<blockquote>
+<p>命里有时终须有，命里无时莫强求</p>
+</blockquote>
+<h1>c#的学习</h1>
+<p>面向对象语言, 使用.net的框架, 使用flash(跨平台性),<br>
+<img src="/syy.github.io/img/know/one.jpg" alt="111"></p>
+<h1>c#基本代码</h1>
+<p>一个 C# 程序主要包括以下部分：</p>
+<ul>
+<li>命名空间声明（Namespace declaration）</li>
+<li>一个 class</li>
+<li>Class 方法</li>
+<li>Class 属性</li>
+<li>一个 Main 方法</li>
+<li>语句（Statements）&amp; 表达式（Expressions）</li>
+<li>注释</li>
+</ul>
+<p>C# 文件的后缀为 .cs。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System; <span class="comment">//- using 关键字用于在程序中包含 System 命名空间。 一个程序一般有多个 using 语句。</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">one</span> <span class="comment">//命名空间</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">Program</span> <span class="comment">// 类</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 方法, 函数</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 逻辑代码</span></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Hello, World!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>语言</category>
+      </categories>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>c#</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>植物大战僵尸制作</title>
+    <url>/syy.github.io/2025/09/12/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8%E5%88%B6%E4%BD%9C/</url>
+    <content><![CDATA[<h1>植物大战僵尸</h1>
+<p>目前打算先用cpp实现在电脑,再移植到stm32f407(lvgl,freertos)[还在实现中]</p>
+<h2 id="cpp实现植物大战僵尸-1-5">cpp实现植物大战僵尸(1.5)</h2>
+<p>目前打算实现基础功能后不再添加了;</p>
+<h3 id="视频">视频</h3>
+<p><a href="https://www.bilibili.com/video/BV1ZkpLzEEzJ/?vd_source=412f8565a7b49e67b294f55bcccff7ca">https://www.bilibili.com/video/BV1ZkpLzEEzJ/?vd_source=412f8565a7b49e67b294f55bcccff7ca</a></p>
+<h3 id="cpp实现思路">cpp实现思路</h3>
+<ul>
+<li>1.图片卡牌等静止的加载:依据计算出的图片位置的坐标,利用putimage或putimagePNG函数绘制实现;</li>
+<li>2.植物生长动画图片实现:在updateGame函数中，根据时间间隔更新植物动画帧。每次更新时，植物的frameIndex递增，若超出图片序列范围则重置为 0 ;</li>
+<li>3.阳光产生:通过rand()时间随机生成,在草坪的随机位置;其次,制作一个阳光数组,循环利用,而不是频繁生成并删除;</li>
+<li>4.收集阳光:定义初始的阳光值,确定植物的else,怎么判断阳光位置:;(1.1)</li>
+<li>5.僵尸实现:类似于阳光,实现了死亡,吃植物等功能</li>
+</ul>
+<h3 id="cpp代码实现-1-0">cpp代码实现(1.0)</h3>
+<p>cpp代码的实现思路是参考b站某up主的<br>
+由于代码太长,不能完全展示出来,我上传在GitHub:<a href="https://github.com/sdfcwfe/-cpp-">https://github.com/sdfcwfe/-cpp-</a></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS  </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;graphics.h&gt;</span><span class="comment">//引用图形库头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;conio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;tools.h&quot;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIN_WIDTH 900 <span class="comment">//游戏窗口宽度</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIN_HEIGHT 600 <span class="comment">//游戏窗口高度</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> &#123;WAN_DOU, XIANG_RI_KUI, ZHI_WU_COUNT&#125;;</span><br><span class="line"></span><br><span class="line">IMAGE imgBg; <span class="comment">//表示背景图片</span></span><br><span class="line">IMAGE imgBar; <span class="comment">//表示游戏中的任务栏</span></span><br><span class="line">IMAGE imgCards[ZHI_WU_COUNT];</span><br><span class="line">IMAGE* imgZhiWu[ZHI_WU_COUNT][<span class="number">20</span>]; <span class="comment">//表示植物图片</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> curX, curY; <span class="comment">//表示当前鼠标的坐标</span></span><br><span class="line"><span class="type">int</span> curZhiWu = <span class="number">0</span>; <span class="comment">//表示当前选中的植物 0未选中,1豌豆射手,2向日葵</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">zhiwu</span>&#123;</span><br><span class="line">	<span class="type">int</span> type; <span class="comment">//0:没有植物;1:有植物;</span></span><br><span class="line">	<span class="type">int</span> frameIndex; <span class="comment">//当前播放到第几帧</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">zhiwu</span> map[<span class="number">3</span>][<span class="number">9</span>]; <span class="comment">//表示游戏中的植物</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sunshineBall</span> &#123;</span><br><span class="line">	<span class="type">int</span> x, y; <span class="comment">//阳光的坐标 </span></span><br><span class="line">	<span class="type">int</span> frameIndex; <span class="comment">//当前播放到第几帧</span></span><br><span class="line">	<span class="type">int</span> destY; <span class="comment">//阳光掉落的目标y坐标</span></span><br><span class="line">	<span class="type">int</span> used; <span class="comment">//是否被使用 0:未使用 1:已使用 </span></span><br><span class="line">&#125;; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>lvgl</tag>
+        <tag>freertos</tag>
+        <tag>游戏</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/footer_beautify.js</url>
+    <content><![CDATA[function runtime() {
+    window.setTimeout("runtime()", 1000);
+
+    // 1. 本站运行时间逻辑
+    var start_time = new Date("2025/09/08 00:00:00"); // 这里修改为你建站的时间
+    var now_time = new Date();
+    var diff_time = now_time.getTime() - start_time.getTime();
+    var days = Math.floor(diff_time / (24 * 3600 * 1000));
+    var hours = Math.floor((diff_time % (24 * 3600 * 1000)) / (3600 * 1000));
+    var mins = Math.floor(((diff_time % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
+    var secs = Math.floor((((diff_time % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
+
+    var runtime_html = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
+    if (document.getElementById("runtime-show")) {
+        document.getElementById("runtime-show").innerHTML = runtime_html;
+    }
+
+    // 2. 旅行者 1 号距离逻辑 (这是一个模拟数值，根据速度实时累加)
+    var voyager_start = new Date("2025/09/08 00:00:00"); // 距离参考点
+    var voyager_base = 24264952436; // 初始距离(千米)
+    var seconds_passed = (now_time.getTime() - voyager_start.getTime()) / 1000;
+    var current_dist = voyager_base + (seconds_passed * 17); // 假设速度 17km/s
+    var au_dist = (current_dist / 149597870.7).toFixed(6); // 转为天文单位
+
+    var voyager_html = "旅行者 1 号当前距离地球 " + Math.floor(current_dist) + " 千米，约为 " + au_dist + " 个天文单位 🚀";
+    if (document.getElementById("voyager-show")) {
+        document.getElementById("voyager-show").innerHTML = voyager_html;
+    }
+}
+runtime();]]></content>
+  </entry>
+  <entry>
     <title></title>
     <url>/syy.github.io/css/custom.css</url>
-    <content><![CDATA[/* 1. 让首页标题容器强制居中 */
+    <content><![CDATA[
+/* 1. 让首页标题容器强制居中 */
 #site-info {
     text-align: center !important;
     width: 100%;
@@ -544,6 +579,41 @@ body {
 .typed-cursor {
     color: #fda085 !important; /* 朝阳的暖橙色 */
     font-size: 1.5rem !important;
+}
+/* 强制更换全局鼠标指针 */
+/* 默认状态 */
+html, body {
+    cursor: url('/syy.github.io/img/001.svg'), auto !important;
+}
+
+/* 悬停在链接、按钮、文章卡片、侧边栏上的状态 */
+a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
+    cursor: url('/syy.github.io/img/002.svg'), auto !important;
+}
+
+
+
+
+#footer {
+    background: transparent !important; /* 配合你背景图的丝滑过渡 */
+}
+
+#runtime-show, #voyager-show {
+    color: #ffffff; /* 文字颜色 */
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* 防止背景太杂看不清字 */
+    margin: 5px 0;
+}
+
+/* 截图右侧那个 127.0.0.1 的云朵效果 */
+/* 这是一个典型的“小工具”或悬浮卡片 */
+.ip-cloud {
+    background: white;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; /* 模拟云朵不规则形状 */
+    padding: 10px 20px;
+    color: #00dbde;
+    font-weight: bold;
 }]]></content>
   </entry>
 </search>

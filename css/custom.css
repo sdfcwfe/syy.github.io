@@ -1,3 +1,4 @@
+
 /* 1. 让首页标题容器强制居中 */
 #site-info {
     text-align: center !important;
@@ -93,4 +94,39 @@ body {
 .typed-cursor {
     color: #fda085 !important; /* 朝阳的暖橙色 */
     font-size: 1.5rem !important;
+}
+/* 强制更换全局鼠标指针 */
+/* 默认状态 */
+html, body {
+    cursor: url('/syy.github.io/img/001.svg'), auto !important;
+}
+
+/* 悬停在链接、按钮、文章卡片、侧边栏上的状态 */
+a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
+    cursor: url('/syy.github.io/img/002.svg'), auto !important;
+}
+
+
+
+
+#footer {
+    background: transparent !important; /* 配合你背景图的丝滑过渡 */
+}
+
+#runtime-show, #voyager-show {
+    color: #ffffff; /* 文字颜色 */
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* 防止背景太杂看不清字 */
+    margin: 5px 0;
+}
+
+/* 截图右侧那个 127.0.0.1 的云朵效果 */
+/* 这是一个典型的“小工具”或悬浮卡片 */
+.ip-cloud {
+    background: white;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; /* 模拟云朵不规则形状 */
+    padding: 10px 20px;
+    color: #00dbde;
+    font-weight: bold;
 }

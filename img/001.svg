@@ -1,0 +1,11 @@
+<!-- 仅添加了 width="16" height="16"，其余内容完全保留 -->
+<svg width="16" height="16" enable-background="new 0 0 32 32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <g id="Guides"></g><g id="home"></g><g id="search"></g><g id="photo"></g><g id="shopping_cart"></g><g id="user"></g>
+  <g id="cursor">
+    <g>
+      <path d="m22.7 17.5s5.3-1.8 5.3-1.8c2.7-.8 2.7-4.9.1-5.7 0 0-21.8-7.7-21.8-7.7-2.4-1.1-5 1.6-4 3.9l7.7 21.8c.9 2.7 4.9 2.7 5.7-.1 0 0 1.6-5 1.6-5l6.1 6.1c1.4 1.4 3.8 1.4 5.2 0l.2-.2c1.4-1.4 1.4-3.8 0-5.2z" fill="#00897b"></path>
+      <path d="m2.9 2.9c-.9.9-1.1 2.2-.7 3.3l7.7 21.8c.9 2.7 4.9 2.7 5.7-.1 0 0 1.6-5 1.6-5l6.1 6.1c1.4 1.4 3.8 1.4 5.2 0l.1-.2z" fill="#00796b"></path>
+    </g>
+  </g>
+  <g id="thumb_up"></g><g id="thumb_down"></g><g id="calendar"></g><g id="email"></g><g id="save"></g><g id="delete"></g><g id="scissors"></g><g id="edit"></g><g id="copy"></g><g id="upload"></g><g id="download"></g><g id="login"></g><g id="logout"></g><g id="cancel"></g><g id="refresh"></g><g id="reply"></g><g id="bookmark"></g><g id="menu"></g><g id="shuffle"></g><g id="image"></g><g id="switch"></g><g id="share"></g><g id="chat"></g><g id="warning"></g><g id="tag"></g><g id="padlock"></g><g id="unlock"></g><g id="zoom_in"></g><g id="zoom_out"></g><g id="more"></g><g id="send"></g><g id="question"></g><g id="options"></g><g id="paste"></g><g id="links"></g><g id="notification"></g><g id="placeholder"></g><g id="print"></g><g id="attachment"></g><g id="cloud"></g><g id="folder"></g><g id="filter"></g><g id="settings"></g><g id="favorite"></g>
+</svg>
