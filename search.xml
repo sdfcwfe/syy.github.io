@@ -232,8 +232,8 @@ add_executable(MyApp main.cpp)</p>
 <p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
 ]]></content>
       <tags>
-        <tag>python</tag>
         <tag>解决实际问题</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -276,7 +276,7 @@ $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><
 </blockquote>
 <h2 id="html">HTML</h2>
 <h3 id="基本介绍">基本介绍</h3>
-<p>HTML是超文本标记语言<br>
+<p>HTML是超文本标记语言,是描述网页的语言<br>
 超文本是标签,带尖括号是标签标记;</p>
 <p>标签语言<br>
 开头 需要加粗的文字 结尾</p>
@@ -287,13 +287,6 @@ $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><
 例如: <strong>文字内容加粗</strong></li>
 <li>单标签:<br>换行; <hr>水平线</li>
 </ul>
-<h3 id="基本骨架">基本骨架</h3>
-<p><img src="/syy.github.io/source/img/st003.jpg" alt="1"></p>
-<p>html:整个网络<br>
-head;网络的头部,存放给浏览器看的代码,例如css<br>
-body:网络的主体,存放用户看的代码,例如图片,文字<br>
-title:网络标题</p>
-<p>!快速生成基本骨架</p>
 <h3 id="标签的关系">标签的关系</h3>
 <p>明确代码的书写位置</p>
 <ul>
@@ -373,6 +366,24 @@ ol嵌套li,ol为无序</p>
 <h3 id="表格">表格</h3>
 <p>和execl类似<br>
 标签: table嵌套tr, tr嵌套td / th。</p>
+<h2 id="html5的补充">html5的补充</h2>
+<h3 id="doctype">DOCTYPE</h3>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE&gt;</span></span><br></pre></td></tr></table></figure>
+<p>一般在第一行,是h5的声明,在标签的前面,避免浏览器的怪异模式;</p>
+<h3 id="基本骨架">基本骨架</h3>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>网页标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    这里存放展示给用户看的内容</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>html:整个网络<br>
+head;网络的头部,各种文档的属性和信息,存放给浏览器看的代码,例如css<br>
+body:网络的主体,可直观看见的,存放用户看的代码,例如图片,文本,超链接<br>
+head和body同级<br>
+title:网络标题,是head必须包含的标签<br>
+!是快速生成基本骨架<br>
+meta:写给浏览器、搜索引擎和社交媒体看的“说明书”;<b>单标签</p>
+<blockquote>
+<p>SEO 就是通过一系列技术手段和内容优化，让你的网站（博客）在百度、谷歌、必应等搜索引擎中排名更高、更容易被搜到。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">&lt;!-- 防止乱码 --&gt;</span><br><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">&lt;!-- 适配手机端 --&gt;</span><br><span class="line">&lt;meta name=&quot;description&quot; content=&quot;零一的技术博客，分享嵌入式开发、STM32机器人及前端美学。&quot;&gt;</span><br><span class="line">&lt;!-- SEO 专用--&gt;</span><br><span class="line">&lt;meta name=&quot;keywords&quot; content=&quot;嵌入式, STM32, 考研, 前端, Hexo&quot;&gt;</span><br><span class="line">&lt;!-- 社交媒体优化--&gt;</span><br><span class="line">&lt;meta property=&quot;og:title&quot; content=&quot;Zero One 的个人主页&quot;&gt;</span><br><span class="line">&lt;meta property=&quot;og:image&quot; content=&quot;https://xxx/img/cover.jpg&quot;&gt;</span><br><span class="line">&lt;meta property=&quot;og:description&quot; content=&quot;来看看考研选手的嵌入式作品展吧。&quot;&gt;</span><br><span class="line">&lt;!-- 自动刷新/跳转--&gt;</span><br><span class="line">&lt;!-- 5秒后自动刷新页面 --&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;refresh&quot; content=&quot;5&quot;&gt; </span><br><span class="line">&lt;!-- 3秒后跳转到指定网址 --&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;refresh&quot; content=&quot;3;url=https://baidu.com&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="标题">标题</h3>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
@@ -496,11 +507,6 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
       </tags>
   </entry>
   <entry>
-    <title>分类</title>
-    <url>/syy.github.io/categories/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>个人介绍</title>
     <url>/syy.github.io/about/index.html</url>
     <content><![CDATA[<div style="text-align: center; padding: 40px 0;">
@@ -537,6 +543,16 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
   <entry>
     <title>diary</title>
     <url>/syy.github.io/diary/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>分类</title>
+    <url>/syy.github.io/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>tag</title>
+    <url>/syy.github.io/tags/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -708,29 +724,6 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
   </entry>
   <entry>
     <title></title>
-    <url>/syy.github.io/js/click_card.js</url>
-    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
-function linkAuthorCard() {
-    // 找到侧边栏作者卡片元素
-    var authorCard = document.querySelector('.card-author');
-    if (authorCard) {
-        // 修改鼠标样式为手型，提醒用户可以点击
-        authorCard.style.cursor = 'pointer';
-        // 绑定点击事件
-        authorCard.onclick = function() {
-            // 跳转到你的个人介绍页面（注意带上你的二级目录）
-            window.location.href = '/syy.github.io/about/';
-        };
-    }
-}
-
-// 确保页面加载完成后执行
-document.addEventListener('DOMContentLoaded', linkAuthorCard);
-// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
-document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
-  </entry>
-  <entry>
-    <title></title>
     <url>/syy.github.io/js/footer_beautify.js</url>
     <content><![CDATA[/**
  * Hexo Butterfly 页脚美化脚本
@@ -788,8 +781,26 @@ if (document.readyState === 'loading') {
 document.addEventListener('pjax:complete', updateFooterStats);]]></content>
   </entry>
   <entry>
-    <title>tag</title>
-    <url>/syy.github.io/tags/index.html</url>
-    <content><![CDATA[]]></content>
+    <title></title>
+    <url>/syy.github.io/js/click_card.js</url>
+    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
+function linkAuthorCard() {
+    // 找到侧边栏作者卡片元素
+    var authorCard = document.querySelector('.card-author');
+    if (authorCard) {
+        // 修改鼠标样式为手型，提醒用户可以点击
+        authorCard.style.cursor = 'pointer';
+        // 绑定点击事件
+        authorCard.onclick = function() {
+            // 跳转到你的个人介绍页面（注意带上你的二级目录）
+            window.location.href = '/syy.github.io/about/';
+        };
+    }
+}
+
+// 确保页面加载完成后执行
+document.addEventListener('DOMContentLoaded', linkAuthorCard);
+// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
+document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
   </entry>
 </search>
