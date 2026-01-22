@@ -38,6 +38,51 @@
 ]]></content>
   </entry>
   <entry>
+    <title>proteus下写汇编</title>
+    <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<blockquote>
+<p>微机大作业时候,在想可以不靠keil实现proteus</p>
+</blockquote>
+<style>
+  /* 修改正文字体大小和字体 */
+  .post-content {
+    font-size: 20px !important; /* 你想要的大小 */
+    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
+    line-height: 2.0 !important; /* 行间距 */
+  }
+
+  /*!* 如果你也想改这篇博客的标题大小 *!*/
+  /*.post-content h1, .post-content h2, .post-content h3 {*/
+  /*  font-family: 'Microsoft YaHei' !important;*/
+  /*  color: #fda085 !important;*/
+  /*}*/
+</style>
+<h1>如何在proteus下汇编</h1>
+<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
+<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
+2.放置主控芯片如at89c52,后点击source code的图标<br>
+<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
+3.点击vsm后再点击project创建新工程<br>
+<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
+4.取消勾选项<br>
+<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
+5.选择project的project settings，取消勾选嵌入式文件<br>
+<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
+6.选择project的add new file，创建对应汇编文件<br>
+<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
+7.然后就可以在上面编程了<br>
+<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>应用</category>
+      </categories>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>解决实际问题</tag>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>c#</title>
     <url>/syy.github.io/2026/01/01/hash/</url>
     <content><![CDATA[<blockquote>
@@ -59,6 +104,10 @@
 </ul>
 <p>C# 文件的后缀为 .cs。</p>
 <figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System; <span class="comment">//- using 关键字用于在程序中包含 System 命名空间。 一个程序一般有多个 using 语句。</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">one</span> <span class="comment">//命名空间</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">Program</span> <span class="comment">// 类</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 方法, 函数</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 逻辑代码</span></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Hello, World!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1>基本语法</h1>
+<h3 id="using关键字">using关键字</h3>
+<p>以 using 关键字开头的一行代码（例如using System;）可以称为一条 using 语句，<br>
+几乎所有的 C# 程序都是以 using 语句开头的。using 语句主要用来引入程序中的命名空间，而且一个程序中可以包含多个 using 语句。</p>
 ]]></content>
       <categories>
         <category>语言</category>
@@ -448,40 +497,6 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
   </entry>
   <entry>
     <title></title>
-    <url>/syy.github.io/js/footer_beautify.js</url>
-    <content><![CDATA[function runtime() {
-    window.setTimeout("runtime()", 1000);
-
-    // 1. 本站运行时间逻辑
-    var start_time = new Date("2025/09/08 00:00:00"); // 这里修改为你建站的时间
-    var now_time = new Date();
-    var diff_time = now_time.getTime() - start_time.getTime();
-    var days = Math.floor(diff_time / (24 * 3600 * 1000));
-    var hours = Math.floor((diff_time % (24 * 3600 * 1000)) / (3600 * 1000));
-    var mins = Math.floor(((diff_time % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
-    var secs = Math.floor((((diff_time % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
-
-    var runtime_html = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
-    if (document.getElementById("runtime-show")) {
-        document.getElementById("runtime-show").innerHTML = runtime_html;
-    }
-
-    // 2. 旅行者 1 号距离逻辑 (这是一个模拟数值，根据速度实时累加)
-    var voyager_start = new Date("2025/09/08 00:00:00"); // 距离参考点
-    var voyager_base = 24264952436; // 初始距离(千米)
-    var seconds_passed = (now_time.getTime() - voyager_start.getTime()) / 1000;
-    var current_dist = voyager_base + (seconds_passed * 17); // 假设速度 17km/s
-    var au_dist = (current_dist / 149597870.7).toFixed(6); // 转为天文单位
-
-    var voyager_html = "旅行者 1 号当前距离地球 " + Math.floor(current_dist) + " 千米，约为 " + au_dist + " 个天文单位 🚀";
-    if (document.getElementById("voyager-show")) {
-        document.getElementById("voyager-show").innerHTML = voyager_html;
-    }
-}
-runtime();]]></content>
-  </entry>
-  <entry>
-    <title></title>
     <url>/syy.github.io/css/custom.css</url>
     <content><![CDATA[
 /* 1. 让首页标题容器强制居中 */
@@ -614,6 +629,167 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
     padding: 10px 20px;
     color: #00dbde;
     font-weight: bold;
+}
+
+
+
+
+/* 确保侧边栏卡片能装下两个按钮 */
+.card-author {
+    padding: 20px 10px !important; /* 增加一点内边距 */
+    height: auto !important;       /* 高度设为自动 */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* 按钮的强制样式 */
+#custom-about-btn {
+    background: linear-gradient(to right, #f6d365 0%, #fda085 100%) !important;
+    color: white !important;
+    width: 90% !important;
+    text-align: center !important;
+    padding: 6px 0 !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 确保它在移动端也能看见 */
+.button--animated {
+    margin-bottom: 5px !important;
 }]]></content>
+  </entry>
+  <entry>
+    <title>分类</title>
+    <url>/syy.github.io/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/click_card.js</url>
+    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
+function linkAuthorCard() {
+    // 找到侧边栏作者卡片元素
+    var authorCard = document.querySelector('.card-author');
+    if (authorCard) {
+        // 修改鼠标样式为手型，提醒用户可以点击
+        authorCard.style.cursor = 'pointer';
+        // 绑定点击事件
+        authorCard.onclick = function() {
+            // 跳转到你的个人介绍页面（注意带上你的二级目录）
+            window.location.href = '/syy.github.io/about/';
+        };
+    }
+}
+
+// 确保页面加载完成后执行
+document.addEventListener('DOMContentLoaded', linkAuthorCard);
+// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
+document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
+  </entry>
+  <entry>
+    <title>个人介绍</title>
+    <url>/syy.github.io/about/index.html</url>
+    <content><![CDATA[<div style="text-align: center; padding: 40px 0;">
+  <img src="/syy.github.io/img/sss.gif" style="width:150px; height:150px; border-radius:50%; border: 4px solid #fda085; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.5s;" onmouseover="this.style.transform='rotate(360deg)'">
+  <h1 style="margin-top: 20px; font-family: 'Noto Serif SC', serif; font-weight: 900;">Zero One (零一)</h1>
+  <p style="font-size: 1.2rem; color: #fda085; font-style: italic;">“朝阳初升，代码不止；命里有时终须有，命里无时莫强求。”</p>
+</div>
+<div class="note blue icon-padding flat"><i class="note-icon fas fa-university"></i><p><strong>📍 坐标：</strong> GDUT | 大三在读<br>
+<strong>🎯 近期：</strong> 正在全力备考985，追求更高维度的学术殿堂, 有事请私聊。</p>
+</div>
+<h2 id="👨-💻-个人简介">👨‍💻 个人简介</h2>
+<p> 你好！我是 <strong>Zero One</strong>。一名沉浸在电子丛林与代码海洋中的探索者。</p>
+<p> 我来自GDUT，。我的主要设计是 <strong>嵌入式系统与单片机开发</strong>。享受那种通过底层代码控制硬件跳动的成就感，从 8 位机到 32 位高性能处理器，每一行汇编或 C 语言都是我与机器对话的桥梁。</p>
+<hr>
+<h2 id="🚀-技能树与兴趣">🚀 技能树与兴趣</h2>
+<p> 虽然我是电阻烧烤菜鸟，但我始终保持对前沿技术的“跨界”好奇心：</p>
+<h3 id="探索领域-interests"><strong>探索领域 (Interests)</strong></h3>
+<ul>
+<li><strong>图形交互</strong>：正在学习 <strong>LVGL</strong> 和 <strong>Qt</strong>，致力于打造美观且流畅的嵌入式 HMI, plc是个意外,我并不爱它。</li>
+<li><strong>前端美学</strong>：对现代前端开发（HTML/CSS/JS）有着浓厚兴趣，本博客的每一处细节微调都是我的实践场。</li>
+<li><strong>算法设计</strong>：备考研期间，正在重新构建更好知识体系。</li>
+</ul>
+<hr>
+<h2 id="📮-联络方式">📮 联络方式</h2>
+<p> 如果你也是嵌入式爱好者，或者二次元爱好者，欢迎交流：</p>
+<ul>
+<li><strong>GitHub:</strong> <a href="https://github.com/sdfcwfe">https://github.com/sdfcwfe</a></li>
+<li><strong>Email:</strong> <a href="mailto:3115989216@qq.com">3115989216@qq.com</a></li>
+<li><strong>主页:</strong> <a href="https://sdfcwfe.github.io/syy.github.io">https://sdfcwfe.github.io/syy.github.io</a></li>
+</ul>
+<hr>
+]]></content>
+  </entry>
+  <entry>
+    <title>tag</title>
+    <url>/syy.github.io/tags/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/footer_beautify.js</url>
+    <content><![CDATA[/**
+ * 页脚运行时间 & 旅行者号距离逻辑
+ */
+var runtimeTimer; // 全局变量，方便管理定时器
+
+function runtime() {
+    var start_time = new Date("2025/09/08 00:00:00");
+    var now_time = new Date();
+
+    // 1. 本站运行时间
+    var diff_time = now_time.getTime() - start_time.getTime();
+    var days = Math.floor(diff_time / (24 * 3600 * 1000));
+    var hours = Math.floor((diff_time % (24 * 3600 * 1000)) / (3600 * 1000));
+    var mins = Math.floor(((diff_time % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
+    var secs = Math.floor((((diff_time % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
+
+    var runtime_element = document.getElementById("runtime-show");
+    if (runtime_element) {
+        runtime_element.innerHTML = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
+    }
+
+    // 2. 旅行者 1 号距离 (假设速度 17km/s)
+    var voyager_start = new Date("2025/09/08 00:00:00");
+    var voyager_base = 24264952436;
+    var seconds_passed = (now_time.getTime() - voyager_start.getTime()) / 1000;
+    var current_dist = voyager_base + (seconds_passed * 17);
+    var au_dist = (current_dist / 149597870.7).toFixed(6);
+
+    var voyager_element = document.getElementById("voyager-show");
+    if (voyager_element) {
+        voyager_element.innerHTML = "旅行者 1 号当前距离地球 " + Math.floor(current_dist) + " 千米，约为 " + au_dist + " 个天文单位 🚀";
+    }
+
+    // 使用函数式写法的 setTimeout
+    clearTimeout(runtimeTimer);
+    runtimeTimer = setTimeout(function() {
+        runtime();
+    }, 1000);
+}
+
+
+
+// 每隔 1 秒检查一次（直到成功或尝试 5 次），解决异步加载问题
+var retryCount = 0;
+var retryTimer = setInterval(function() {
+    const btn = document.getElementById('custom-about-btn');
+    if (btn || retryCount > 5) {
+        clearInterval(retryTimer);
+    } else {
+        addMoreButtons();
+        retryCount++;
+    }
+}, 1000);
+
+// 兼容 PJAX
+document.addEventListener('pjax:complete', function() {
+    retryCount = 0; // 重置重试计数
+    addMoreButtons();
+});]]></content>
   </entry>
 </search>

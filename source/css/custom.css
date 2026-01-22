@@ -130,3 +130,34 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
     color: #00dbde;
     font-weight: bold;
 }
+
+
+
+
+/* 确保侧边栏卡片能装下两个按钮 */
+.card-author {
+    padding: 20px 10px !important; /* 增加一点内边距 */
+    height: auto !important;       /* 高度设为自动 */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* 按钮的强制样式 */
+#custom-about-btn {
+    background: linear-gradient(to right, #f6d365 0%, #fda085 100%) !important;
+    color: white !important;
+    width: 90% !important;
+    text-align: center !important;
+    padding: 6px 0 !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 确保它在移动端也能看见 */
+.button--animated {
+    margin-bottom: 5px !important;
+}
