@@ -124,18 +124,18 @@
 <p>世界上最遥远的距离，不是从源码到二进制，而是 CMake 说 “找不到头文件”，但文件明明就在眼前</p>
 </blockquote>
 <p><img src="/syy.github.io/img/a001.jpg" alt="111"></p>
-<h1>目录</h1>
+<h2 id="目录">目录</h2>
 <ul>
 <li><a href="#%E4%BB%8B%E7%BB%8D">1. 介绍</a></li>
 <li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">2. 基本语法</a></li>
 <li><a href="#%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91">3. 如何编译</a></li>
 </ul>
-<h1>介绍 <a id="介绍"></a></h1>
+<h2 id="介绍-a-id-介绍-a">介绍 <a id="介绍"></a></h2>
 <p>预处理-&gt;编译-&gt;汇编-&gt;链接-&gt;可执行程序<br>
 创建一个脚本文件,makefile<br>
 还有一种,cmake,比makefile更高级,根据不同平台直接生成makefile<br>
 有两种库,动态库和静态库,引入第三方现目使用</p>
-<h1>基本语法 <a id="基本语法"></a></h1>
+<h2 id="基本语法-a-id-基本语法-a">基本语法 <a id="基本语法"></a></h2>
 <h3 id="1-指定-cmake-的最低版本要求：">1、指定 CMake 的最低版本要求：</h3>
 <p>cmake_minimum_required(VERSION <version>)</p>
 <h3 id="2-定义项目的名称和使用的编程语言：">2、定义项目的名称和使用的编程语言：</h3>
@@ -197,7 +197,7 @@ code<br>
 Cmake<br>
 add_executable(MyApp main.cpp)</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(MyApp main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(MyApp </span><br><span class="line">    <span class="comment"># 1. 自己的内部头文件，设置为 PRIVATE</span></span><br><span class="line">    <span class="comment"># 只有 MyApp 能搜到 internal.h</span></span><br><span class="line">    PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 对外的接口头文件，设置为 PUBLIC</span></span><br><span class="line">    <span class="comment"># 如果以后有人链接了 MyApp，他们也能搜到 my_lib.h</span></span><br><span class="line">    PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 第三方库，设置为 SYSTEM</span></span><br><span class="line">    <span class="comment"># 哪怕这个库里有一万个警告，编译时也不会弹出来烦你</span></span><br><span class="line">    SYSTEM PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/third_party/bad_code</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h1>如何编译 <a id="如何编译"></a></h1>
+<h2 id="如何编译-a-id-如何编译-a">如何编译 <a id="如何编译"></a></h2>
 <h3 id="第一步：进入项目文件夹">第一步：进入项目文件夹</h3>
 <p>首先，确保你在包含 CMakeLists.txt 的那个目录下。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/code</span><br></pre></td></tr></table></figure>
@@ -369,7 +369,7 @@ ol嵌套li,ol为无序</p>
 <h2 id="html5的补充">html5的补充</h2>
 <h3 id="doctype">DOCTYPE</h3>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE&gt;</span></span><br></pre></td></tr></table></figure>
-<p>一般在第一行,是h5的声明,在标签的前面,避免浏览器的怪异模式;</p>
+<p>一般在第一行,是html5的声明,在标签的前面,避免浏览器的怪异模式;</p>
 <h3 id="基本骨架">基本骨架</h3>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>网页标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    这里存放展示给用户看的内容</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>html:整个网络<br>
@@ -382,8 +382,17 @@ meta:写给浏览器、搜索引擎和社交媒体看的“说明书”;<b>单�
 <blockquote>
 <p>SEO 就是通过一系列技术手段和内容优化，让你的网站（博客）在百度、谷歌、必应等搜索引擎中排名更高、更容易被搜到。</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">&lt;!-- 防止乱码 --&gt;</span><br><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">&lt;!-- 适配手机端 --&gt;</span><br><span class="line">&lt;meta name=&quot;description&quot; content=&quot;零一的技术博客，分享嵌入式开发、STM32机器人及前端美学。&quot;&gt;</span><br><span class="line">&lt;!-- SEO 专用--&gt;</span><br><span class="line">&lt;meta name=&quot;keywords&quot; content=&quot;嵌入式, STM32, 考研, 前端, Hexo&quot;&gt;</span><br><span class="line">&lt;!-- 社交媒体优化--&gt;</span><br><span class="line">&lt;meta property=&quot;og:title&quot; content=&quot;Zero One 的个人主页&quot;&gt;</span><br><span class="line">&lt;meta property=&quot;og:image&quot; content=&quot;https://xxx/img/cover.jpg&quot;&gt;</span><br><span class="line">&lt;meta property=&quot;og:description&quot; content=&quot;来看看考研选手的嵌入式作品展吧。&quot;&gt;</span><br><span class="line">&lt;!-- 自动刷新/跳转--&gt;</span><br><span class="line">&lt;!-- 5秒后自动刷新页面 --&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;refresh&quot; content=&quot;5&quot;&gt; </span><br><span class="line">&lt;!-- 3秒后跳转到指定网址 --&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;refresh&quot; content=&quot;3;url=https://baidu.com&quot;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 防止乱码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 适配手机端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;零一的技术博客，分享嵌入式开发、STM32机器人及前端美学。&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- SEO 专用--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;嵌入式, STM32, 考研, 前端, Hexo&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 社交媒体优化--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:title&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Zero One 的个人主页&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:image&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://xxx/img/cover.jpg&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;来看看考研选手的嵌入式作品展吧。&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 自动刷新/跳转--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 5秒后自动刷新页面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;5&quot;</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!-- 3秒后跳转到指定网址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;3;url=https://baidu.com&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="标题">标题</h3>
+<p>h1到h6,是双标签,写在body部分的;</p>
+<h3 id="几个">几个</h3>
+<p>align,=,left | center | right ,调整标签位置,默认是左边;,可以放在h1里;</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>不推荐,使用css来调整更好<br>
+ p,双标签,一个段落;<br>
+ br,不产生一个新段落换行;<br>
+ hr,单标签,<br>
+<img src="/syy.github.io/img/web/001.jpg" alt="hr属性"></p>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
@@ -507,6 +516,11 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
       </tags>
   </entry>
   <entry>
+    <title>分类</title>
+    <url>/syy.github.io/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>个人介绍</title>
     <url>/syy.github.io/about/index.html</url>
     <content><![CDATA[<div style="text-align: center; padding: 40px 0;">
@@ -541,19 +555,85 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 ]]></content>
   </entry>
   <entry>
-    <title>diary</title>
-    <url>/syy.github.io/diary/index.html</url>
-    <content><![CDATA[]]></content>
+    <title></title>
+    <url>/syy.github.io/js/click_card.js</url>
+    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
+function linkAuthorCard() {
+    // 找到侧边栏作者卡片元素
+    var authorCard = document.querySelector('.card-author');
+    if (authorCard) {
+        // 修改鼠标样式为手型，提醒用户可以点击
+        authorCard.style.cursor = 'pointer';
+        // 绑定点击事件
+        authorCard.onclick = function() {
+            // 跳转到你的个人介绍页面（注意带上你的二级目录）
+            window.location.href = '/syy.github.io/about/';
+        };
+    }
+}
+
+// 确保页面加载完成后执行
+document.addEventListener('DOMContentLoaded', linkAuthorCard);
+// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
+document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
   </entry>
   <entry>
-    <title>分类</title>
-    <url>/syy.github.io/categories/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>tag</title>
-    <url>/syy.github.io/tags/index.html</url>
-    <content><![CDATA[]]></content>
+    <title></title>
+    <url>/syy.github.io/js/footer_beautify.js</url>
+    <content><![CDATA[/**
+ * Hexo Butterfly 页脚美化脚本
+ * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
+ */
+
+var footerTimer; // 全局定时器变量
+
+function updateFooterStats() {
+    // --- 配置区域 ---
+    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
+    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
+    var voyagerBase = 24264952436; // 初始距离(千米)
+    var velocity = 17; // 模拟速度 (km/s)
+
+    var now = new Date();
+
+    // 1. 本站运行时间计算
+    var diff = now.getTime() - startTime.getTime();
+    var days = Math.floor(diff / (24 * 3600 * 1000));
+    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
+    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
+    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
+
+    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
+    var runtimeEl = document.getElementById("runtime-show");
+    if (runtimeEl) {
+        runtimeEl.innerHTML = runtimeText;
+    }
+
+    // 2. 旅行者 1 号距离计算
+    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
+    var currentDist = voyagerBase + (secondsPassed * velocity);
+    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
+
+    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
+    var voyagerEl = document.getElementById("voyager-show");
+    if (voyagerEl) {
+        voyagerEl.innerHTML = voyagerText;
+    }
+
+    // 3. 定时器处理
+    clearTimeout(footerTimer);
+    footerTimer = setTimeout(updateFooterStats, 1000);
+}
+
+// 首次加载初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateFooterStats);
+} else {
+    updateFooterStats();
+}
+
+// 兼容 PJAX (当切换页面时重新触发)
+document.addEventListener('pjax:complete', updateFooterStats);]]></content>
   </entry>
   <entry>
     <title></title>
@@ -723,84 +803,13 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
 }]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/syy.github.io/js/footer_beautify.js</url>
-    <content><![CDATA[/**
- * Hexo Butterfly 页脚美化脚本
- * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
- */
-
-var footerTimer; // 全局定时器变量
-
-function updateFooterStats() {
-    // --- 配置区域 ---
-    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
-    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
-    var voyagerBase = 24264952436; // 初始距离(千米)
-    var velocity = 17; // 模拟速度 (km/s)
-
-    var now = new Date();
-
-    // 1. 本站运行时间计算
-    var diff = now.getTime() - startTime.getTime();
-    var days = Math.floor(diff / (24 * 3600 * 1000));
-    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
-    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
-    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
-
-    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
-    var runtimeEl = document.getElementById("runtime-show");
-    if (runtimeEl) {
-        runtimeEl.innerHTML = runtimeText;
-    }
-
-    // 2. 旅行者 1 号距离计算
-    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
-    var currentDist = voyagerBase + (secondsPassed * velocity);
-    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
-
-    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
-    var voyagerEl = document.getElementById("voyager-show");
-    if (voyagerEl) {
-        voyagerEl.innerHTML = voyagerText;
-    }
-
-    // 3. 定时器处理
-    clearTimeout(footerTimer);
-    footerTimer = setTimeout(updateFooterStats, 1000);
-}
-
-// 首次加载初始化
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateFooterStats);
-} else {
-    updateFooterStats();
-}
-
-// 兼容 PJAX (当切换页面时重新触发)
-document.addEventListener('pjax:complete', updateFooterStats);]]></content>
+    <title>diary</title>
+    <url>/syy.github.io/diary/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/syy.github.io/js/click_card.js</url>
-    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
-function linkAuthorCard() {
-    // 找到侧边栏作者卡片元素
-    var authorCard = document.querySelector('.card-author');
-    if (authorCard) {
-        // 修改鼠标样式为手型，提醒用户可以点击
-        authorCard.style.cursor = 'pointer';
-        // 绑定点击事件
-        authorCard.onclick = function() {
-            // 跳转到你的个人介绍页面（注意带上你的二级目录）
-            window.location.href = '/syy.github.io/about/';
-        };
-    }
-}
-
-// 确保页面加载完成后执行
-document.addEventListener('DOMContentLoaded', linkAuthorCard);
-// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
-document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
+    <title>tag</title>
+    <url>/syy.github.io/tags/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
