@@ -1,105 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>cmake_study</title>
-    <url>/syy.github.io/2025/12/30/cmake-study/</url>
-    <content><![CDATA[<blockquote>
-<p>世界上最遥远的距离，不是从源码到二进制，而是 CMake 说 “找不到头文件”，但文件明明就在眼前</p>
-</blockquote>
-<p><img src="/syy.github.io/img/a001.jpg" alt="111"></p>
-<h1>目录</h1>
-<ul>
-<li><a href="#%E4%BB%8B%E7%BB%8D">1. 介绍</a></li>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">2. 基本语法</a></li>
-<li><a href="#%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91">3. 如何编译</a></li>
-</ul>
-<h1>介绍 <a id="介绍"></a></h1>
-<p>预处理-&gt;编译-&gt;汇编-&gt;链接-&gt;可执行程序<br>
-创建一个脚本文件,makefile<br>
-还有一种,cmake,比makefile更高级,根据不同平台直接生成makefile<br>
-有两种库,动态库和静态库,引入第三方现目使用</p>
-<h1>基本语法 <a id="基本语法"></a></h1>
-<h3 id="1-指定-cmake-的最低版本要求：">1、指定 CMake 的最低版本要求：</h3>
-<p>cmake_minimum_required(VERSION <version>)</p>
-<h3 id="2-定义项目的名称和使用的编程语言：">2、定义项目的名称和使用的编程语言：</h3>
-<p>project(&lt;project_name&gt; [<language>…])<br>
-例如： project(MyProject CXX)</p>
-<h3 id="3-指定要生成的可执行文件和其源文件：">3、指定要生成的可执行文件和其源文件：</h3>
-<p>add_executable(<target> &lt;source_files&gt;…)<br>
-例如： add_executable(MyExecutable main.cpp other_file.cpp)</p>
-<h3 id="4-创建一个库-静态库或动态库-及其源文件：">4、创建一个库（静态库或动态库）及其源文件：***</h3>
-<p>add_library(<target> &lt;source_files&gt;…)<br>
-这条指令告诉 CMake：“目标 A (target) 的运行或编译依赖于库 B (library)。”<br>
-例如：<br>
-add_library(MyLibrary STATIC library.cpp)</p>
-<h3 id="5-链接目标文件与其他库：">5、链接目标文件与其他库：</h3>
-<p>target_link_libraries(<target> <libraries>…)<br>
-例如：<br>
-target_link_libraries(MyExecutable MyLibrary)</p>
-<h3 id="6-添加头文件搜索路径：">6、添加头文件搜索路径：</h3>
-<p>include_directories(<dirs>…)<br>
-例如：<br>
-include_directories(${PROJECT_SOURCE_DIR}/include)<br>
-现代 CMake 的替代方案：target_include_directories (强烈推荐)<br>
-在现代 CMake 实践中，我们更倾向于使用 target_include_directories。<br>
-为什么？<br>
-include_directories 像是一个“全局开关”，而 target_include_directories 是“点对点设置”。<br>
-示例对比：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># --- 旧方式 (全局) ---</span><br><span class="line">include_directories(include/)</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">add_executable(App main.cpp) # App 也会被迫搜索 include/，即使它不需要</span><br><span class="line"></span><br><span class="line"># --- 新方式 (目标关联) ---</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">target_include_directories(LibA PUBLIC include/)</span><br></pre></td></tr></table></figure>
-<p>PRIVATE (私有)：<br>
-含义：只有 LibA 自己的源文件（.cpp）在编译时会用到这个目录。<br>
-外部影响：如果另一个程序 App 链接了 LibA，App 不会自动获得这个头文件路径。<br>
-INTERFACE (接口)：<br>
-含义：LibA 自己的源文件在编译时不使用这个目录。<br>
-外部影响：谁链接了 LibA，谁才会获得这个路径。常用于“纯头文件库”（Header-only library）。<br>
-PUBLIC (公开)：<br>
-含义：PRIVATE + INTERFACE。<br>
-效果：LibA 自己编译时要用这个路径，而且任何链接到 LibA 的目标也必须自动带上这个路径。</p>
-<h3 id="7-设置变量的值：">7、设置变量的值：</h3>
-<p>set(-variable  -value…)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.16) # 最低要求的版本号</span><br><span class="line">project(test)</span><br><span class="line">set(SRC_LIST one.cpp)</span><br><span class="line">add_executable(app  $&#123;SRC_LIST&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="8-设置目标属性：">8、设置目标属性：</h3>
-<p>target_include_directories(TARGET target_name<br>
-[BEFORE | AFTER]<br>
-[SYSTEM] [PUBLIC | PRIVATE | INTERFACE]<br>
-[items1…])<br>
-例如： target_include_directories(MyExecutable PRIVATE ${PROJECT_SOURCE_DIR}/include)<br>
-解释; target_include_directories(目标名称 关键字 路径)<br>
-假设你的项目文件夹是这样的：</p>
-<blockquote>
-<p>/MyProject<br>
-├── main.cpp<br>
-├── /include (放公开的头文件)<br>
-│     └── my_lib.h<br>
-├── /src     (放内部的头文件)<br>
-│     └── internal.h<br>
-└── /third_party/bad_code (别人写的烂代码库)</p>
-</blockquote>
-<p>你的 CMakeLists.txt 应该这么写：<br>
-code<br>
-Cmake<br>
-add_executable(MyApp main.cpp)</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(MyApp main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(MyApp </span><br><span class="line">    <span class="comment"># 1. 自己的内部头文件，设置为 PRIVATE</span></span><br><span class="line">    <span class="comment"># 只有 MyApp 能搜到 internal.h</span></span><br><span class="line">    PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 对外的接口头文件，设置为 PUBLIC</span></span><br><span class="line">    <span class="comment"># 如果以后有人链接了 MyApp，他们也能搜到 my_lib.h</span></span><br><span class="line">    PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 第三方库，设置为 SYSTEM</span></span><br><span class="line">    <span class="comment"># 哪怕这个库里有一万个警告，编译时也不会弹出来烦你</span></span><br><span class="line">    SYSTEM PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/third_party/bad_code</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h1>如何编译 <a id="如何编译"></a></h1>
-<h3 id="第一步：进入项目文件夹">第一步：进入项目文件夹</h3>
-<p>首先，确保你在包含 CMakeLists.txt 的那个目录下。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/code</span><br></pre></td></tr></table></figure>
-<h3 id="第二步：创建并进入-build-目录-外部构建">第二步：创建并进入 build 目录（外部构建）</h3>
-<p>为了不让编译产生的临时文件弄乱你的源代码，我们通常创建一个专门的 build 文件夹。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
-<h3 id="第三步：运行-cmake-进行配置">第三步：运行 CMake 进行配置</h3>
-<p>这一步 CMake 会检查你的系统环境，并生成 Makefile 文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake ..</span><br></pre></td></tr></table></figure>
-<h3 id="第四步：执行编译">第四步：执行编译</h3>
-<p>使用 make 命令（或者 cmake --build .）来正式调用编译器（g++）。<br>
-就一个make;</p>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>cmake</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>友链</title>
     <url>/syy.github.io/2025/09/13/friend-blog/</url>
     <content><![CDATA[<style>
@@ -176,46 +77,9 @@ add_executable(MyApp main.cpp)</p>
         <category>应用</category>
       </categories>
       <tags>
+        <tag>嵌入式</tag>
         <tag>解决实际问题</tag>
         <tag>汇编</tag>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>读原理图</title>
-    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
-    <content><![CDATA[<h1>硬件</h1>
-<blockquote>
-<p>study for schematic diagram</p>
-</blockquote>
-<h2 id="gpio">GPIO</h2>
-<!-- 
-    ![111](/syy.github.io/img/img.jpg) 
--->
-<p>输出引脚{高点平:1;低电平:0;} ,用万用表读取高低电平;</p>
-<p>怎么用:<br>
-1.配置引脚功能;<br>
-2.输出引脚,写值到某个寄存器里面去;</p>
-<p>GPIO:通用输出外设<br>
-<img src="/syy.github.io/img/st001.jpg" alt="三极管"><br>
-上拉电阻:对于输入引脚,可以用输入电平;</p>
-<h2 id="与门-或门等门电路">与门,或门等门电路</h2>
-<p>非门: B != A;<br>
-与门: B = A1 &amp; A2;<br>
-或门: B = A1 || A2;<br>
-或非门: $ B = \neg(A1 &amp; A2) $<br>
-与非门: $ B = \neg(A1 \lor A2) $</p>
-<h2 id="协议类">协议类</h2>
-<h3 id="串口">串口</h3>
-<p>(1)UART 串口<br>
-2440开发板与pc机通信;一条线,输出引脚;<br>
-TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
-(电平转换芯片:电压不一样,来转接)<br>
-<img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -254,6 +118,105 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
       </tags>
   </entry>
   <entry>
+    <title>cmake_study</title>
+    <url>/syy.github.io/2025/12/30/cmake-study/</url>
+    <content><![CDATA[<blockquote>
+<p>世界上最遥远的距离，不是从源码到二进制，而是 CMake 说 “找不到头文件”，但文件明明就在眼前</p>
+</blockquote>
+<p><img src="/syy.github.io/img/a001.jpg" alt="111"></p>
+<h2 id="目录">目录</h2>
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">1. 介绍</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">2. 基本语法</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91">3. 如何编译</a></li>
+</ul>
+<h2 id="介绍-a-id-介绍-a">介绍 <a id="介绍"></a></h2>
+<p>预处理-&gt;编译-&gt;汇编-&gt;链接-&gt;可执行程序<br>
+创建一个脚本文件,makefile<br>
+还有一种,cmake,比makefile更高级,根据不同平台直接生成makefile<br>
+有两种库,动态库和静态库,引入第三方现目使用</p>
+<h2 id="基本语法-a-id-基本语法-a">基本语法 <a id="基本语法"></a></h2>
+<h3 id="1-指定-cmake-的最低版本要求：">1、指定 CMake 的最低版本要求：</h3>
+<p>cmake_minimum_required(VERSION <version>)</p>
+<h3 id="2-定义项目的名称和使用的编程语言：">2、定义项目的名称和使用的编程语言：</h3>
+<p>project(&lt;project_name&gt; [<language>…])<br>
+例如： project(MyProject CXX)</p>
+<h3 id="3-指定要生成的可执行文件和其源文件：">3、指定要生成的可执行文件和其源文件：</h3>
+<p>add_executable(<target> &lt;source_files&gt;…)<br>
+例如： add_executable(MyExecutable main.cpp other_file.cpp)</p>
+<h3 id="4-创建一个库-静态库或动态库-及其源文件：">4、创建一个库（静态库或动态库）及其源文件：***</h3>
+<p>add_library(<target> &lt;source_files&gt;…)<br>
+这条指令告诉 CMake：“目标 A (target) 的运行或编译依赖于库 B (library)。”<br>
+例如：<br>
+add_library(MyLibrary STATIC library.cpp)</p>
+<h3 id="5-链接目标文件与其他库：">5、链接目标文件与其他库：</h3>
+<p>target_link_libraries(<target> <libraries>…)<br>
+例如：<br>
+target_link_libraries(MyExecutable MyLibrary)</p>
+<h3 id="6-添加头文件搜索路径：">6、添加头文件搜索路径：</h3>
+<p>include_directories(<dirs>…)<br>
+例如：<br>
+include_directories(${PROJECT_SOURCE_DIR}/include)<br>
+现代 CMake 的替代方案：target_include_directories (强烈推荐)<br>
+在现代 CMake 实践中，我们更倾向于使用 target_include_directories。<br>
+为什么？<br>
+include_directories 像是一个“全局开关”，而 target_include_directories 是“点对点设置”。<br>
+示例对比：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># --- 旧方式 (全局) ---</span><br><span class="line">include_directories(include/)</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">add_executable(App main.cpp) # App 也会被迫搜索 include/，即使它不需要</span><br><span class="line"></span><br><span class="line"># --- 新方式 (目标关联) ---</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">target_include_directories(LibA PUBLIC include/)</span><br></pre></td></tr></table></figure>
+<p>PRIVATE (私有)：<br>
+含义：只有 LibA 自己的源文件（.cpp）在编译时会用到这个目录。<br>
+外部影响：如果另一个程序 App 链接了 LibA，App 不会自动获得这个头文件路径。<br>
+INTERFACE (接口)：<br>
+含义：LibA 自己的源文件在编译时不使用这个目录。<br>
+外部影响：谁链接了 LibA，谁才会获得这个路径。常用于“纯头文件库”（Header-only library）。<br>
+PUBLIC (公开)：<br>
+含义：PRIVATE + INTERFACE。<br>
+效果：LibA 自己编译时要用这个路径，而且任何链接到 LibA 的目标也必须自动带上这个路径。</p>
+<h3 id="7-设置变量的值：">7、设置变量的值：</h3>
+<p>set(-variable  -value…)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.16) # 最低要求的版本号</span><br><span class="line">project(test)</span><br><span class="line">set(SRC_LIST one.cpp)</span><br><span class="line">add_executable(app  $&#123;SRC_LIST&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="8-设置目标属性：">8、设置目标属性：</h3>
+<p>target_include_directories(TARGET target_name<br>
+[BEFORE | AFTER]<br>
+[SYSTEM] [PUBLIC | PRIVATE | INTERFACE]<br>
+[items1…])<br>
+例如： target_include_directories(MyExecutable PRIVATE ${PROJECT_SOURCE_DIR}/include)<br>
+解释; target_include_directories(目标名称 关键字 路径)<br>
+假设你的项目文件夹是这样的：</p>
+<blockquote>
+<p>/MyProject<br>
+├── main.cpp<br>
+├── /include (放公开的头文件)<br>
+│     └── my_lib.h<br>
+├── /src     (放内部的头文件)<br>
+│     └── internal.h<br>
+└── /third_party/bad_code (别人写的烂代码库)</p>
+</blockquote>
+<p>你的 CMakeLists.txt 应该这么写：<br>
+code<br>
+Cmake<br>
+add_executable(MyApp main.cpp)</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(MyApp main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(MyApp </span><br><span class="line">    <span class="comment"># 1. 自己的内部头文件，设置为 PRIVATE</span></span><br><span class="line">    <span class="comment"># 只有 MyApp 能搜到 internal.h</span></span><br><span class="line">    PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 对外的接口头文件，设置为 PUBLIC</span></span><br><span class="line">    <span class="comment"># 如果以后有人链接了 MyApp，他们也能搜到 my_lib.h</span></span><br><span class="line">    PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 第三方库，设置为 SYSTEM</span></span><br><span class="line">    <span class="comment"># 哪怕这个库里有一万个警告，编译时也不会弹出来烦你</span></span><br><span class="line">    SYSTEM PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/third_party/bad_code</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="如何编译-a-id-如何编译-a">如何编译 <a id="如何编译"></a></h2>
+<h3 id="第一步：进入项目文件夹">第一步：进入项目文件夹</h3>
+<p>首先，确保你在包含 CMakeLists.txt 的那个目录下。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/code</span><br></pre></td></tr></table></figure>
+<h3 id="第二步：创建并进入-build-目录-外部构建">第二步：创建并进入 build 目录（外部构建）</h3>
+<p>为了不让编译产生的临时文件弄乱你的源代码，我们通常创建一个专门的 build 文件夹。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
+<h3 id="第三步：运行-cmake-进行配置">第三步：运行 CMake 进行配置</h3>
+<p>这一步 CMake 会检查你的系统环境，并生成 Makefile 文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake ..</span><br></pre></td></tr></table></figure>
+<h3 id="第四步：执行编译">第四步：执行编译</h3>
+<p>使用 make 命令（或者 cmake --build .）来正式调用编译器（g++）。<br>
+就一个make;</p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>cmake</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>关于pycharm终端和解释器不是同一个的解决方法</title>
     <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
     <content><![CDATA[<blockquote>
@@ -274,17 +237,35 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
       </tags>
   </entry>
   <entry>
-    <title>freertos</title>
-    <url>/syy.github.io/2025/09/11/hello-world/</url>
-    <content><![CDATA[<h1>freertos002</h1>
-<p>测试中</p>
-<h2 id="1-硬件初始化">1.硬件初始化</h2>
-<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <title>贝塞尔曲线法</title>
+    <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
+    <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
+<p>局部路径规划算法</p>
+<h2 id="贝塞尔算法思想">贝塞尔算法思想</h2>
+<p>贝塞尔曲线是应用于二维图形应用程序的数学曲线，由一组称为控制点的向量来确定，给定的控制点按顺序连接构成控制多边形，<br>
+贝塞尔曲线逼近这个多边形，进而通过调整控制点坐标改变曲线的形状。<br>
+对于车辆系统,规划的轨迹应该满足以下准则:轨迹连续,轨迹曲率连续,轨迹容易被车辆跟踪,而且容易生成;<br>
+给定n+1个数据点,p0-pn,生成一条曲线,使该曲线与这些点描述的形状相符;</p>
+<h2 id="推导">推导</h2>
+<h3 id="一次贝塞尔曲线">一次贝塞尔曲线</h3>
+<p>设<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>，<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>两个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<br>
+直线<br>
+则贝塞尔曲线生成点可以表达为：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…'>\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
+t可以为时间<br>
+<img src="/syy.github.io/img/st005.jpg" alt="1"></p>
+<h3 id="二阶">二阶</h3>
+<p>设P0，P1，P2三个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>构成一阶，<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)'>\(P_2\)</span>也构成一阶，即：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}'>\(\begin{cases}</span><br>
+$p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\\
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="mspace newline"></span></span></span>p_{1,2}(t) = (1 - t)P_1 + tP_2<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>\end{cases})<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</mtext></mrow><annotation encoding="application/x-tex">在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">基</span><span class="mord cjk_fallback">础</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">贝</span><span class="mord cjk_fallback">塞</span><span class="mord cjk_fallback">尔</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>(p_2(t) = (1 - t)p_{1,1} + tp_{1,2})$<br>
+<img src="/syy.github.io/img/st006.jpg" alt="1"></p>
+<h3 id="三阶">三阶</h3>
+<p><img src="/syy.github.io/img/st007.jpg" alt="1"></p>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
-        <tag>嵌入式</tag>
+        <tag>路径规划</tag>
       </tags>
   </entry>
   <entry>
@@ -295,7 +276,7 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 </blockquote>
 <h2 id="html">HTML</h2>
 <h3 id="基本介绍">基本介绍</h3>
-<p>HTML是超文本标记语言<br>
+<p>HTML是超文本标记语言,是描述网页的语言<br>
 超文本是标签,带尖括号是标签标记;</p>
 <p>标签语言<br>
 开头 需要加粗的文字 结尾</p>
@@ -306,13 +287,6 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 例如: <strong>文字内容加粗</strong></li>
 <li>单标签:<br>换行; <hr>水平线</li>
 </ul>
-<h3 id="基本骨架">基本骨架</h3>
-<p><img src="/syy.github.io/source/img/st003.jpg" alt="1"></p>
-<p>html:整个网络<br>
-head;网络的头部,存放给浏览器看的代码,例如css<br>
-body:网络的主体,存放用户看的代码,例如图片,文字<br>
-title:网络标题</p>
-<p>!快速生成基本骨架</p>
 <h3 id="标签的关系">标签的关系</h3>
 <p>明确代码的书写位置</p>
 <ul>
@@ -392,10 +366,74 @@ ol嵌套li,ol为无序</p>
 <h3 id="表格">表格</h3>
 <p>和execl类似<br>
 标签: table嵌套tr, tr嵌套td / th。</p>
+<h2 id="html5的补充">html5的补充</h2>
+<h3 id="doctype">DOCTYPE</h3>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE&gt;</span></span><br></pre></td></tr></table></figure>
+<p>一般在第一行,是html5的声明,在标签的前面,避免浏览器的怪异模式;</p>
+<h3 id="基本骨架">基本骨架</h3>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>网页标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    这里存放展示给用户看的内容</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>html:整个网络<br>
+head;网络的头部,各种文档的属性和信息,存放给浏览器看的代码,例如css<br>
+body:网络的主体,可直观看见的,存放用户看的代码,例如图片,文本,超链接<br>
+head和body同级<br>
+title:网络标题,是head必须包含的标签<br>
+!是快速生成基本骨架<br>
+meta:写给浏览器、搜索引擎和社交媒体看的“说明书”;<b>单标签</p>
+<blockquote>
+<p>SEO 就是通过一系列技术手段和内容优化，让你的网站（博客）在百度、谷歌、必应等搜索引擎中排名更高、更容易被搜到。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 防止乱码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 适配手机端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;零一的技术博客，分享嵌入式开发、STM32机器人及前端美学。&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- SEO 专用--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;嵌入式, STM32, 考研, 前端, Hexo&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 社交媒体优化--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:title&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Zero One 的个人主页&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:image&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://xxx/img/cover.jpg&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;来看看考研选手的嵌入式作品展吧。&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 自动刷新/跳转--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 5秒后自动刷新页面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;5&quot;</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!-- 3秒后跳转到指定网址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;3;url=https://baidu.com&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="标题">标题</h3>
+<p>h1到h6,是双标签,写在body部分的;</p>
+<h3 id="几个">几个</h3>
+<p>align,=,left | center | right ,调整标签位置,默认是左边;,可以放在h1里;</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>不推荐,使用css来调整更好<br>
+ p,双标签,一个段落;<br>
+ br,不产生一个新段落换行;<br>
+ hr,单标签,<br>
+<img src="/syy.github.io/img/web/001.jpg" alt="hr属性"></p>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
         <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读原理图</title>
+    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
+    <content><![CDATA[<h1>硬件</h1>
+<blockquote>
+<p>study for schematic diagram</p>
+</blockquote>
+<h2 id="gpio">GPIO</h2>
+<!-- 
+    ![111](/syy.github.io/img/img.jpg) 
+-->
+<p>输出引脚{高点平:1;低电平:0;} ,用万用表读取高低电平;</p>
+<p>怎么用:<br>
+1.配置引脚功能;<br>
+2.输出引脚,写值到某个寄存器里面去;</p>
+<p>GPIO:通用输出外设<br>
+<img src="/syy.github.io/img/st001.jpg" alt="三极管"><br>
+上拉电阻:对于输入引脚,可以用输入电平;</p>
+<h2 id="与门-或门等门电路">与门,或门等门电路</h2>
+<p>非门: B != A;<br>
+与门: B = A1 &amp; A2;<br>
+或门: B = A1 || A2;<br>
+或非门: $ B = \neg(A1 &amp; A2) $<br>
+与非门: $ B = \neg(A1 \lor A2) $</p>
+<h2 id="协议类">协议类</h2>
+<h3 id="串口">串口</h3>
+<p>(1)UART 串口<br>
+2440开发板与pc机通信;一条线,输出引脚;<br>
+TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
+(电平转换芯片:电压不一样,来转接)<br>
+<img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -425,6 +463,20 @@ ol嵌套li,ol为无序</p>
         <tag>lvgl</tag>
         <tag>freertos</tag>
         <tag>游戏</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>freertos</title>
+    <url>/syy.github.io/2025/09/11/hello-world/</url>
+    <content><![CDATA[<h1>freertos002</h1>
+<p>测试中</p>
+<h2 id="1-硬件初始化">1.硬件初始化</h2>
+<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -464,64 +516,9 @@ ol嵌套li,ol为无序</p>
       </tags>
   </entry>
   <entry>
-    <title>贝塞尔曲线法</title>
-    <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
-    <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
-<p>局部路径规划算法</p>
-<h2 id="贝塞尔算法思想">贝塞尔算法思想</h2>
-<p>贝塞尔曲线是应用于二维图形应用程序的数学曲线，由一组称为控制点的向量来确定，给定的控制点按顺序连接构成控制多边形，<br>
-贝塞尔曲线逼近这个多边形，进而通过调整控制点坐标改变曲线的形状。<br>
-对于车辆系统,规划的轨迹应该满足以下准则:轨迹连续,轨迹曲率连续,轨迹容易被车辆跟踪,而且容易生成;<br>
-给定n+1个数据点,p0-pn,生成一条曲线,使该曲线与这些点描述的形状相符;</p>
-<h2 id="推导">推导</h2>
-<h3 id="一次贝塞尔曲线">一次贝塞尔曲线</h3>
-<p>设<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>，<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>两个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<br>
-直线<br>
-则贝塞尔曲线生成点可以表达为：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…'>\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
-t可以为时间<br>
-<img src="/syy.github.io/img/st005.jpg" alt="1"></p>
-<h3 id="二阶">二阶</h3>
-<p>设P0，P1，P2三个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>构成一阶，<br>
-<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)'>\(P_2\)</span>也构成一阶，即：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}'>\(\begin{cases}</span><br>
-$p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\\
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="mspace newline"></span></span></span>p_{1,2}(t) = (1 - t)P_1 + tP_2<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow></mrow><annotation encoding="application/x-tex">
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>\end{cases})<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</mtext></mrow><annotation encoding="application/x-tex">在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">基</span><span class="mord cjk_fallback">础</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">贝</span><span class="mord cjk_fallback">塞</span><span class="mord cjk_fallback">尔</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>(p_2(t) = (1 - t)p_{1,1} + tp_{1,2})$<br>
-<img src="/syy.github.io/img/st006.jpg" alt="1"></p>
-<h3 id="三阶">三阶</h3>
-<p><img src="/syy.github.io/img/st007.jpg" alt="1"></p>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>路径规划</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>分类</title>
     <url>/syy.github.io/categories/index.html</url>
     <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/syy.github.io/js/click_card.js</url>
-    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
-function linkAuthorCard() {
-    // 找到侧边栏作者卡片元素
-    var authorCard = document.querySelector('.card-author');
-    if (authorCard) {
-        // 修改鼠标样式为手型，提醒用户可以点击
-        authorCard.style.cursor = 'pointer';
-        // 绑定点击事件
-        authorCard.onclick = function() {
-            // 跳转到你的个人介绍页面（注意带上你的二级目录）
-            window.location.href = '/syy.github.io/about/';
-        };
-    }
-}
-
-// 确保页面加载完成后执行
-document.addEventListener('DOMContentLoaded', linkAuthorCard);
-// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
-document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
   </entry>
   <entry>
     <title>个人介绍</title>
@@ -556,6 +553,87 @@ document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
 </ul>
 <hr>
 ]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/click_card.js</url>
+    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
+function linkAuthorCard() {
+    // 找到侧边栏作者卡片元素
+    var authorCard = document.querySelector('.card-author');
+    if (authorCard) {
+        // 修改鼠标样式为手型，提醒用户可以点击
+        authorCard.style.cursor = 'pointer';
+        // 绑定点击事件
+        authorCard.onclick = function() {
+            // 跳转到你的个人介绍页面（注意带上你的二级目录）
+            window.location.href = '/syy.github.io/about/';
+        };
+    }
+}
+
+// 确保页面加载完成后执行
+document.addEventListener('DOMContentLoaded', linkAuthorCard);
+// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
+document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/footer_beautify.js</url>
+    <content><![CDATA[/**
+ * Hexo Butterfly 页脚美化脚本
+ * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
+ */
+
+var footerTimer; // 全局定时器变量
+
+function updateFooterStats() {
+    // --- 配置区域 ---
+    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
+    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
+    var voyagerBase = 24264952436; // 初始距离(千米)
+    var velocity = 17; // 模拟速度 (km/s)
+
+    var now = new Date();
+
+    // 1. 本站运行时间计算
+    var diff = now.getTime() - startTime.getTime();
+    var days = Math.floor(diff / (24 * 3600 * 1000));
+    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
+    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
+    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
+
+    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
+    var runtimeEl = document.getElementById("runtime-show");
+    if (runtimeEl) {
+        runtimeEl.innerHTML = runtimeText;
+    }
+
+    // 2. 旅行者 1 号距离计算
+    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
+    var currentDist = voyagerBase + (secondsPassed * velocity);
+    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
+
+    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
+    var voyagerEl = document.getElementById("voyager-show");
+    if (voyagerEl) {
+        voyagerEl.innerHTML = voyagerText;
+    }
+
+    // 3. 定时器处理
+    clearTimeout(footerTimer);
+    footerTimer = setTimeout(updateFooterStats, 1000);
+}
+
+// 首次加载初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateFooterStats);
+} else {
+    updateFooterStats();
+}
+
+// 兼容 PJAX (当切换页面时重新触发)
+document.addEventListener('pjax:complete', updateFooterStats);]]></content>
   </entry>
   <entry>
     <title></title>
@@ -725,66 +803,13 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
 }]]></content>
   </entry>
   <entry>
-    <title>tag</title>
-    <url>/syy.github.io/tags/index.html</url>
+    <title>diary</title>
+    <url>/syy.github.io/diary/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/syy.github.io/js/footer_beautify.js</url>
-    <content><![CDATA[/**
- * Hexo Butterfly 页脚美化脚本
- * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
- */
-
-var footerTimer; // 全局定时器变量
-
-function updateFooterStats() {
-    // --- 配置区域 ---
-    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
-    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
-    var voyagerBase = 24264952436; // 初始距离(千米)
-    var velocity = 17; // 模拟速度 (km/s)
-
-    var now = new Date();
-
-    // 1. 本站运行时间计算
-    var diff = now.getTime() - startTime.getTime();
-    var days = Math.floor(diff / (24 * 3600 * 1000));
-    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
-    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
-    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
-
-    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
-    var runtimeEl = document.getElementById("runtime-show");
-    if (runtimeEl) {
-        runtimeEl.innerHTML = runtimeText;
-    }
-
-    // 2. 旅行者 1 号距离计算
-    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
-    var currentDist = voyagerBase + (secondsPassed * velocity);
-    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
-
-    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
-    var voyagerEl = document.getElementById("voyager-show");
-    if (voyagerEl) {
-        voyagerEl.innerHTML = voyagerText;
-    }
-
-    // 3. 定时器处理
-    clearTimeout(footerTimer);
-    footerTimer = setTimeout(updateFooterStats, 1000);
-}
-
-// 首次加载初始化
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateFooterStats);
-} else {
-    updateFooterStats();
-}
-
-// 兼容 PJAX (当切换页面时重新触发)
-document.addEventListener('pjax:complete', updateFooterStats);]]></content>
+    <title>tag</title>
+    <url>/syy.github.io/tags/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>

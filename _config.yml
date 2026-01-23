@@ -113,4 +113,6 @@ search:
   format: html           # 内容格式（默认即可）
   limit: 1000            # 每篇文章提取的内容长度（默认即可）
 
-
+# Sitemap 自动生成
+baidusitemap:
+  path: baidusitemap.xml
