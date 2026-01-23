@@ -38,6 +38,66 @@
 ]]></content>
   </entry>
   <entry>
+    <title>数模美赛</title>
+    <url>/syy.github.io/2026/01/23/%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B/</url>
+    <content><![CDATA[<h1>数模美赛</h1>
+<p>基于数学建模老哥和其他资料学习的笔记</p>
+<h2 id="1-基础思维">1.基础思维</h2>
+<h3 id="定义">定义</h3>
+<p>实际问题转成数学建模<br>
+问题分析-假设简化-模型构建-模型求解-模型检验-结果分析</p>
+<h2 id="模型">模型</h2>
+<h3 id="1-高级规划模型">1.高级规划模型</h3>
+<p>3个:非线性规划和求解, 整数规划分支定界法原理, 多目标规划(帕累托最优与权重)<br>
+<img src="/syy.github.io/img/math/002.jpg" alt=""><br>
+多目标,非线性</p>
+<h2 id="论文">论文</h2>
+<h3 id="论文题目">论文题目</h3>
+<p><img src="/syy.github.io/img/math/003.jpg" alt=""><br>
+突出赛题类型的命题和技巧,如下图所示<br>
+<img src="/syy.github.io/img/math/004.jpg" alt=""><br>
+一个赛题多个子任务,选取最据代表的一个作为题目,<br>
+<img src="/syy.github.io/img/math/005.jpg" alt=""></p>
+<h3 id="摘要和关键词">摘要和关键词</h3>
+<p>十分关键,对关键词加粗,不要出现自定义在下文呢的,不要过于绝对的说法;</p>
+<p><img src="/syy.github.io/img/math/006.jpg" alt=""><br>
+摘要的结果<br>
+<img src="/syy.github.io/img/math/007.jpg" alt=""></p>
+<h4 id="摘要的前言">摘要的前言</h4>
+<p><img src="/syy.github.io/img/math/008.jpg" alt=""></p>
+<h4 id="摘要的正文">摘要的正文</h4>
+<p>要分析问题多的部分时候分段<br>
+<img src="/syy.github.io/img/math/009.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/010.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/011.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/012.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/013.jpg" alt=""></p>
+<h4 id="摘要的结尾">摘要的结尾</h4>
+<p><img src="/syy.github.io/img/math/014.jpg" alt=""></p>
+<h3 id="关键词">关键词</h3>
+<p>3-6个,专业性,不要寓意重复</p>
+<h3 id="论文正文">论文正文</h3>
+<h4 id="问题重述">问题重述</h4>
+<p>改写的问题,声明问题的背景来源,列出必要的数据,概述任务的要解决的核心<br>
+<img src="/syy.github.io/img/math/015.jpg" alt=""><br>
+<br>内容不抄,扩充,串联,表达</p>
+<p>对于题目给出的数据,一定对数据内容和作用进行简要声明</p>
+<h4 id="问题的分析">问题的分析</h4>
+<p>从题目到模型的桥梁,<br>
+1.识别题目的已知的信息<br>
+2.明确问题<br>
+3.提出思路和方向<br>
+4.对问题的进一步理解</p>
+<blockquote>
+<p>注意事项:每一个问题要独立成段,差距,<br>
+要层层递进,不要比摘要简单,比模型复杂,<br>
+给出流程图<br>
+<img src="/syy.github.io/img/math/016.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/017.jpg" alt=""></p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
     <title>proteus下写汇编</title>
     <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
     <content><![CDATA[<blockquote>
@@ -516,11 +576,6 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
       </tags>
   </entry>
   <entry>
-    <title>分类</title>
-    <url>/syy.github.io/categories/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>个人介绍</title>
     <url>/syy.github.io/about/index.html</url>
     <content><![CDATA[<div style="text-align: center; padding: 40px 0;">
@@ -555,85 +610,14 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 ]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/syy.github.io/js/click_card.js</url>
-    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
-function linkAuthorCard() {
-    // 找到侧边栏作者卡片元素
-    var authorCard = document.querySelector('.card-author');
-    if (authorCard) {
-        // 修改鼠标样式为手型，提醒用户可以点击
-        authorCard.style.cursor = 'pointer';
-        // 绑定点击事件
-        authorCard.onclick = function() {
-            // 跳转到你的个人介绍页面（注意带上你的二级目录）
-            window.location.href = '/syy.github.io/about/';
-        };
-    }
-}
-
-// 确保页面加载完成后执行
-document.addEventListener('DOMContentLoaded', linkAuthorCard);
-// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
-document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
+    <title>分类</title>
+    <url>/syy.github.io/categories/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/syy.github.io/js/footer_beautify.js</url>
-    <content><![CDATA[/**
- * Hexo Butterfly 页脚美化脚本
- * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
- */
-
-var footerTimer; // 全局定时器变量
-
-function updateFooterStats() {
-    // --- 配置区域 ---
-    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
-    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
-    var voyagerBase = 24264952436; // 初始距离(千米)
-    var velocity = 17; // 模拟速度 (km/s)
-
-    var now = new Date();
-
-    // 1. 本站运行时间计算
-    var diff = now.getTime() - startTime.getTime();
-    var days = Math.floor(diff / (24 * 3600 * 1000));
-    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
-    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
-    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
-
-    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
-    var runtimeEl = document.getElementById("runtime-show");
-    if (runtimeEl) {
-        runtimeEl.innerHTML = runtimeText;
-    }
-
-    // 2. 旅行者 1 号距离计算
-    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
-    var currentDist = voyagerBase + (secondsPassed * velocity);
-    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
-
-    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
-    var voyagerEl = document.getElementById("voyager-show");
-    if (voyagerEl) {
-        voyagerEl.innerHTML = voyagerText;
-    }
-
-    // 3. 定时器处理
-    clearTimeout(footerTimer);
-    footerTimer = setTimeout(updateFooterStats, 1000);
-}
-
-// 首次加载初始化
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateFooterStats);
-} else {
-    updateFooterStats();
-}
-
-// 兼容 PJAX (当切换页面时重新触发)
-document.addEventListener('pjax:complete', updateFooterStats);]]></content>
+    <title>diary</title>
+    <url>/syy.github.io/diary/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title></title>
@@ -803,13 +787,89 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
 }]]></content>
   </entry>
   <entry>
-    <title>diary</title>
-    <url>/syy.github.io/diary/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>tag</title>
     <url>/syy.github.io/tags/index.html</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/click_card.js</url>
+    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
+function linkAuthorCard() {
+    // 找到侧边栏作者卡片元素
+    var authorCard = document.querySelector('.card-author');
+    if (authorCard) {
+        // 修改鼠标样式为手型，提醒用户可以点击
+        authorCard.style.cursor = 'pointer';
+        // 绑定点击事件
+        authorCard.onclick = function() {
+            // 跳转到你的个人介绍页面（注意带上你的二级目录）
+            window.location.href = '/syy.github.io/about/';
+        };
+    }
+}
+
+// 确保页面加载完成后执行
+document.addEventListener('DOMContentLoaded', linkAuthorCard);
+// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
+document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/footer_beautify.js</url>
+    <content><![CDATA[/**
+ * Hexo Butterfly 页脚美化脚本
+ * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
+ */
+
+var footerTimer; // 全局定时器变量
+
+function updateFooterStats() {
+    // --- 配置区域 ---
+    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
+    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
+    var voyagerBase = 24264952436; // 初始距离(千米)
+    var velocity = 17; // 模拟速度 (km/s)
+
+    var now = new Date();
+
+    // 1. 本站运行时间计算
+    var diff = now.getTime() - startTime.getTime();
+    var days = Math.floor(diff / (24 * 3600 * 1000));
+    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
+    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
+    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
+
+    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
+    var runtimeEl = document.getElementById("runtime-show");
+    if (runtimeEl) {
+        runtimeEl.innerHTML = runtimeText;
+    }
+
+    // 2. 旅行者 1 号距离计算
+    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
+    var currentDist = voyagerBase + (secondsPassed * velocity);
+    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
+
+    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
+    var voyagerEl = document.getElementById("voyager-show");
+    if (voyagerEl) {
+        voyagerEl.innerHTML = voyagerText;
+    }
+
+    // 3. 定时器处理
+    clearTimeout(footerTimer);
+    footerTimer = setTimeout(updateFooterStats, 1000);
+}
+
+// 首次加载初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateFooterStats);
+} else {
+    updateFooterStats();
+}
+
+// 兼容 PJAX (当切换页面时重新触发)
+document.addEventListener('pjax:complete', updateFooterStats);]]></content>
   </entry>
 </search>
