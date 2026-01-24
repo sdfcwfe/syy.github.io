@@ -38,10 +38,11 @@
 ]]></content>
   </entry>
   <entry>
-    <title>数模美赛</title>
+    <title>数模美赛的学习笔记</title>
     <url>/syy.github.io/2026/01/23/%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B/</url>
     <content><![CDATA[<h1>数模美赛</h1>
-<p>基于数学建模老哥和其他资料学习的笔记</p>
+<p>基于数学建模老哥和其他资料学习的笔记,<br>
+也可以参考一下我的思路,本人数模国赛c题省二,虽然不高;</p>
 <h2 id="1-基础思维">1.基础思维</h2>
 <h3 id="定义">定义</h3>
 <p>实际问题转成数学建模<br>
@@ -297,8 +298,8 @@ add_executable(MyApp main.cpp)</p>
 <p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
 ]]></content>
       <tags>
-        <tag>python</tag>
         <tag>解决实际问题</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -497,8 +498,8 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 <img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>理论学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -540,8 +541,8 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>嵌入式</tag>
         <tag>理论学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -579,6 +580,45 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
         <tag>理论学习</tag>
         <tag>专业课</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>个人介绍</title>
+    <url>/syy.github.io/about/index.html</url>
+    <content><![CDATA[<div style="text-align: center; padding: 40px 0;">
+  <img src="/syy.github.io/img/sss.gif" style="width:150px; height:150px; border-radius:50%; border: 4px solid #fda085; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.5s;" onmouseover="this.style.transform='rotate(360deg)'">
+  <h1 style="margin-top: 20px; font-family: 'Noto Serif SC', serif; font-weight: 900;">Zero One (零一)</h1>
+  <p style="font-size: 1.2rem; color: #fda085; font-style: italic;">“朝阳初升，代码不止；命里有时终须有，命里无时莫强求。”</p>
+</div>
+<div class="note blue icon-padding flat"><i class="note-icon fas fa-university"></i><p><strong>📍 坐标：</strong> GDUT | 大三在读<br>
+<strong>🎯 近期：</strong> 正在全力备考985，追求更高维度的学术殿堂, 有事请私聊。</p>
+</div>
+<h2 id="👨-💻-个人简介">👨‍💻 个人简介</h2>
+<p> 你好！我是 <strong>Zero One</strong>。一名沉浸在电子丛林与代码海洋中的探索者。</p>
+<p> 我来自GDUT，。我的主要设计是 <strong>嵌入式系统与单片机开发</strong>。享受那种通过底层代码控制硬件跳动的成就感，从 8 位机到 32 位高性能处理器，每一行汇编或 C 语言都是我与机器对话的桥梁。</p>
+<hr>
+<h2 id="🚀-技能树与兴趣">🚀 技能树与兴趣</h2>
+<p> 虽然我是电阻烧烤菜鸟，但我始终保持对前沿技术的“跨界”好奇心：</p>
+<h3 id="探索领域-interests"><strong>探索领域 (Interests)</strong></h3>
+<ul>
+<li><strong>图形交互</strong>：正在学习 <strong>LVGL</strong> 和 <strong>Qt</strong>，致力于打造美观且流畅的嵌入式 HMI, plc是个意外,我并不爱它。</li>
+<li><strong>前端美学</strong>：对现代前端开发（HTML/CSS/JS）有着浓厚兴趣，本博客的每一处细节微调都是我的实践场。</li>
+<li><strong>算法设计</strong>：备考研期间，正在重新构建更好知识体系。</li>
+</ul>
+<hr>
+<h2 id="📮-联络方式">📮 联络方式</h2>
+<p> 如果你也是嵌入式爱好者，或者二次元爱好者，欢迎交流：</p>
+<ul>
+<li><strong>GitHub:</strong> <a href="https://github.com/sdfcwfe">https://github.com/sdfcwfe</a></li>
+<li><strong>Email:</strong> <a href="mailto:3115989216@qq.com">3115989216@qq.com</a></li>
+<li><strong>主页:</strong> <a href="https://sdfcwfe.github.io/syy.github.io">https://sdfcwfe.github.io/syy.github.io</a></li>
+</ul>
+<hr>
+]]></content>
+  </entry>
+  <entry>
+    <title>diary</title>
+    <url>/syy.github.io/diary/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>分类</title>
@@ -753,16 +793,6 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
 }]]></content>
   </entry>
   <entry>
-    <title>tag</title>
-    <url>/syy.github.io/tags/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>diary</title>
-    <url>/syy.github.io/diary/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title></title>
     <url>/syy.github.io/js/click_card.js</url>
     <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
@@ -784,40 +814,6 @@ function linkAuthorCard() {
 document.addEventListener('DOMContentLoaded', linkAuthorCard);
 // 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
 document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
-  </entry>
-  <entry>
-    <title>个人介绍</title>
-    <url>/syy.github.io/about/index.html</url>
-    <content><![CDATA[<div style="text-align: center; padding: 40px 0;">
-  <img src="/syy.github.io/img/sss.gif" style="width:150px; height:150px; border-radius:50%; border: 4px solid #fda085; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.5s;" onmouseover="this.style.transform='rotate(360deg)'">
-  <h1 style="margin-top: 20px; font-family: 'Noto Serif SC', serif; font-weight: 900;">Zero One (零一)</h1>
-  <p style="font-size: 1.2rem; color: #fda085; font-style: italic;">“朝阳初升，代码不止；命里有时终须有，命里无时莫强求。”</p>
-</div>
-<div class="note blue icon-padding flat"><i class="note-icon fas fa-university"></i><p><strong>📍 坐标：</strong> GDUT | 大三在读<br>
-<strong>🎯 近期：</strong> 正在全力备考985，追求更高维度的学术殿堂, 有事请私聊。</p>
-</div>
-<h2 id="👨-💻-个人简介">👨‍💻 个人简介</h2>
-<p> 你好！我是 <strong>Zero One</strong>。一名沉浸在电子丛林与代码海洋中的探索者。</p>
-<p> 我来自GDUT，。我的主要设计是 <strong>嵌入式系统与单片机开发</strong>。享受那种通过底层代码控制硬件跳动的成就感，从 8 位机到 32 位高性能处理器，每一行汇编或 C 语言都是我与机器对话的桥梁。</p>
-<hr>
-<h2 id="🚀-技能树与兴趣">🚀 技能树与兴趣</h2>
-<p> 虽然我是电阻烧烤菜鸟，但我始终保持对前沿技术的“跨界”好奇心：</p>
-<h3 id="探索领域-interests"><strong>探索领域 (Interests)</strong></h3>
-<ul>
-<li><strong>图形交互</strong>：正在学习 <strong>LVGL</strong> 和 <strong>Qt</strong>，致力于打造美观且流畅的嵌入式 HMI, plc是个意外,我并不爱它。</li>
-<li><strong>前端美学</strong>：对现代前端开发（HTML/CSS/JS）有着浓厚兴趣，本博客的每一处细节微调都是我的实践场。</li>
-<li><strong>算法设计</strong>：备考研期间，正在重新构建更好知识体系。</li>
-</ul>
-<hr>
-<h2 id="📮-联络方式">📮 联络方式</h2>
-<p> 如果你也是嵌入式爱好者，或者二次元爱好者，欢迎交流：</p>
-<ul>
-<li><strong>GitHub:</strong> <a href="https://github.com/sdfcwfe">https://github.com/sdfcwfe</a></li>
-<li><strong>Email:</strong> <a href="mailto:3115989216@qq.com">3115989216@qq.com</a></li>
-<li><strong>主页:</strong> <a href="https://sdfcwfe.github.io/syy.github.io">https://sdfcwfe.github.io/syy.github.io</a></li>
-</ul>
-<hr>
-]]></content>
   </entry>
   <entry>
     <title></title>
@@ -876,5 +872,10 @@ if (document.readyState === 'loading') {
 
 // 兼容 PJAX (当切换页面时重新触发)
 document.addEventListener('pjax:complete', updateFooterStats);]]></content>
+  </entry>
+  <entry>
+    <title>tag</title>
+    <url>/syy.github.io/tags/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
