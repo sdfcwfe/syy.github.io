@@ -582,7 +582,7 @@ body:网络的主体,可直观看见的,存放用户看的代码,例如图片,�
 head和body同级<br>
 title:网络标题,是head必须包含的标签<br>
 !是快速生成基本骨架<br>
-meta:写给浏览器、搜索引擎和社交媒体看的“说明书”;<b>单标签</p>
+meta:写给浏览器、搜索引擎和社交媒体看的“说明书”;<b>单标签</b></p>
 <blockquote>
 <p>SEO 就是通过一系列技术手段和内容优化，让你的网站（博客）在百度、谷歌、必应等搜索引擎中排名更高、更容易被搜到。</p>
 </blockquote>
@@ -620,7 +620,7 @@ d:xxxxx,从盘符开始<br>
 啊中间可以是文本,图片</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;xxx&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span> = <span class="string">&quot;xxx&quot;</span>?</span></span><br><span class="line"><span class="tag">&lt;/<span class="attr">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="文本标签">文本标签</h3>
-<p><img src="syy.github.io/img/web/002.jpg" alt="文本标签"><br>
+<p><img src="/syy.github.io/img/web/002.jpg" alt="文本标签"><br>
 del:删除<br>
 em:加重,斜体<br>
 b:加粗<br>
@@ -746,11 +746,6 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
         <tag>理论学习</tag>
         <tag>专业课</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>diary</title>
-    <url>/syy.github.io/diary/index.html</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>个人介绍</title>
@@ -954,6 +949,16 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
 }]]></content>
   </entry>
   <entry>
+    <title>分类</title>
+    <url>/syy.github.io/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>diary</title>
+    <url>/syy.github.io/diary/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title></title>
     <url>/syy.github.io/js/click_card.js</url>
     <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
@@ -975,6 +980,11 @@ function linkAuthorCard() {
 document.addEventListener('DOMContentLoaded', linkAuthorCard);
 // 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
 document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
+  </entry>
+  <entry>
+    <title>tag</title>
+    <url>/syy.github.io/tags/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title></title>
@@ -1033,15 +1043,5 @@ if (document.readyState === 'loading') {
 
 // 兼容 PJAX (当切换页面时重新触发)
 document.addEventListener('pjax:complete', updateFooterStats);]]></content>
-  </entry>
-  <entry>
-    <title>分类</title>
-    <url>/syy.github.io/categories/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>tag</title>
-    <url>/syy.github.io/tags/index.html</url>
-    <content><![CDATA[]]></content>
   </entry>
 </search>
