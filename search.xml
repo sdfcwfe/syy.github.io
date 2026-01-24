@@ -137,20 +137,6 @@ add_executable(MyApp main.cpp)</p>
 ]]></content>
   </entry>
   <entry>
-    <title>freertos</title>
-    <url>/syy.github.io/2025/09/11/hello-world/</url>
-    <content><![CDATA[<h1>freertos002</h1>
-<p>测试中</p>
-<h2 id="1-硬件初始化">1.硬件初始化</h2>
-<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>c#</title>
     <url>/syy.github.io/2026/01/01/hash/</url>
     <content><![CDATA[<blockquote>
@@ -242,7 +228,67 @@ C# 中的类型转换可以分为两种：隐式类型转换和显式类型转�
 或者将一个对象类型转换为另一个对象类型时，<br>
 需要使用强制类型转换符号进行显示转换，强制转换会造成数据丢失。</p>
 <h3 id="c-的类型转换的方法2">c#的类型转换的方法2</h3>
-<p><img src="/syy.github.io/img/cjj/001.jpg" alt="111"></p>
+<p><img src="/syy.github.io/img/cjj/001.jpg" alt="111"><br>
+<img src="/syy.github.io/img/cjj/002.jpg" alt="111"><br>
+ 这些方法都定义在 System.Convert 类中，使用时需要包含 System 命名空间。<br>
+它们提供了一种安全的方式来执行类型转换，<br>
+因为它们可以处理 null值，并且会抛出异常，如果转换不可能进行。<br>
+例如，使用 Convert.ToInt32 方法将字符串转换为整数：</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> str = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"><span class="built_in">int</span> number = Convert.ToInt32(str); <span class="comment">// 转换成功，number为123</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>隐式转换只能将较小范围的数据类型转换为较大范围的数据类型，不能将较大范围的数据类型转换为较小范围的数据类型；<br>
+显式转换可能会导致数据丢失或精度降低，需要进行数据类型的兼容性检查；<br>
+对于对象类型的转换，需要进行类型转换的兼容性检查和类型转换的安全性检查。</p>
+</blockquote>
+<h3 id="其他类型转换">其他类型转换</h3>
+<p> C# 提供了多种类型转换方法，例如使用 Convert 类、 Parse 方法和 TryParse 方法，<br>
+这些方法可以帮助处理不同的数据类型之间的转换。<br>
+省</p>
+<h3 id="变量">变量</h3>
+<p>C# 中提供的基本的值类型大致可以分为以下几类：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整数类型</td>
+<td>sbyte、byte、short、ushort、int、uint、long、ulong 和 char</td>
+</tr>
+<tr>
+<td>浮点型</td>
+<td>float, double</td>
+</tr>
+<tr>
+<td>十进制类型</td>
+<td>decimal</td>
+</tr>
+<tr>
+<td>布尔类型</td>
+<td>true 或 false 值，指定的值</td>
+</tr>
+<tr>
+<td>空字符串</td>
+<td>string</td>
+</tr>
+<tr>
+<td>空类型</td>
+<td>可为空值的数据类型</td>
+</tr>
+</tbody>
+</table>
+<p>C# 允许定义其他值类型的变量，比如 enum，也允许定义引用类型变量，比如 class。<br>
+在本章节中，我们只研究基本变量类型。</p>
+<h4 id="定义变量">定义变量</h4>
+<p>同c, cpp;<br>
+例子:</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">VariableDefinition</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">short</span> a;</span><br><span class="line">            <span class="built_in">int</span> b ;</span><br><span class="line">            <span class="built_in">double</span> c;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* 实际初始化 */</span></span><br><span class="line">            a = <span class="number">10</span>;</span><br><span class="line">            b = <span class="number">20</span>;</span><br><span class="line">            c = a + b;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;a = &#123;0&#125;, b = &#123;1&#125;, c = &#123;2&#125;&quot;</span>, a, b, c);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="接受来自用户的值">接受来自用户的值</h3>
+<p><strong>System 命名空间中的 Console 类提供了一个函数 ReadLine()，用于接收来自用户的输入，并把它存储到一个变量中。</strong></p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">int</span> num;</span><br><span class="line">num = Convert.ToInt32(Console.ReadLine());</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>语言</category>
@@ -253,48 +299,17 @@ C# 中的类型转换可以分为两种：隐式类型转换和显式类型转�
       </tags>
   </entry>
   <entry>
-    <title>proteus下写汇编</title>
-    <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<blockquote>
-<p>微机大作业时候,在想可以不靠keil实现proteus</p>
-</blockquote>
-<style>
-  /* 修改正文字体大小和字体 */
-  .post-content {
-    font-size: 20px !important; /* 你想要的大小 */
-    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
-    line-height: 2.0 !important; /* 行间距 */
-  }
-
-  /*!* 如果你也想改这篇博客的标题大小 *!*/
-  /*.post-content h1, .post-content h2, .post-content h3 {*/
-  /*  font-family: 'Microsoft YaHei' !important;*/
-  /*  color: #fda085 !important;*/
-  /*}*/
-</style>
-<h1>如何在proteus下汇编</h1>
-<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
-<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
-2.放置主控芯片如at89c52,后点击source code的图标<br>
-<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
-3.点击vsm后再点击project创建新工程<br>
-<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
-4.取消勾选项<br>
-<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
-5.选择project的project settings，取消勾选嵌入式文件<br>
-<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
-6.选择project的add new file，创建对应汇编文件<br>
-<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
-7.然后就可以在上面编程了<br>
-<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
+    <title>freertos</title>
+    <url>/syy.github.io/2025/09/11/hello-world/</url>
+    <content><![CDATA[<h1>freertos002</h1>
+<p>测试中</p>
+<h2 id="1-硬件初始化">1.硬件初始化</h2>
+<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
-      <categories>
-        <category>应用</category>
-      </categories>
       <tags>
+        <tag>理论学习</tag>
         <tag>嵌入式</tag>
-        <tag>解决实际问题</tag>
-        <tag>汇编</tag>
       </tags>
   </entry>
   <entry>
@@ -332,26 +347,6 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
       <tags>
         <tag>理论学习</tag>
         <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
-    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
-    <content><![CDATA[<blockquote>
-<p>写大作业遇到的问题有感,天生无才</p>
-</blockquote>
-<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
-发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
-<p>调查的时候,在终端调用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
-<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
-<h2 id="解决方法">解决方法</h2>
-<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
-<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
-]]></content>
-      <tags>
-        <tag>解决实际问题</tag>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -486,6 +481,51 @@ meta:写给浏览器、搜索引擎和社交媒体看的“说明书”;<b>单�
       </tags>
   </entry>
   <entry>
+    <title>proteus下写汇编</title>
+    <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<blockquote>
+<p>微机大作业时候,在想可以不靠keil实现proteus</p>
+</blockquote>
+<style>
+  /* 修改正文字体大小和字体 */
+  .post-content {
+    font-size: 20px !important; /* 你想要的大小 */
+    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
+    line-height: 2.0 !important; /* 行间距 */
+  }
+
+  /*!* 如果你也想改这篇博客的标题大小 *!*/
+  /*.post-content h1, .post-content h2, .post-content h3 {*/
+  /*  font-family: 'Microsoft YaHei' !important;*/
+  /*  color: #fda085 !important;*/
+  /*}*/
+</style>
+<h1>如何在proteus下汇编</h1>
+<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
+<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
+2.放置主控芯片如at89c52,后点击source code的图标<br>
+<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
+3.点击vsm后再点击project创建新工程<br>
+<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
+4.取消勾选项<br>
+<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
+5.选择project的project settings，取消勾选嵌入式文件<br>
+<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
+6.选择project的add new file，创建对应汇编文件<br>
+<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
+7.然后就可以在上面编程了<br>
+<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>应用</category>
+      </categories>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>解决实际问题</tag>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>信号与系统</title>
     <url>/syy.github.io/2025/09/08/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<!--
@@ -519,6 +559,26 @@ meta:写给浏览器、搜索引擎和社交媒体看的“说明书”;<b>单�
       <tags>
         <tag>理论学习</tag>
         <tag>专业课</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
+    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
+    <content><![CDATA[<blockquote>
+<p>写大作业遇到的问题有感,天生无才</p>
+</blockquote>
+<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
+发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
+<p>调查的时候,在终端调用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
+<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
+<h2 id="解决方法">解决方法</h2>
+<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
+<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
+]]></content>
+      <tags>
+        <tag>解决实际问题</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -649,40 +709,6 @@ $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><
         <tag>理论学习</tag>
         <tag>路径规划</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>个人介绍</title>
-    <url>/syy.github.io/about/index.html</url>
-    <content><![CDATA[<div style="text-align: center; padding: 40px 0;">
-  <img src="/syy.github.io/img/sss.gif" style="width:150px; height:150px; border-radius:50%; border: 4px solid #fda085; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.5s;" onmouseover="this.style.transform='rotate(360deg)'">
-  <h1 style="margin-top: 20px; font-family: 'Noto Serif SC', serif; font-weight: 900;">Zero One (零一)</h1>
-  <p style="font-size: 1.2rem; color: #fda085; font-style: italic;">“朝阳初升，代码不止；命里有时终须有，命里无时莫强求。”</p>
-</div>
-<div class="note blue icon-padding flat"><i class="note-icon fas fa-university"></i><p><strong>📍 坐标：</strong> GDUT | 大三在读<br>
-<strong>🎯 近期：</strong> 正在全力备考985，追求更高维度的学术殿堂, 有事请私聊。</p>
-</div>
-<h2 id="👨-💻-个人简介">👨‍💻 个人简介</h2>
-<p> 你好！我是 <strong>Zero One</strong>。一名沉浸在电子丛林与代码海洋中的探索者。</p>
-<p> 我来自GDUT，。我的主要设计是 <strong>嵌入式系统与单片机开发</strong>。享受那种通过底层代码控制硬件跳动的成就感，从 8 位机到 32 位高性能处理器，每一行汇编或 C 语言都是我与机器对话的桥梁。</p>
-<hr>
-<h2 id="🚀-技能树与兴趣">🚀 技能树与兴趣</h2>
-<p> 虽然我是电阻烧烤菜鸟，但我始终保持对前沿技术的“跨界”好奇心：</p>
-<h3 id="探索领域-interests"><strong>探索领域 (Interests)</strong></h3>
-<ul>
-<li><strong>图形交互</strong>：正在学习 <strong>LVGL</strong> 和 <strong>Qt</strong>，致力于打造美观且流畅的嵌入式 HMI, plc是个意外,我并不爱它。</li>
-<li><strong>前端美学</strong>：对现代前端开发（HTML/CSS/JS）有着浓厚兴趣，本博客的每一处细节微调都是我的实践场。</li>
-<li><strong>算法设计</strong>：备考研期间，正在重新构建更好知识体系。</li>
-</ul>
-<hr>
-<h2 id="📮-联络方式">📮 联络方式</h2>
-<p> 如果你也是嵌入式爱好者，或者二次元爱好者，欢迎交流：</p>
-<ul>
-<li><strong>GitHub:</strong> <a href="https://github.com/sdfcwfe">https://github.com/sdfcwfe</a></li>
-<li><strong>Email:</strong> <a href="mailto:3115989216@qq.com">3115989216@qq.com</a></li>
-<li><strong>主页:</strong> <a href="https://sdfcwfe.github.io/syy.github.io">https://sdfcwfe.github.io/syy.github.io</a></li>
-</ul>
-<hr>
-]]></content>
   </entry>
   <entry>
     <title>分类</title>
@@ -857,11 +883,6 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
 }]]></content>
   </entry>
   <entry>
-    <title>diary</title>
-    <url>/syy.github.io/diary/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title></title>
     <url>/syy.github.io/js/click_card.js</url>
     <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
@@ -883,6 +904,11 @@ function linkAuthorCard() {
 document.addEventListener('DOMContentLoaded', linkAuthorCard);
 // 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
 document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
+  </entry>
+  <entry>
+    <title>diary</title>
+    <url>/syy.github.io/diary/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title></title>
@@ -946,5 +972,39 @@ document.addEventListener('pjax:complete', updateFooterStats);]]></content>
     <title>tag</title>
     <url>/syy.github.io/tags/index.html</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>个人介绍</title>
+    <url>/syy.github.io/about/index.html</url>
+    <content><![CDATA[<div style="text-align: center; padding: 40px 0;">
+  <img src="/syy.github.io/img/sss.gif" style="width:150px; height:150px; border-radius:50%; border: 4px solid #fda085; box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.5s;" onmouseover="this.style.transform='rotate(360deg)'">
+  <h1 style="margin-top: 20px; font-family: 'Noto Serif SC', serif; font-weight: 900;">Zero One (零一)</h1>
+  <p style="font-size: 1.2rem; color: #fda085; font-style: italic;">“朝阳初升，代码不止；命里有时终须有，命里无时莫强求。”</p>
+</div>
+<div class="note blue icon-padding flat"><i class="note-icon fas fa-university"></i><p><strong>📍 坐标：</strong> GDUT | 大三在读<br>
+<strong>🎯 近期：</strong> 正在全力备考985，追求更高维度的学术殿堂, 有事请私聊。</p>
+</div>
+<h2 id="👨-💻-个人简介">👨‍💻 个人简介</h2>
+<p> 你好！我是 <strong>Zero One</strong>。一名沉浸在电子丛林与代码海洋中的探索者。</p>
+<p> 我来自GDUT，。我的主要设计是 <strong>嵌入式系统与单片机开发</strong>。享受那种通过底层代码控制硬件跳动的成就感，从 8 位机到 32 位高性能处理器，每一行汇编或 C 语言都是我与机器对话的桥梁。</p>
+<hr>
+<h2 id="🚀-技能树与兴趣">🚀 技能树与兴趣</h2>
+<p> 虽然我是电阻烧烤菜鸟，但我始终保持对前沿技术的“跨界”好奇心：</p>
+<h3 id="探索领域-interests"><strong>探索领域 (Interests)</strong></h3>
+<ul>
+<li><strong>图形交互</strong>：正在学习 <strong>LVGL</strong> 和 <strong>Qt</strong>，致力于打造美观且流畅的嵌入式 HMI, plc是个意外,我并不爱它。</li>
+<li><strong>前端美学</strong>：对现代前端开发（HTML/CSS/JS）有着浓厚兴趣，本博客的每一处细节微调都是我的实践场。</li>
+<li><strong>算法设计</strong>：备考研期间，正在重新构建更好知识体系。</li>
+</ul>
+<hr>
+<h2 id="📮-联络方式">📮 联络方式</h2>
+<p> 如果你也是嵌入式爱好者，或者二次元爱好者，欢迎交流：</p>
+<ul>
+<li><strong>GitHub:</strong> <a href="https://github.com/sdfcwfe">https://github.com/sdfcwfe</a></li>
+<li><strong>Email:</strong> <a href="mailto:3115989216@qq.com">3115989216@qq.com</a></li>
+<li><strong>主页:</strong> <a href="https://sdfcwfe.github.io/syy.github.io">https://sdfcwfe.github.io/syy.github.io</a></li>
+</ul>
+<hr>
+]]></content>
   </entry>
 </search>
