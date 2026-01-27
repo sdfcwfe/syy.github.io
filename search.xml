@@ -92,7 +92,18 @@ cin是输入流,找到打字找到存入文件,输入流就是把这个下到这
 <p>string不能直接转成字符数组,只能转const char[]</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string ssss = <span class="string">&quot;hello&quot;</span>;          <span class="comment">// 定义string对象</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* const_p = ssss.<span class="built_in">c_str</span>();  <span class="comment">// 正确：获取只读的C风格字符串</span></span><br><span class="line">    <span class="type">char</span>* p = (<span class="type">char</span>*)ssss.<span class="built_in">c_str</span>();  <span class="comment">// 你问的代码：强制转换为可写的char*</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="sstream字符串流">sstream字符串流</h2>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">string src<span class="string">&quot;hello 123 3.4 T&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function">istringstream <span class="title">is</span><span class="params">(src)</span></span>; <span class="comment">//建立字符串的输入流</span></span><br><span class="line"></span><br><span class="line">string s1;</span><br><span class="line"><span class="type">int</span> a;</span><br><span class="line"><span class="type">double</span> b;</span><br><span class="line"><span class="type">char</span> c;</span><br><span class="line">is &gt;&gt; s1 &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>把字符串当作 “输入 / 输出流” 来处理<br>
+（类似 cin/cout 处理控制台输入输出），实现「字符串 ↔ 各种数据类型」的便捷转换 / 解析。<br>
+istringstream：字符串输入流 → 从字符串中读取数据（解析字符串）；<br>
+ostringstream：字符串输出流 → 把各种类型数据写入字符串（拼接 / 格式化字符串）；<br>
+stringstream：双向流 → 既可读又可写。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span>  <span class="comment">// 必须包含字符串流头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 错误1：src后少了等号 → string src = &quot;hello 123 3.4 T&quot;;</span></span><br><span class="line">    string src = <span class="string">&quot;hello 123 3.4 T&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function">istringstream <span class="title">is</span><span class="params">(src)</span></span>; <span class="comment">// 建立字符串的输入流</span></span><br><span class="line">    </span><br><span class="line">    string s1;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">double</span> b;</span><br><span class="line">    <span class="type">char</span> c;</span><br><span class="line">    <span class="comment">// 按空格分隔，依次读取到对应类型的变量中</span></span><br><span class="line">    is &gt;&gt; s1 &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印结果，验证解析是否成功</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;s1: &quot;</span> &lt;&lt; s1 &lt;&lt; endl;  <span class="comment">// hello</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; endl;    <span class="comment">// 123</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;b: &quot;</span> &lt;&lt; b &lt;&lt; endl;    <span class="comment">// 3.4</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;c: &quot;</span> &lt;&lt; c &lt;&lt; endl;    <span class="comment">// T</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="for-each">for each</h2>
+<p>for的增强版,专门用来遍历,</p>
+<h3 id="格式">格式</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line"><span class="comment">// 待输出的变量,用来装遍历的元素;</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> x : arr)&#123;<span class="comment">//待遍历的序列,不一定是数组</span></span><br><span class="line">    cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="auto">auto</h2>
+<p>c++ 新引进的,自适应类型关键字 var let</p>
 <h1>定时器</h1>
 <h2 id="实现方式">实现方式</h2>
 <p>前后端均有;<br>
@@ -264,9 +275,9 @@ cin是输入流,找到打字找到存入文件,输入流就是把这个下到这
         <category>应用</category>
       </categories>
       <tags>
-        <tag>嵌入式</tag>
         <tag>解决实际问题</tag>
         <tag>汇编</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -918,9 +929,67 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 ]]></content>
   </entry>
   <entry>
-    <title>分类</title>
-    <url>/syy.github.io/categories/index.html</url>
+    <title>diary</title>
+    <url>/syy.github.io/diary/index.html</url>
     <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/footer_beautify.js</url>
+    <content><![CDATA[/**
+ * Hexo Butterfly 页脚美化脚本
+ * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
+ */
+
+var footerTimer; // 全局定时器变量
+
+function updateFooterStats() {
+    // --- 配置区域 ---
+    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
+    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
+    var voyagerBase = 24264952436; // 初始距离(千米)
+    var velocity = 17; // 模拟速度 (km/s)
+
+    var now = new Date();
+
+    // 1. 本站运行时间计算
+    var diff = now.getTime() - startTime.getTime();
+    var days = Math.floor(diff / (24 * 3600 * 1000));
+    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
+    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
+    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
+
+    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
+    var runtimeEl = document.getElementById("runtime-show");
+    if (runtimeEl) {
+        runtimeEl.innerHTML = runtimeText;
+    }
+
+    // 2. 旅行者 1 号距离计算
+    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
+    var currentDist = voyagerBase + (secondsPassed * velocity);
+    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
+
+    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
+    var voyagerEl = document.getElementById("voyager-show");
+    if (voyagerEl) {
+        voyagerEl.innerHTML = voyagerText;
+    }
+
+    // 3. 定时器处理
+    clearTimeout(footerTimer);
+    footerTimer = setTimeout(updateFooterStats, 1000);
+}
+
+// 首次加载初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateFooterStats);
+} else {
+    updateFooterStats();
+}
+
+// 兼容 PJAX (当切换页面时重新触发)
+document.addEventListener('pjax:complete', updateFooterStats);]]></content>
   </entry>
   <entry>
     <title></title>
@@ -1090,6 +1159,16 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
 }]]></content>
   </entry>
   <entry>
+    <title>分类</title>
+    <url>/syy.github.io/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>tag</title>
+    <url>/syy.github.io/tags/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title></title>
     <url>/syy.github.io/js/click_card.js</url>
     <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
@@ -1111,73 +1190,5 @@ function linkAuthorCard() {
 document.addEventListener('DOMContentLoaded', linkAuthorCard);
 // 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
 document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
-  </entry>
-  <entry>
-    <title>diary</title>
-    <url>/syy.github.io/diary/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/syy.github.io/js/footer_beautify.js</url>
-    <content><![CDATA[/**
- * Hexo Butterfly 页脚美化脚本
- * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
- */
-
-var footerTimer; // 全局定时器变量
-
-function updateFooterStats() {
-    // --- 配置区域 ---
-    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
-    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
-    var voyagerBase = 24264952436; // 初始距离(千米)
-    var velocity = 17; // 模拟速度 (km/s)
-
-    var now = new Date();
-
-    // 1. 本站运行时间计算
-    var diff = now.getTime() - startTime.getTime();
-    var days = Math.floor(diff / (24 * 3600 * 1000));
-    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
-    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
-    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
-
-    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
-    var runtimeEl = document.getElementById("runtime-show");
-    if (runtimeEl) {
-        runtimeEl.innerHTML = runtimeText;
-    }
-
-    // 2. 旅行者 1 号距离计算
-    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
-    var currentDist = voyagerBase + (secondsPassed * velocity);
-    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
-
-    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
-    var voyagerEl = document.getElementById("voyager-show");
-    if (voyagerEl) {
-        voyagerEl.innerHTML = voyagerText;
-    }
-
-    // 3. 定时器处理
-    clearTimeout(footerTimer);
-    footerTimer = setTimeout(updateFooterStats, 1000);
-}
-
-// 首次加载初始化
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateFooterStats);
-} else {
-    updateFooterStats();
-}
-
-// 兼容 PJAX (当切换页面时重新触发)
-document.addEventListener('pjax:complete', updateFooterStats);]]></content>
-  </entry>
-  <entry>
-    <title>tag</title>
-    <url>/syy.github.io/tags/index.html</url>
-    <content><![CDATA[]]></content>
   </entry>
 </search>
