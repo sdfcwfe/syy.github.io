@@ -1,17 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>freertos</title>
-    <url>/syy.github.io/2025/09/11/hello-world/</url>
-    <content><![CDATA[<h1>freertos002</h1>
-<p>测试中</p>
-<h2 id="1-硬件初始化">1.硬件初始化</h2>
-<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <title>cpp</title>
+    <url>/syy.github.io/2026/01/27/cpp-linux/</url>
+    <content><![CDATA[<h1>定时器</h1>
+<h2 id="实现方式">实现方式</h2>
+<p>前后端均有;<br>
+组织的方式:<br>
+1.时间序(时间排序)<br>
+ 红黑树-nginx<br>
+ 最小堆-go,libev…<br>
+2.执行序<br>
+ 时间轮-netty,skynet,内核,kafka</p>
+<p>应用方式:<br>
+1,单线程<br>
+2.多线程</p>
+<h2 id="与其他模块的关系">与其他模块的关系</h2>
+<p>通常会与网络模块协同处理,异步<br>
+基于事件驱动业务的开展<br>
+除了协同网络处理,复用系统调用</p>
+<h2 id="定时器的基础接口设计">定时器的基础接口设计</h2>
+<p>1,最近触发的定时任务离当前还要多久-协同处理网络事件</p>
+<ul>2.获取当前时间的接口
+<li>steady_clock--系统启动到当前的时间,也可以计算程序运行时间</li>
+<li>system_clock--时间戳,可以修改的</li>
+<li>high_resolution_clcok--高精度的steady_clock,效率低</li>
+</ul>
+## 参考代码
+<details>
+<summary style="color: #f6d365; cursor: pointer;">展开查看代码</summary>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;sys/epoll.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;   // 提供close、read等函数</span><br><span class="line">#include &lt;stdio.h&gt;    // 提供printf、perror</span><br><span class="line">#include &lt;errno.h&gt;    // 提供错误码errno</span><br><span class="line">#include &lt;fcntl.h&gt;    // 提供fcntl（设置非阻塞）</span><br><span class="line">#include &lt;string.h&gt;   // 提供memset、strlen</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    // 1. 创建epoll实例 + 错误处理</span><br><span class="line">    int epfd = epoll_create(1);</span><br><span class="line">    if (epfd == -1) &#123;</span><br><span class="line">        perror(&quot;epoll_create failed&quot;);  // 打印错误原因</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 2. 准备要监听的文件描述符：这里选标准输入（fd=0）</span><br><span class="line">    int listen_fd = 0;  // stdin的文件描述符固定为0</span><br><span class="line">    // 设置标准输入为非阻塞（epoll常用模式，避免read阻塞）</span><br><span class="line">    int flags = fcntl(listen_fd, F_GETFL);</span><br><span class="line">    fcntl(listen_fd, F_SETFL, flags | O_NONBLOCK);</span><br><span class="line"></span><br><span class="line">    // 3. 注册事件到epoll实例：监听标准输入的&quot;可读事件（EPOLLIN）&quot;</span><br><span class="line">    epoll_event reg_ev;</span><br><span class="line">    reg_ev.events = EPOLLIN;  // 监听&quot;可读&quot;事件</span><br><span class="line">    reg_ev.data.fd = listen_fd;  // 绑定文件描述符，方便后续识别</span><br><span class="line">    if (epoll_ctl(epfd, EPOLL_CTL_ADD, listen_fd, &amp;reg_ev) == -1) &#123;</span><br><span class="line">        perror(&quot;epoll_ctl add failed&quot;);</span><br><span class="line">        close(epfd);  // 失败时先关闭epfd，避免泄漏</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 4. 定义接收就绪事件的数组</span><br><span class="line">    epoll_event ev[64] = &#123;0&#125;;</span><br><span class="line">    printf(&quot;等待键盘输入（输入q退出）...\n&quot;);</span><br><span class="line"></span><br><span class="line">    // 5. 循环监听事件</span><br><span class="line">    while (true) &#123;</span><br><span class="line">        // 阻塞等待事件（-1=永久阻塞）</span><br><span class="line">        int n = epoll_wait(epfd, ev, 64, -1);</span><br><span class="line">        if (n == -1) &#123;</span><br><span class="line">            perror(&quot;epoll_wait failed&quot;);</span><br><span class="line">            break;  // 出错时退出循环</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 6. 遍历所有就绪事件并处理</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            // 只处理&quot;可读事件&quot;（这里仅监听了EPOLLIN）</span><br><span class="line">            if (ev[i].events &amp; EPOLLIN) &#123;</span><br><span class="line">                char buf[1024] = &#123;0&#125;;</span><br><span class="line">                // 读取标准输入的内容（非阻塞，无数据时read返回-1）</span><br><span class="line">                ssize_t len = read(ev[i].data.fd, buf, sizeof(buf)-1);</span><br><span class="line">                if (len &gt; 0) &#123;</span><br><span class="line">                    printf(&quot;收到输入：%s&quot;, buf);</span><br><span class="line">                    // 输入q则退出程序</span><br><span class="line">                    if (strstr(buf, &quot;q&quot;) != NULL) &#123;</span><br><span class="line">                        printf(&quot;退出程序...\n&quot;);</span><br><span class="line">                        goto exit_loop;  // 跳转到释放资源的逻辑</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else if (len == 0) &#123;</span><br><span class="line">                    printf(&quot;输入流关闭\n&quot;);</span><br><span class="line">                    goto exit_loop;</span><br><span class="line">                &#125; else if (errno != EAGAIN) &#123;  // EAGAIN是&quot;无数据&quot;，非错误</span><br><span class="line">                    perror(&quot;read failed&quot;);</span><br><span class="line">                    goto exit_loop;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">exit_loop:</span><br><span class="line">    // 7. 释放资源：关闭epoll实例和监听的fd</span><br><span class="line">    close(listen_fd);</span><br><span class="line">    close(epfd);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
 ]]></content>
+      <categories>
+        <category>理论</category>
+      </categories>
       <tags>
-        <tag>嵌入式</tag>
         <tag>理论学习</tag>
+        <tag>cpp</tag>
       </tags>
   </entry>
   <entry>
@@ -114,6 +140,32 @@ add_executable(MyApp main.cpp)</p>
       </tags>
   </entry>
   <entry>
+    <title>cpp项目之线程池</title>
+    <url>/syy.github.io/2026/01/27/cpp%E9%A1%B9%E7%9B%AE%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
+    <content><![CDATA[<h1>线程池</h1>
+<p>是一个池性结构,临时创建来管理数据,再删除是比较麻烦的,<br>
+所用线程池管理和维持固定数量的</p>
+<h2 id="原理">原理</h2>
+<p>预创建线程：程序启动时，就创建一批固定或可动态调整数量的线程，让它们处于空闲等待状态。<br>
+任务队列缓冲：所有待执行的任务会被放入一个线程安全的队列中。<br>
+线程复用：空闲线程会主动从任务队列中取出任务执行，任务完成后不会立即销毁，而是回到池中继续等待下一个任务。<br>
+动态调度：部分线程池可以根据任务负载动态增减线程数量，在低负载时释放资源，高负载时扩容。</p>
+<h2 id="作用">作用</h2>
+<p>1.某类任务特别耗时,问题,丢给其他线程<br>
+2.并行作用</p>
+<h2 id="耗时操作">耗时操作</h2>
+<p>1.耗时等待<br>
+2.耗时计算</p>
+]]></content>
+      <categories>
+        <category>应用</category>
+      </categories>
+      <tags>
+        <tag>cpp</tag>
+        <tag>应用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>友链</title>
     <url>/syy.github.io/2025/09/13/friend-blog/</url>
     <content><![CDATA[<style>
@@ -149,97 +201,6 @@ add_executable(MyApp main.cpp)</p>
 </div>
 <p><img src="/syy.github.io/img/s010.jpeg" alt=""></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>proteus下写汇编</title>
-    <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<blockquote>
-<p>微机大作业时候,在想可以不靠keil实现proteus</p>
-</blockquote>
-<style>
-  /* 修改正文字体大小和字体 */
-  .post-content {
-    font-size: 20px !important; /* 你想要的大小 */
-    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
-    line-height: 2.0 !important; /* 行间距 */
-  }
-
-  /*!* 如果你也想改这篇博客的标题大小 *!*/
-  /*.post-content h1, .post-content h2, .post-content h3 {*/
-  /*  font-family: 'Microsoft YaHei' !important;*/
-  /*  color: #fda085 !important;*/
-  /*}*/
-</style>
-<h1>如何在proteus下汇编</h1>
-<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
-<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
-2.放置主控芯片如at89c52,后点击source code的图标<br>
-<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
-3.点击vsm后再点击project创建新工程<br>
-<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
-4.取消勾选项<br>
-<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
-5.选择project的project settings，取消勾选嵌入式文件<br>
-<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
-6.选择project的add new file，创建对应汇编文件<br>
-<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
-7.然后就可以在上面编程了<br>
-<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>应用</category>
-      </categories>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>解决实际问题</tag>
-        <tag>汇编</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cpp</title>
-    <url>/syy.github.io/2026/01/27/cpp-linux/</url>
-    <content><![CDATA[<h1>定时器</h1>
-<h2 id="实现方式">实现方式</h2>
-<p>前后端均有;<br>
-组织的方式:<br>
-1.时间序(时间排序)<br>
- 红黑树-nginx<br>
- 最小堆-go,libev…<br>
-2.执行序<br>
- 时间轮-netty,skynet,内核,kafka</p>
-<p>应用方式:<br>
-1,单线程<br>
-2.多线程</p>
-<h2 id="与其他模块的关系">与其他模块的关系</h2>
-<p>通常会与网络模块协同处理,异步</p>
-]]></content>
-      <categories>
-        <category>理论</category>
-      </categories>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>cpp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
-    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
-    <content><![CDATA[<blockquote>
-<p>写大作业遇到的问题有感,天生无才</p>
-</blockquote>
-<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
-发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
-<p>调查的时候,在终端调用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
-<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
-<h2 id="解决方法">解决方法</h2>
-<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
-<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
-]]></content>
-      <tags>
-        <tag>解决实际问题</tag>
-        <tag>python</tag>
-      </tags>
   </entry>
   <entry>
     <title>c#的学习001</title>
@@ -410,6 +371,122 @@ C# 中的类型转换可以分为两种：隐式类型转换和显式类型转�
       <tags>
         <tag>理论学习</tag>
         <tag>c#</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>proteus下写汇编</title>
+    <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<blockquote>
+<p>微机大作业时候,在想可以不靠keil实现proteus</p>
+</blockquote>
+<style>
+  /* 修改正文字体大小和字体 */
+  .post-content {
+    font-size: 20px !important; /* 你想要的大小 */
+    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
+    line-height: 2.0 !important; /* 行间距 */
+  }
+
+  /*!* 如果你也想改这篇博客的标题大小 *!*/
+  /*.post-content h1, .post-content h2, .post-content h3 {*/
+  /*  font-family: 'Microsoft YaHei' !important;*/
+  /*  color: #fda085 !important;*/
+  /*}*/
+</style>
+<h1>如何在proteus下汇编</h1>
+<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
+<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
+2.放置主控芯片如at89c52,后点击source code的图标<br>
+<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
+3.点击vsm后再点击project创建新工程<br>
+<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
+4.取消勾选项<br>
+<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
+5.选择project的project settings，取消勾选嵌入式文件<br>
+<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
+6.选择project的add new file，创建对应汇编文件<br>
+<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
+7.然后就可以在上面编程了<br>
+<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>应用</category>
+      </categories>
+      <tags>
+        <tag>解决实际问题</tag>
+        <tag>汇编</tag>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>freertos</title>
+    <url>/syy.github.io/2025/09/11/hello-world/</url>
+    <content><![CDATA[<h1>freertos002</h1>
+<p>测试中</p>
+<h2 id="1-硬件初始化">1.硬件初始化</h2>
+<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
+    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
+    <content><![CDATA[<blockquote>
+<p>写大作业遇到的问题有感,天生无才</p>
+</blockquote>
+<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
+发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
+<p>调查的时候,在终端调用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
+<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
+<h2 id="解决方法">解决方法</h2>
+<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
+<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
+]]></content>
+      <tags>
+        <tag>解决实际问题</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读原理图</title>
+    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
+    <content><![CDATA[<h1>硬件</h1>
+<blockquote>
+<p>study for schematic diagram</p>
+</blockquote>
+<h2 id="gpio">GPIO</h2>
+<!-- 
+    ![111](/syy.github.io/img/img.jpg) 
+-->
+<p>输出引脚{高点平:1;低电平:0;} ,用万用表读取高低电平;</p>
+<p>怎么用:<br>
+1.配置引脚功能;<br>
+2.输出引脚,写值到某个寄存器里面去;</p>
+<p>GPIO:通用输出外设<br>
+<img src="/syy.github.io/img/st001.jpg" alt="三极管"><br>
+上拉电阻:对于输入引脚,可以用输入电平;</p>
+<h2 id="与门-或门等门电路">与门,或门等门电路</h2>
+<p>非门: B != A;<br>
+与门: B = A1 &amp; A2;<br>
+或门: B = A1 || A2;<br>
+或非门: $ B = \neg(A1 &amp; A2) $<br>
+与非门: $ B = \neg(A1 \lor A2) $</p>
+<h2 id="协议类">协议类</h2>
+<h3 id="串口">串口</h3>
+<p>(1)UART 串口<br>
+2440开发板与pc机通信;一条线,输出引脚;<br>
+TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
+(电平转换芯片:电压不一样,来转接)<br>
+<img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -589,6 +666,74 @@ none:无;<br>
       </tags>
   </entry>
   <entry>
+    <title>信号与系统</title>
+    <url>/syy.github.io/2025/09/08/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<!--
+![美女压图](/img/002.jpg)
+-->
+<h1>信号与系统001</h1>
+<p>目前还是测试的,具体内容往后再看看;</p>
+<h2 id="卷积">卷积</h2>
+<h3 id="卷积的性质">卷积的性质</h3>
+<ul>
+<li>1.分配律</li>
+<li>2.交换律</li>
+<li>3.两个信号卷积后的微分，等于其中一个信号的微分与另一个信号的卷积</li>
+<li>4.<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ h(t+t_0) * x(t…'>\( h(t+t_0) * x(t-t_0) = h(t) * x(t) \)</span></li>
+<li>LTI 系统稳定的充要条件是<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></msubsup><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi><mtext> </mtext><mi>d</mi><mi>t</mi><mo>&lt;</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\int_{-\infty}^{+\infty} |h(t)| \, dt &lt; +\infty 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.491512em;vertical-align:-0.970281em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5212310000000002em;"><span style="top:-1.7880500000000001em;margin-left:-0.44445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.8129000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.970281em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mclose">)</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span></span></p>
+或<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munderover><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">[</mo><mi>k</mi><mo stretchy="false">]</mo><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\sum_{k=-\infty}^{+\infty} |h[k]| &lt; +\infty 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.11878em;vertical-align:-1.360444em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7583360000000003em;"><span style="top:-1.8478869999999998em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.360444em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathdefault">h</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span></span></p>
+</li>
+</ul>
+<h3 id="lti系统的因果充要条件">LTI系统的因果充要条件</h3>
+<ul>
+<li>h(t)=0,当t&lt;0时,或者h[n]=0,当n&lt;0时</li>
+<li>因果的定义：输出 <span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ y(t) \)'>\( y(t) \)</span>在 $( t_0 ) $时刻的 <span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ y(t_0) \)'>\( y(t_0) \)</span>，只有$ ( t \leq t_0 ) $时刻的 $( x(t) ) $决定。</li>
+</ul>
+<hr>
+<blockquote>
+<p>学习是一个持续的过程，每一小步都是进步。</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>专业课</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贝塞尔曲线法</title>
+    <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
+    <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
+<p>局部路径规划算法</p>
+<h2 id="贝塞尔算法思想">贝塞尔算法思想</h2>
+<p>贝塞尔曲线是应用于二维图形应用程序的数学曲线，由一组称为控制点的向量来确定，给定的控制点按顺序连接构成控制多边形，<br>
+贝塞尔曲线逼近这个多边形，进而通过调整控制点坐标改变曲线的形状。<br>
+对于车辆系统,规划的轨迹应该满足以下准则:轨迹连续,轨迹曲率连续,轨迹容易被车辆跟踪,而且容易生成;<br>
+给定n+1个数据点,p0-pn,生成一条曲线,使该曲线与这些点描述的形状相符;</p>
+<h2 id="推导">推导</h2>
+<h3 id="一次贝塞尔曲线">一次贝塞尔曲线</h3>
+<p>设<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>，<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>两个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<br>
+直线<br>
+则贝塞尔曲线生成点可以表达为：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…'>\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
+t可以为时间<br>
+<img src="/syy.github.io/img/st005.jpg" alt="1"></p>
+<h3 id="二阶">二阶</h3>
+<p>设P0，P1，P2三个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>构成一阶，<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)'>\(P_2\)</span>也构成一阶，即：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}'>\(\begin{cases}</span><br>
+$p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\\
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="mspace newline"></span></span></span>p_{1,2}(t) = (1 - t)P_1 + tP_2<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>\end{cases})<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</mtext></mrow><annotation encoding="application/x-tex">在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">基</span><span class="mord cjk_fallback">础</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">贝</span><span class="mord cjk_fallback">塞</span><span class="mord cjk_fallback">尔</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>(p_2(t) = (1 - t)p_{1,1} + tp_{1,2})$<br>
+<img src="/syy.github.io/img/st006.jpg" alt="1"></p>
+<h3 id="三阶">三阶</h3>
+<p><img src="/syy.github.io/img/st007.jpg" alt="1"></p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>路径规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数模美赛的学习笔记</title>
     <url>/syy.github.io/2026/01/23/%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B/</url>
     <content><![CDATA[<h1>数模美赛</h1>
@@ -657,42 +802,6 @@ none:无;<br>
       </tags>
   </entry>
   <entry>
-    <title>信号与系统</title>
-    <url>/syy.github.io/2025/09/08/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<!--
-![美女压图](/img/002.jpg)
--->
-<h1>信号与系统001</h1>
-<p>目前还是测试的,具体内容往后再看看;</p>
-<h2 id="卷积">卷积</h2>
-<h3 id="卷积的性质">卷积的性质</h3>
-<ul>
-<li>1.分配律</li>
-<li>2.交换律</li>
-<li>3.两个信号卷积后的微分，等于其中一个信号的微分与另一个信号的卷积</li>
-<li>4.<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ h(t+t_0) * x(t…'>\( h(t+t_0) * x(t-t_0) = h(t) * x(t) \)</span></li>
-<li>LTI 系统稳定的充要条件是<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></msubsup><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi><mtext> </mtext><mi>d</mi><mi>t</mi><mo>&lt;</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\int_{-\infty}^{+\infty} |h(t)| \, dt &lt; +\infty 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.491512em;vertical-align:-0.970281em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5212310000000002em;"><span style="top:-1.7880500000000001em;margin-left:-0.44445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.8129000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.970281em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mclose">)</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span></span></p>
-或<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munderover><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">[</mo><mi>k</mi><mo stretchy="false">]</mo><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\sum_{k=-\infty}^{+\infty} |h[k]| &lt; +\infty 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.11878em;vertical-align:-1.360444em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7583360000000003em;"><span style="top:-1.8478869999999998em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.360444em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathdefault">h</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span></span></p>
-</li>
-</ul>
-<h3 id="lti系统的因果充要条件">LTI系统的因果充要条件</h3>
-<ul>
-<li>h(t)=0,当t&lt;0时,或者h[n]=0,当n&lt;0时</li>
-<li>因果的定义：输出 <span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ y(t) \)'>\( y(t) \)</span>在 $( t_0 ) $时刻的 <span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ y(t_0) \)'>\( y(t_0) \)</span>，只有$ ( t \leq t_0 ) $时刻的 $( x(t) ) $决定。</li>
-</ul>
-<hr>
-<blockquote>
-<p>学习是一个持续的过程，每一小步都是进步。</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>专业课</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>植物大战僵尸制作</title>
     <url>/syy.github.io/2025/09/12/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8%E5%88%B6%E4%BD%9C/</url>
     <content><![CDATA[<h1>植物大战僵尸</h1>
@@ -722,108 +831,8 @@ none:无;<br>
       </tags>
   </entry>
   <entry>
-    <title>读原理图</title>
-    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
-    <content><![CDATA[<h1>硬件</h1>
-<blockquote>
-<p>study for schematic diagram</p>
-</blockquote>
-<h2 id="gpio">GPIO</h2>
-<!-- 
-    ![111](/syy.github.io/img/img.jpg) 
--->
-<p>输出引脚{高点平:1;低电平:0;} ,用万用表读取高低电平;</p>
-<p>怎么用:<br>
-1.配置引脚功能;<br>
-2.输出引脚,写值到某个寄存器里面去;</p>
-<p>GPIO:通用输出外设<br>
-<img src="/syy.github.io/img/st001.jpg" alt="三极管"><br>
-上拉电阻:对于输入引脚,可以用输入电平;</p>
-<h2 id="与门-或门等门电路">与门,或门等门电路</h2>
-<p>非门: B != A;<br>
-与门: B = A1 &amp; A2;<br>
-或门: B = A1 || A2;<br>
-或非门: $ B = \neg(A1 &amp; A2) $<br>
-与非门: $ B = \neg(A1 \lor A2) $</p>
-<h2 id="协议类">协议类</h2>
-<h3 id="串口">串口</h3>
-<p>(1)UART 串口<br>
-2440开发板与pc机通信;一条线,输出引脚;<br>
-TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
-(电平转换芯片:电压不一样,来转接)<br>
-<img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
-]]></content>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>理论学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>贝塞尔曲线法</title>
-    <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
-    <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
-<p>局部路径规划算法</p>
-<h2 id="贝塞尔算法思想">贝塞尔算法思想</h2>
-<p>贝塞尔曲线是应用于二维图形应用程序的数学曲线，由一组称为控制点的向量来确定，给定的控制点按顺序连接构成控制多边形，<br>
-贝塞尔曲线逼近这个多边形，进而通过调整控制点坐标改变曲线的形状。<br>
-对于车辆系统,规划的轨迹应该满足以下准则:轨迹连续,轨迹曲率连续,轨迹容易被车辆跟踪,而且容易生成;<br>
-给定n+1个数据点,p0-pn,生成一条曲线,使该曲线与这些点描述的形状相符;</p>
-<h2 id="推导">推导</h2>
-<h3 id="一次贝塞尔曲线">一次贝塞尔曲线</h3>
-<p>设<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>，<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>两个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<br>
-直线<br>
-则贝塞尔曲线生成点可以表达为：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…'>\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
-t可以为时间<br>
-<img src="/syy.github.io/img/st005.jpg" alt="1"></p>
-<h3 id="二阶">二阶</h3>
-<p>设P0，P1，P2三个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>构成一阶，<br>
-<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)'>\(P_2\)</span>也构成一阶，即：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}'>\(\begin{cases}</span><br>
-$p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\\
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="mspace newline"></span></span></span>p_{1,2}(t) = (1 - t)P_1 + tP_2<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow></mrow><annotation encoding="application/x-tex">
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>\end{cases})<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</mtext></mrow><annotation encoding="application/x-tex">在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">基</span><span class="mord cjk_fallback">础</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">贝</span><span class="mord cjk_fallback">塞</span><span class="mord cjk_fallback">尔</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>(p_2(t) = (1 - t)p_{1,1} + tp_{1,2})$<br>
-<img src="/syy.github.io/img/st006.jpg" alt="1"></p>
-<h3 id="三阶">三阶</h3>
-<p><img src="/syy.github.io/img/st007.jpg" alt="1"></p>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>路径规划</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cpp项目之线程池</title>
-    <url>/syy.github.io/2026/01/27/cpp%E9%A1%B9%E7%9B%AE%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
-    <content><![CDATA[<h1>线程池</h1>
-<p>是一个池性结构,临时创建来管理数据,再删除是比较麻烦的,<br>
-所用线程池管理和维持固定数量的</p>
-<h2 id="原理">原理</h2>
-<p>预创建线程：程序启动时，就创建一批固定或可动态调整数量的线程，让它们处于空闲等待状态。<br>
-任务队列缓冲：所有待执行的任务会被放入一个线程安全的队列中。<br>
-线程复用：空闲线程会主动从任务队列中取出任务执行，任务完成后不会立即销毁，而是回到池中继续等待下一个任务。<br>
-动态调度：部分线程池可以根据任务负载动态增减线程数量，在低负载时释放资源，高负载时扩容。</p>
-<h2 id="作用">作用</h2>
-<p>1.某类任务特别耗时,问题,丢给其他线程<br>
-2.并行作用</p>
-<h2 id="耗时操作">耗时操作</h2>
-<p>1.耗时等待<br>
-2.耗时计算</p>
-]]></content>
-      <categories>
-        <category>应用</category>
-      </categories>
-      <tags>
-        <tag>cpp</tag>
-        <tag>应用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>分类</title>
     <url>/syy.github.io/categories/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>diary</title>
-    <url>/syy.github.io/diary/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -859,6 +868,11 @@ $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><
 </ul>
 <hr>
 ]]></content>
+  </entry>
+  <entry>
+    <title>diary</title>
+    <url>/syy.github.io/diary/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title></title>
