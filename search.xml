@@ -1,43 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>友链</title>
-    <url>/syy.github.io/2025/09/13/friend-blog/</url>
-    <content><![CDATA[<style>
-.friend-link-row {
-  display: flex;
-  align-items: flex-start; /* 按内容顶部对齐 */
-  gap: 20px; /* 友链项之间的间距 */
-  margin-bottom: 20px;
-}
-.friend-link-item {
-  flex: 1; /* 让每个友链项平分剩余空间 */
-}
-.friend-link-item img {
-  max-width: 100px; /* 限制图片宽度，可根据需要调整 */
-  height: auto;
-}
-</style>
-<p>网络的经纬交织起奇妙的联结，每一次点击都是跨越屏幕的握手。<br>
-以下这些名字与站点，是散落在赛博世界里的星辰，各自闪烁着独特的光芒 —— 感谢它们的存在，让这片数字疆域有了更温暖的温度。</p>
-<div class="friend-link-row">
-  <!-- 小海的图片超链接 -->
-  <div class="friend-link-item">
-    <a href="https://norubias.site">
-      <img src="/syy.github.io/img/dd002.jpg" alt="小海">
-    </a>
-  </div>
-  <!-- 柊野的图片超链接 -->
-  <div class="friend-link-item">
-    <a href="https://zhongye1.github.io/">
-      <img src="/syy.github.io/img/dd001.jpg" alt="柊野">
-    </a>
-  </div>
-</div>
-<p><img src="/syy.github.io/img/s010.jpeg" alt=""></p>
-]]></content>
-  </entry>
-  <entry>
     <title>cpp</title>
     <url>/syy.github.io/2026/01/27/cpp-linux/</url>
     <content><![CDATA[<h1>cpp的基础</h1>
@@ -103,7 +66,40 @@ stringstream：双向流 → 既可读又可写。</p>
 <h3 id="格式">格式</h3>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line"><span class="comment">// 待输出的变量,用来装遍历的元素;</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> x : arr)&#123;<span class="comment">//待遍历的序列,不一定是数组</span></span><br><span class="line">    cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="auto">auto</h2>
-<p>c++ 新引进的,自适应类型关键字 var let</p>
+<p>c++ 新引进的,自适应类型关键字 var let<br>
+就是弱类型<br>
+可能会判断错误;</p>
+<h2 id="引用符号">引用符号</h2>
+<p>/&amp;/符号, 多功能<br>
+是运算符的重载</p>
+<p>共享同一块的空间 ,取别名</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">2</span></span><br><span class="line"><span class="type">int</span>&amp; b =a; <span class="comment">//a和b共用一块空间</span></span><br><span class="line">cout &lt;&lt; b &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<p>使用<br>
+<img src="/syy.github.io/img/cpp/001.jpg" alt=""></p>
+<h2 id="结构体">结构体</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">xxxx</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a; <span class="comment">//成员表</span></span><br><span class="line">    <span class="comment">//成员函数</span></span><br><span class="line">&#125;a[<span class="number">100</span>];<span class="comment">//结构体变量表</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">xxxx</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a; <span class="comment">//成员表</span></span><br><span class="line">    <span class="comment">//成员函数</span></span><br><span class="line">&#125;;<span class="comment">//结构体变量表</span></span><br><span class="line">xxxx a[<span class="number">100</span>];</span><br></pre></td></tr></table></figure>
+<p><img src="/syy.github.io/img/cpp/002.jpg" alt=""></p>
+<h3 id="结构体的调用">结构体的调用</h3>
+<p>xxx.成员表<br>
+案例1:<br>
+<img src="/syy.github.io/img/cpp/003.jpg" alt=""></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="链表">链表</h2>
+<p>链表（linked list）是一种这样的数据结构，其中的各对象按线性顺序排列。<br>
+数组的线性顺序是由数组下标决定的，然而与数组不同的是，链表的顺序是由各个对象里的指针决定的。<br>
+<img src="/syy.github.io/img/cpp/004.jpg" alt=""></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span>&#123;</span><br><span class="line">	<span class="type">int</span> data;</span><br><span class="line">	ListNode *next;</span><br><span class="line">&#125;listnode;</span><br></pre></td></tr></table></figure>
+<p>data存储数据，next指针指向下一个节点</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Birthday</span>&#123;</span><br><span class="line">	<span class="type">int</span> year;</span><br><span class="line">	<span class="type">int</span> month;</span><br><span class="line">	<span class="type">int</span> day;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span>&#123;</span><br><span class="line">	string name;</span><br><span class="line">	<span class="type">int</span> Student_number;</span><br><span class="line">	Birthday birth;</span><br><span class="line">	ListNode *next;</span><br><span class="line">	ListNode *last;</span><br><span class="line">&#125;listnode;</span><br></pre></td></tr></table></figure>
+<p>创建链表<br>
+一个单向链表是有一个头和一个尾的</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">ListCreate</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	ListNode *head,*p1,*end;</span><br><span class="line">	head=<span class="keyword">new</span> ListNode;</span><br><span class="line">	end=head;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">		p1=<span class="keyword">new</span> ListNode;</span><br><span class="line">		p1-&gt;data=i;</span><br><span class="line">		end-&gt;next=p1;</span><br><span class="line">		end=p1;</span><br><span class="line">	&#125;</span><br><span class="line">	end-&gt;next=<span class="literal">NULL</span>; <span class="comment">//链表的尾部next指向空</span></span><br><span class="line">	<span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="遍历链表">遍历链表</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">(ListNode *head)</span></span>&#123;		<span class="comment">//将链表的头作为参数</span></span><br><span class="line">	ListNode *temp;</span><br><span class="line">	temp=head-&gt;next;</span><br><span class="line">	<span class="keyword">while</span>(temp!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">		cout&lt;&lt;temp-&gt;data&lt;&lt;<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">		temp=temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="查找某个节点">查找某个节点</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">Find</span><span class="params">(ListNode *head,<span class="type">int</span> n)</span></span>&#123;	<span class="comment">//n表示查找第n个节点</span></span><br><span class="line">	ListNode *p=head;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n&amp;&amp;p!=<span class="literal">NULL</span>;i++)&#123;</span><br><span class="line">		p=p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(p==<span class="literal">NULL</span>)&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;找不到/(ㄒoㄒ)/~~&quot;</span>&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修改某节点的数据">修改某节点的数据</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ListChange</span><span class="params">(ListNode *head,<span class="type">int</span> n,<span class="type">int</span> temp)</span></span>&#123;</span><br><span class="line">	ListNode *p=head;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n&amp;&amp;p!=<span class="literal">NULL</span>;i++)&#123;</span><br><span class="line">		p=p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">		p-&gt;data=temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> cout&lt;&lt;<span class="string">&quot;找不到节点/(ㄒoㄒ)/~~&quot;</span>&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1>定时器</h1>
 <h2 id="实现方式">实现方式</h2>
 <p>前后端均有;<br>
@@ -139,316 +135,6 @@ stringstream：双向流 → 既可读又可写。</p>
       <tags>
         <tag>理论学习</tag>
         <tag>cpp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cpp项目之线程池</title>
-    <url>/syy.github.io/2026/01/27/cpp%E9%A1%B9%E7%9B%AE%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
-    <content><![CDATA[<h1>线程池</h1>
-<p>是一个池性结构,临时创建来管理数据,再删除是比较麻烦的,<br>
-所用线程池管理和维持固定数量的</p>
-<h2 id="原理">原理</h2>
-<p>预创建线程：程序启动时，就创建一批固定或可动态调整数量的线程，让它们处于空闲等待状态。<br>
-任务队列缓冲：所有待执行的任务会被放入一个线程安全的队列中。<br>
-线程复用：空闲线程会主动从任务队列中取出任务执行，任务完成后不会立即销毁，而是回到池中继续等待下一个任务。<br>
-动态调度：部分线程池可以根据任务负载动态增减线程数量，在低负载时释放资源，高负载时扩容。</p>
-<h2 id="作用">作用</h2>
-<p>1.某类任务特别耗时,问题,丢给其他线程<br>
-2.并行作用</p>
-<h2 id="耗时操作">耗时操作</h2>
-<p>1.耗时等待<br>
-2.耗时计算</p>
-]]></content>
-      <categories>
-        <category>应用</category>
-      </categories>
-      <tags>
-        <tag>cpp</tag>
-        <tag>应用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数模美赛的学习笔记</title>
-    <url>/syy.github.io/2026/01/23/%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B/</url>
-    <content><![CDATA[<h1>数模美赛</h1>
-<p>基于数学建模老哥和其他资料学习的笔记,<br>
-也可以参考一下我的思路,本人数模国赛c题省二,虽然不高;</p>
-<h2 id="1-基础思维">1.基础思维</h2>
-<h3 id="定义">定义</h3>
-<p>实际问题转成数学建模<br>
-问题分析-假设简化-模型构建-模型求解-模型检验-结果分析</p>
-<h2 id="模型">模型</h2>
-<h3 id="1-高级规划模型">1.高级规划模型</h3>
-<p>3个:非线性规划和求解, 整数规划分支定界法原理, 多目标规划(帕累托最优与权重)<br>
-<img src="/syy.github.io/img/math/002.jpg" alt=""><br>
-多目标,非线性</p>
-<h2 id="论文">论文</h2>
-<h3 id="论文题目">论文题目</h3>
-<p><img src="/syy.github.io/img/math/003.jpg" alt=""><br>
-突出赛题类型的命题和技巧,如下图所示<br>
-<img src="/syy.github.io/img/math/004.jpg" alt=""><br>
-一个赛题多个子任务,选取最据代表的一个作为题目,<br>
-<img src="/syy.github.io/img/math/005.jpg" alt=""></p>
-<h3 id="摘要和关键词">摘要和关键词</h3>
-<p>十分关键,对关键词加粗,不要出现自定义在下文呢的,不要过于绝对的说法;</p>
-<p><img src="/syy.github.io/img/math/006.jpg" alt=""><br>
-摘要的结果<br>
-<img src="/syy.github.io/img/math/007.jpg" alt=""></p>
-<h4 id="摘要的前言">摘要的前言</h4>
-<p><img src="/syy.github.io/img/math/008.jpg" alt=""></p>
-<h4 id="摘要的正文">摘要的正文</h4>
-<p>要分析问题多的部分时候分段<br>
-<img src="/syy.github.io/img/math/009.jpg" alt=""><br>
-<img src="/syy.github.io/img/math/010.jpg" alt=""><br>
-<img src="/syy.github.io/img/math/011.jpg" alt=""><br>
-<img src="/syy.github.io/img/math/012.jpg" alt=""><br>
-<img src="/syy.github.io/img/math/013.jpg" alt=""></p>
-<h4 id="摘要的结尾">摘要的结尾</h4>
-<p><img src="/syy.github.io/img/math/014.jpg" alt=""></p>
-<h3 id="关键词">关键词</h3>
-<p>3-6个,专业性,不要寓意重复</p>
-<h3 id="论文正文">论文正文</h3>
-<h4 id="问题重述">问题重述</h4>
-<p>改写的问题,声明问题的背景来源,列出必要的数据,概述任务的要解决的核心<br>
-<img src="/syy.github.io/img/math/015.jpg" alt=""><br>
-<br>内容不抄,扩充,串联,表达</p>
-<p>对于题目给出的数据,一定对数据内容和作用进行简要声明</p>
-<h4 id="问题的分析">问题的分析</h4>
-<p>从题目到模型的桥梁,<br>
-1.识别题目的已知的信息<br>
-2.明确问题<br>
-3.提出思路和方向<br>
-4.对问题的进一步理解</p>
-<blockquote>
-<p>注意事项:每一个问题要独立成段,差距,<br>
-要层层递进,不要比摘要简单,比模型复杂,<br>
-给出流程图<br>
-<img src="/syy.github.io/img/math/016.jpg" alt=""><br>
-<img src="/syy.github.io/img/math/017.jpg" alt=""></p>
-</blockquote>
-<h1>数模美赛练习</h1>
-<h2 id="2025b">2025B</h2>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>数模</tag>
-        <tag>比赛</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>proteus下写汇编</title>
-    <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<blockquote>
-<p>微机大作业时候,在想可以不靠keil实现proteus</p>
-</blockquote>
-<style>
-  /* 修改正文字体大小和字体 */
-  .post-content {
-    font-size: 20px !important; /* 你想要的大小 */
-    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
-    line-height: 2.0 !important; /* 行间距 */
-  }
-
-  /*!* 如果你也想改这篇博客的标题大小 *!*/
-  /*.post-content h1, .post-content h2, .post-content h3 {*/
-  /*  font-family: 'Microsoft YaHei' !important;*/
-  /*  color: #fda085 !important;*/
-  /*}*/
-</style>
-<h1>如何在proteus下汇编</h1>
-<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
-<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
-2.放置主控芯片如at89c52,后点击source code的图标<br>
-<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
-3.点击vsm后再点击project创建新工程<br>
-<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
-4.取消勾选项<br>
-<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
-5.选择project的project settings，取消勾选嵌入式文件<br>
-<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
-6.选择project的add new file，创建对应汇编文件<br>
-<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
-7.然后就可以在上面编程了<br>
-<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>应用</category>
-      </categories>
-      <tags>
-        <tag>解决实际问题</tag>
-        <tag>汇编</tag>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>c#的学习001</title>
-    <url>/syy.github.io/2026/01/01/hash/</url>
-    <content><![CDATA[<blockquote>
-<p>命里有时终须有，命里无时莫强求</p>
-</blockquote>
-<h1>c#的学习</h1>
-<p>面向对象语言, 使用.net的框架, 使用flash(跨平台性),<br>
-<img src="/syy.github.io/img/know/one.jpg" alt="111"></p>
-<h2 id="c-基本代码">c#基本代码</h2>
-<p>一个 C# 程序主要包括以下部分：</p>
-<ul>
-<li>命名空间声明（Namespace declaration）</li>
-<li>一个 class</li>
-<li>Class 方法</li>
-<li>Class 属性</li>
-<li>一个 Main 方法</li>
-<li>语句（Statements）&amp; 表达式（Expressions）</li>
-<li>注释</li>
-</ul>
-<p>C# 文件的后缀为 .cs。</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System; <span class="comment">//- using 关键字用于在程序中包含 System 命名空间。 一个程序一般有多个 using 语句。</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">one</span> <span class="comment">//命名空间</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">Program</span> <span class="comment">// 类</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 方法, 函数</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 逻辑代码</span></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Hello, World!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="基本语法">基本语法</h2>
-<h3 id="using关键字">using关键字</h3>
-<p>以 using 关键字开头的一行代码（例如using System;）可以称为一条 using 语句，<br>
-几乎所有的 C# 程序都是以 using 语句开头的。using 语句主要用来引入程序中的命名空间，而且一个程序中可以包含多个 using 语句。</p>
-<h3 id="try和catch">try和catch</h3>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// [尝试执行的代码]</span></span><br><span class="line">    <span class="comment">// 这里放那些可能会出错的代码，比如读取文件、除以零、类型转换等</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">catch</span> (Exception ex) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// [出错后的补救措施]</span></span><br><span class="line">    <span class="comment">// 如果上面的代码出错了，程序会立刻跳到这里执行</span></span><br><span class="line">    <span class="comment">// ex 变量包含了错误的详细信息（比如为什么错、哪一行错）</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// [无论对错都会执行的代码]</span></span><br><span class="line">    <span class="comment">// 比如：最后一定要关闭文件、断开数据库连接（可选部分）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>多个 catch：你可以准备好几张“安全网”，针对不同的错误进行不同的处理：</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123; ... &#125;</span><br><span class="line"><span class="keyword">catch</span> (FileNotFoundException) &#123; <span class="comment">/* 文件没找到怎么办 */</span> &#125;</span><br><span class="line"><span class="keyword">catch</span> (UnauthorizedAccessException) &#123; <span class="comment">/* 没有权限怎么办 */</span> &#125;</span><br><span class="line"><span class="keyword">catch</span> (Exception) &#123; <span class="comment">/* 其他所有错误怎么办 */</span> &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="dynamic-动态类型">dynamic（动态类型）</h3>
-<table>
-<thead>
-<tr>
-<th>对比</th>
-<th>object</th>
-<th>dynamic</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>类型检查时间</td>
-<td>编译时（写代码时就检查）</td>
-<td>运行时（程序跑起来才检查）</td>
-</tr>
-<tr>
-<td>代码提示 (IntelliSense)</td>
-<td>有提示（只能看到 object 的成员）</td>
-<td>没有提示（编译器完全放任你）</td>
-</tr>
-<tr>
-<td>转换要求</td>
-<td>必须手动转换（拆箱）</td>
-<td>自动转换（不需要写括号强转）</td>
-</tr>
-<tr>
-<td>性能</td>
-<td>较快</td>
-<td>较慢</td>
-</tr>
-</tbody>
-</table>
-<h4 id="作用">作用</h4>
-<p>处理 JSON 或 XML 数据：当你从网络上拿到一段数据，你可能不确定它的具体结构，用 dynamic 可以像写 JavaScript 一样直接读取字段。<br>
-与动态语言（如 Python）交互：如果你在 C# 里调用 Python 写的代码，dynamic 是最好的桥梁。<br>
-反射（Reflection）简化：在复杂的框架开发中，它可以极大减少那些繁琐的转换代码。</p>
-<blockquote>
-<p>能不用就不要</p>
-</blockquote>
-<h3 id="字符串-string-类型">字符串（String）类型</h3>
-<p>允许您给变量分配任何字符串值。字符串（String）类型是 System.String 类的别名。它是从对象（Object）类型派生的。<br>
-字符串（String）类型的值可以通过两种形式进行分配：引号和 @引号。<br>
-这是 @ 的另一个“神技”。如果不加 @，字符串是不能直接换行的。</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> sql = <span class="string">@&quot;SELECT * FROM Users</span></span><br><span class="line"><span class="string">               WHERE ID = 1</span></span><br><span class="line"><span class="string">               ORDER BY Name ASC;&quot;</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="指针类型-pointer-types">指针类型（Pointer types）</h3>
-<p>指针类型变量存储另一种类型的内存地址。<br>
-C# 中的指针与 C 或 C++ 中的指针有相同的功能。</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment">//格式: type* identifier;</span></span><br><span class="line"><span class="built_in">char</span>* cptr;</span><br><span class="line"><span class="built_in">int</span>* iptr;</span><br></pre></td></tr></table></figure>
-<h3 id="c-类型转换">C# 类型转换</h3>
-<p>在 C# 中，类型转换是将一个数据类型的值转换为另一个数据类型的过程。<br>
-C# 中的类型转换可以分为两种：隐式类型转换和显式类型转换（也称为强制类型转换）。</p>
-<h4 id="隐式类型转换">隐式类型转换</h4>
-<p> 隐式转换是不需要编写代码来指定的转换，编译器会自动进行。<br>
-隐式转换是指将一个较小范围的数据类型转换为较大范围的数据类型时，<br>
-编译器会自动完成类型转换，这些转换是 C# 默认的以安全方式进行的转换,<br>
-不会导致数据丢失。<br>
-<strong>例如，从 int 到 long，从 float 到 double 等。</strong></p>
-<h4 id="显式转换">显式转换</h4>
-<p> 显式转换是指将一个较大范围的数据类型转换为较小范围的数据类型时，<br>
-或者将一个对象类型转换为另一个对象类型时，<br>
-需要使用强制类型转换符号进行显示转换，强制转换会造成数据丢失。</p>
-<h3 id="c-的类型转换的方法2">c#的类型转换的方法2</h3>
-<p><img src="/syy.github.io/img/cjj/001.jpg" alt="111"><br>
-<img src="/syy.github.io/img/cjj/002.jpg" alt="111"><br>
- 这些方法都定义在 System.Convert 类中，使用时需要包含 System 命名空间。<br>
-它们提供了一种安全的方式来执行类型转换，<br>
-因为它们可以处理 null值，并且会抛出异常，如果转换不可能进行。<br>
-例如，使用 Convert.ToInt32 方法将字符串转换为整数：</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> str = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"><span class="built_in">int</span> number = Convert.ToInt32(str); <span class="comment">// 转换成功，number为123</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>隐式转换只能将较小范围的数据类型转换为较大范围的数据类型，不能将较大范围的数据类型转换为较小范围的数据类型；<br>
-显式转换可能会导致数据丢失或精度降低，需要进行数据类型的兼容性检查；<br>
-对于对象类型的转换，需要进行类型转换的兼容性检查和类型转换的安全性检查。</p>
-</blockquote>
-<h3 id="其他类型转换">其他类型转换</h3>
-<p> C# 提供了多种类型转换方法，例如使用 Convert 类、 Parse 方法和 TryParse 方法，<br>
-这些方法可以帮助处理不同的数据类型之间的转换。<br>
-省</p>
-<h3 id="变量">变量</h3>
-<p>C# 中提供的基本的值类型大致可以分为以下几类：</p>
-<table>
-<thead>
-<tr>
-<th>类型</th>
-<th>举例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>整数类型</td>
-<td>sbyte、byte、short、ushort、int、uint、long、ulong 和 char</td>
-</tr>
-<tr>
-<td>浮点型</td>
-<td>float, double</td>
-</tr>
-<tr>
-<td>十进制类型</td>
-<td>decimal</td>
-</tr>
-<tr>
-<td>布尔类型</td>
-<td>true 或 false 值，指定的值</td>
-</tr>
-<tr>
-<td>空字符串</td>
-<td>string</td>
-</tr>
-<tr>
-<td>空类型</td>
-<td>可为空值的数据类型</td>
-</tr>
-</tbody>
-</table>
-<p>C# 允许定义其他值类型的变量，比如 enum，也允许定义引用类型变量，比如 class。<br>
-在本章节中，我们只研究基本变量类型。</p>
-<h4 id="定义变量">定义变量</h4>
-<p>同c, cpp;<br>
-例子:</p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">VariableDefinition</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">short</span> a;</span><br><span class="line">            <span class="built_in">int</span> b ;</span><br><span class="line">            <span class="built_in">double</span> c;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* 实际初始化 */</span></span><br><span class="line">            a = <span class="number">10</span>;</span><br><span class="line">            b = <span class="number">20</span>;</span><br><span class="line">            c = a + b;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;a = &#123;0&#125;, b = &#123;1&#125;, c = &#123;2&#125;&quot;</span>, a, b, c);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="接受来自用户的值">接受来自用户的值</h3>
-<p><strong>System 命名空间中的 Console 类提供了一个函数 ReadLine()，用于接收来自用户的输入，并把它存储到一个变量中。</strong></p>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">int</span> num;</span><br><span class="line">num = Convert.ToInt32(Console.ReadLine());</span><br></pre></td></tr></table></figure>
-<h1>c#的项目</h1>
-<h2 id="1-学生的管理系统">1.学生的管理系统</h2>
-<p>就是在终端显示学生的成绩和输入成绩,小儿科</p>
-<details>
-<summary style="color: #f6d365; cursor: pointer;">展开查看代码</summary>
-<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Concurrent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">StudentSystem</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Student</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> ID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">double</span> MathScore &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">double</span> EnglishScore &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">double</span> <span class="title">GetTotal</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> MathScore + EnglishScore;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Progarm</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//创建一个集合,存放所有学生的对象</span></span><br><span class="line">        <span class="keyword">static</span> List&lt;Student&gt; studentList = <span class="keyword">new</span> List&lt;Student&gt;();</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;\n--学生管理系统--&quot;</span>);</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;1.添加学生&quot;</span>);</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;2.显示所有学生&quot;</span>);</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;3.退出系统&quot;</span>);</span><br><span class="line">                Console.Write(<span class="string">&quot;请选择操作(1-3): &quot;</span>);</span><br><span class="line">                <span class="built_in">string</span> choice = Console.ReadLine();</span><br><span class="line">                <span class="keyword">switch</span> (choice)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;1&quot;</span>:</span><br><span class="line">                        AddStudent();</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;2&quot;</span>:</span><br><span class="line">                        ShowAll();</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;3&quot;</span>:</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;退出系统。&quot;</span>);</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    <span class="literal">default</span>:</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;无效的选择，请重新输入。&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">AddStudent</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                Student s = <span class="keyword">new</span> Student();</span><br><span class="line"></span><br><span class="line">                Console.Write(<span class="string">&quot;请输入姓名: &quot;</span>);</span><br><span class="line">                s.Name = Console.ReadLine();</span><br><span class="line"></span><br><span class="line">                Console.Write(<span class="string">&quot;请输入学号: &quot;</span>);</span><br><span class="line">                s.ID = Console.ReadLine();</span><br><span class="line"></span><br><span class="line">                Console.Write(<span class="string">&quot;请输入数学成绩: &quot;</span>);</span><br><span class="line">                s.MathScore = Convert.ToDouble(Console.ReadLine());</span><br><span class="line"></span><br><span class="line">                Console.Write(<span class="string">&quot;请输入英语成绩: &quot;</span>);</span><br><span class="line">                s.EnglishScore = Convert.ToDouble(Console.ReadLine());</span><br><span class="line"></span><br><span class="line">                studentList.Add(s); <span class="comment">// 将造好的学生对象放进“大箱子”List里</span></span><br><span class="line">                Console.WriteLine(<span class="string">&quot;添加成功！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;输入格式有误，添加失败！错误原因：&quot;</span> + ex.Message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 显示所有学生逻辑</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ShowAll</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (studentList.Count == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;目前没有学生记录。&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;\n学号\t姓名\t数学\t英语\t总分&quot;</span>);</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;------------------------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> s <span class="keyword">in</span> studentList)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 使用 \t 来对齐表格</span></span><br><span class="line">                Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;s.ID&#125;</span>\t<span class="subst">&#123;s.Name&#125;</span>\t<span class="subst">&#123;s.MathScore&#125;</span>\t<span class="subst">&#123;s.EnglishScore&#125;</span>\t<span class="subst">&#123;s.GetTotal()&#125;</span>&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-<p>实现的结果如下:<br>
-<img src="/syy.github.io/img/cjj/003.jpg" alt="result"></p>
-]]></content>
-      <categories>
-        <category>语言</category>
-      </categories>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>c#</tag>
       </tags>
   </entry>
   <entry>
@@ -551,56 +237,81 @@ add_executable(MyApp main.cpp)</p>
       </tags>
   </entry>
   <entry>
-    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
-    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
-    <content><![CDATA[<blockquote>
-<p>写大作业遇到的问题有感,天生无才</p>
-</blockquote>
-<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
-发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
-<p>调查的时候,在终端调用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
-<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
-<h2 id="解决方法">解决方法</h2>
-<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
-<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
-]]></content>
-      <tags>
-        <tag>解决实际问题</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>贝塞尔曲线法</title>
-    <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
-    <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
-<p>局部路径规划算法</p>
-<h2 id="贝塞尔算法思想">贝塞尔算法思想</h2>
-<p>贝塞尔曲线是应用于二维图形应用程序的数学曲线，由一组称为控制点的向量来确定，给定的控制点按顺序连接构成控制多边形，<br>
-贝塞尔曲线逼近这个多边形，进而通过调整控制点坐标改变曲线的形状。<br>
-对于车辆系统,规划的轨迹应该满足以下准则:轨迹连续,轨迹曲率连续,轨迹容易被车辆跟踪,而且容易生成;<br>
-给定n+1个数据点,p0-pn,生成一条曲线,使该曲线与这些点描述的形状相符;</p>
-<h2 id="推导">推导</h2>
-<h3 id="一次贝塞尔曲线">一次贝塞尔曲线</h3>
-<p>设<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>，<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>两个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<br>
-直线<br>
-则贝塞尔曲线生成点可以表达为：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…'>\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
-t可以为时间<br>
-<img src="/syy.github.io/img/st005.jpg" alt="1"></p>
-<h3 id="二阶">二阶</h3>
-<p>设P0，P1，P2三个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>构成一阶，<br>
-<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)'>\(P_2\)</span>也构成一阶，即：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}'>\(\begin{cases}</span><br>
-$p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\\
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="mspace newline"></span></span></span>p_{1,2}(t) = (1 - t)P_1 + tP_2<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow></mrow><annotation encoding="application/x-tex">
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>\end{cases})<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</mtext></mrow><annotation encoding="application/x-tex">在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">基</span><span class="mord cjk_fallback">础</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">贝</span><span class="mord cjk_fallback">塞</span><span class="mord cjk_fallback">尔</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>(p_2(t) = (1 - t)p_{1,1} + tp_{1,2})$<br>
-<img src="/syy.github.io/img/st006.jpg" alt="1"></p>
-<h3 id="三阶">三阶</h3>
-<p><img src="/syy.github.io/img/st007.jpg" alt="1"></p>
+    <title>freertos</title>
+    <url>/syy.github.io/2025/09/11/hello-world/</url>
+    <content><![CDATA[<h1>freertos002</h1>
+<p>测试中</p>
+<h2 id="1-硬件初始化">1.硬件初始化</h2>
+<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
-        <tag>路径规划</tag>
+        <tag>嵌入式</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>cpp项目之线程池</title>
+    <url>/syy.github.io/2026/01/27/cpp%E9%A1%B9%E7%9B%AE%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
+    <content><![CDATA[<h1>线程池</h1>
+<p>是一个池性结构,临时创建来管理数据,再删除是比较麻烦的,<br>
+所用线程池管理和维持固定数量的</p>
+<h2 id="原理">原理</h2>
+<p>预创建线程：程序启动时，就创建一批固定或可动态调整数量的线程，让它们处于空闲等待状态。<br>
+任务队列缓冲：所有待执行的任务会被放入一个线程安全的队列中。<br>
+线程复用：空闲线程会主动从任务队列中取出任务执行，任务完成后不会立即销毁，而是回到池中继续等待下一个任务。<br>
+动态调度：部分线程池可以根据任务负载动态增减线程数量，在低负载时释放资源，高负载时扩容。</p>
+<h2 id="作用">作用</h2>
+<p>1.某类任务特别耗时,问题,丢给其他线程<br>
+2.并行作用</p>
+<h2 id="耗时操作">耗时操作</h2>
+<p>1.耗时等待<br>
+2.耗时计算</p>
+]]></content>
+      <categories>
+        <category>应用</category>
+      </categories>
+      <tags>
+        <tag>cpp</tag>
+        <tag>应用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>友链</title>
+    <url>/syy.github.io/2025/09/13/friend-blog/</url>
+    <content><![CDATA[<style>
+.friend-link-row {
+  display: flex;
+  align-items: flex-start; /* 按内容顶部对齐 */
+  gap: 20px; /* 友链项之间的间距 */
+  margin-bottom: 20px;
+}
+.friend-link-item {
+  flex: 1; /* 让每个友链项平分剩余空间 */
+}
+.friend-link-item img {
+  max-width: 100px; /* 限制图片宽度，可根据需要调整 */
+  height: auto;
+}
+</style>
+<p>网络的经纬交织起奇妙的联结，每一次点击都是跨越屏幕的握手。<br>
+以下这些名字与站点，是散落在赛博世界里的星辰，各自闪烁着独特的光芒 —— 感谢它们的存在，让这片数字疆域有了更温暖的温度。</p>
+<div class="friend-link-row">
+  <!-- 小海的图片超链接 -->
+  <div class="friend-link-item">
+    <a href="https://norubias.site">
+      <img src="/syy.github.io/img/dd002.jpg" alt="小海">
+    </a>
+  </div>
+  <!-- 柊野的图片超链接 -->
+  <div class="friend-link-item">
+    <a href="https://zhongye1.github.io/">
+      <img src="/syy.github.io/img/dd001.jpg" alt="柊野">
+    </a>
+  </div>
+</div>
+<p><img src="/syy.github.io/img/s010.jpeg" alt=""></p>
+]]></content>
   </entry>
   <entry>
     <title>前端学习</title>
@@ -779,83 +490,48 @@ none:无;<br>
       </tags>
   </entry>
   <entry>
-    <title>读原理图</title>
-    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
-    <content><![CDATA[<h1>硬件</h1>
-<blockquote>
-<p>study for schematic diagram</p>
+    <title>proteus下写汇编</title>
+    <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<blockquote>
+<p>微机大作业时候,在想可以不靠keil实现proteus</p>
 </blockquote>
-<h2 id="gpio">GPIO</h2>
-<!-- 
-    ![111](/syy.github.io/img/img.jpg) 
--->
-<p>输出引脚{高点平:1;低电平:0;} ,用万用表读取高低电平;</p>
-<p>怎么用:<br>
-1.配置引脚功能;<br>
-2.输出引脚,写值到某个寄存器里面去;</p>
-<p>GPIO:通用输出外设<br>
-<img src="/syy.github.io/img/st001.jpg" alt="三极管"><br>
-上拉电阻:对于输入引脚,可以用输入电平;</p>
-<h2 id="与门-或门等门电路">与门,或门等门电路</h2>
-<p>非门: B != A;<br>
-与门: B = A1 &amp; A2;<br>
-或门: B = A1 || A2;<br>
-或非门: $ B = \neg(A1 &amp; A2) $<br>
-与非门: $ B = \neg(A1 \lor A2) $</p>
-<h2 id="协议类">协议类</h2>
-<h3 id="串口">串口</h3>
-<p>(1)UART 串口<br>
-2440开发板与pc机通信;一条线,输出引脚;<br>
-TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
-(电平转换芯片:电压不一样,来转接)<br>
-<img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
+<style>
+  /* 修改正文字体大小和字体 */
+  .post-content {
+    font-size: 20px !important; /* 你想要的大小 */
+    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
+    line-height: 2.0 !important; /* 行间距 */
+  }
+
+  /*!* 如果你也想改这篇博客的标题大小 *!*/
+  /*.post-content h1, .post-content h2, .post-content h3 {*/
+  /*  font-family: 'Microsoft YaHei' !important;*/
+  /*  color: #fda085 !important;*/
+  /*}*/
+</style>
+<h1>如何在proteus下汇编</h1>
+<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
+<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
+2.放置主控芯片如at89c52,后点击source code的图标<br>
+<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
+3.点击vsm后再点击project创建新工程<br>
+<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
+4.取消勾选项<br>
+<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
+5.选择project的project settings，取消勾选嵌入式文件<br>
+<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
+6.选择project的add new file，创建对应汇编文件<br>
+<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
+7.然后就可以在上面编程了<br>
+<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
 ]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>植物大战僵尸制作</title>
-    <url>/syy.github.io/2025/09/12/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8%E5%88%B6%E4%BD%9C/</url>
-    <content><![CDATA[<h1>植物大战僵尸</h1>
-<p>目前打算先用cpp实现在电脑,再移植到stm32f407(lvgl,freertos)[还在实现中]</p>
-<h2 id="cpp实现植物大战僵尸-1-5">cpp实现植物大战僵尸(1.5)</h2>
-<p>目前打算实现基础功能后不再添加了;</p>
-<h3 id="视频">视频</h3>
-<p><a href="https://www.bilibili.com/video/BV1ZkpLzEEzJ/?vd_source=412f8565a7b49e67b294f55bcccff7ca">https://www.bilibili.com/video/BV1ZkpLzEEzJ/?vd_source=412f8565a7b49e67b294f55bcccff7ca</a></p>
-<h3 id="cpp实现思路">cpp实现思路</h3>
-<ul>
-<li>1.图片卡牌等静止的加载:依据计算出的图片位置的坐标,利用putimage或putimagePNG函数绘制实现;</li>
-<li>2.植物生长动画图片实现:在updateGame函数中，根据时间间隔更新植物动画帧。每次更新时，植物的frameIndex递增，若超出图片序列范围则重置为 0 ;</li>
-<li>3.阳光产生:通过rand()时间随机生成,在草坪的随机位置;其次,制作一个阳光数组,循环利用,而不是频繁生成并删除;</li>
-<li>4.收集阳光:定义初始的阳光值,确定植物的else,怎么判断阳光位置:;(1.1)</li>
-<li>5.僵尸实现:类似于阳光,实现了死亡,吃植物等功能</li>
-</ul>
-<h3 id="cpp代码实现-1-0">cpp代码实现(1.0)</h3>
-<p>cpp代码的实现思路是参考b站某up主的<br>
-由于代码太长,不能完全展示出来,我上传在GitHub:<a href="https://github.com/sdfcwfe/-cpp-">https://github.com/sdfcwfe/-cpp-</a></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS  </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;graphics.h&gt;</span><span class="comment">//引用图形库头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;conio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;tools.h&quot;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIN_WIDTH 900 <span class="comment">//游戏窗口宽度</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIN_HEIGHT 600 <span class="comment">//游戏窗口高度</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> &#123;WAN_DOU, XIANG_RI_KUI, ZHI_WU_COUNT&#125;;</span><br><span class="line"></span><br><span class="line">IMAGE imgBg; <span class="comment">//表示背景图片</span></span><br><span class="line">IMAGE imgBar; <span class="comment">//表示游戏中的任务栏</span></span><br><span class="line">IMAGE imgCards[ZHI_WU_COUNT];</span><br><span class="line">IMAGE* imgZhiWu[ZHI_WU_COUNT][<span class="number">20</span>]; <span class="comment">//表示植物图片</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> curX, curY; <span class="comment">//表示当前鼠标的坐标</span></span><br><span class="line"><span class="type">int</span> curZhiWu = <span class="number">0</span>; <span class="comment">//表示当前选中的植物 0未选中,1豌豆射手,2向日葵</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">zhiwu</span>&#123;</span><br><span class="line">	<span class="type">int</span> type; <span class="comment">//0:没有植物;1:有植物;</span></span><br><span class="line">	<span class="type">int</span> frameIndex; <span class="comment">//当前播放到第几帧</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">zhiwu</span> map[<span class="number">3</span>][<span class="number">9</span>]; <span class="comment">//表示游戏中的植物</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sunshineBall</span> &#123;</span><br><span class="line">	<span class="type">int</span> x, y; <span class="comment">//阳光的坐标 </span></span><br><span class="line">	<span class="type">int</span> frameIndex; <span class="comment">//当前播放到第几帧</span></span><br><span class="line">	<span class="type">int</span> destY; <span class="comment">//阳光掉落的目标y坐标</span></span><br><span class="line">	<span class="type">int</span> used; <span class="comment">//是否被使用 0:未使用 1:已使用 </span></span><br><span class="line">&#125;; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
+      <categories>
+        <category>应用</category>
+      </categories>
       <tags>
         <tag>嵌入式</tag>
-        <tag>lvgl</tag>
-        <tag>freertos</tag>
-        <tag>游戏</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>freertos</title>
-    <url>/syy.github.io/2025/09/11/hello-world/</url>
-    <content><![CDATA[<h1>freertos002</h1>
-<p>测试中</p>
-<h2 id="1-硬件初始化">1.硬件初始化</h2>
-<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>嵌入式</tag>
+        <tag>解决实际问题</tag>
+        <tag>汇编</tag>
       </tags>
   </entry>
   <entry>
@@ -895,6 +571,363 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
       </tags>
   </entry>
   <entry>
+    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
+    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
+    <content><![CDATA[<blockquote>
+<p>写大作业遇到的问题有感,天生无才</p>
+</blockquote>
+<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
+发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
+<p>调查的时候,在终端调用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
+<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
+<h2 id="解决方法">解决方法</h2>
+<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
+<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
+]]></content>
+      <tags>
+        <tag>解决实际问题</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读原理图</title>
+    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
+    <content><![CDATA[<h1>硬件</h1>
+<blockquote>
+<p>study for schematic diagram</p>
+</blockquote>
+<h2 id="gpio">GPIO</h2>
+<!-- 
+    ![111](/syy.github.io/img/img.jpg) 
+-->
+<p>输出引脚{高点平:1;低电平:0;} ,用万用表读取高低电平;</p>
+<p>怎么用:<br>
+1.配置引脚功能;<br>
+2.输出引脚,写值到某个寄存器里面去;</p>
+<p>GPIO:通用输出外设<br>
+<img src="/syy.github.io/img/st001.jpg" alt="三极管"><br>
+上拉电阻:对于输入引脚,可以用输入电平;</p>
+<h2 id="与门-或门等门电路">与门,或门等门电路</h2>
+<p>非门: B != A;<br>
+与门: B = A1 &amp; A2;<br>
+或门: B = A1 || A2;<br>
+或非门: $ B = \neg(A1 &amp; A2) $<br>
+与非门: $ B = \neg(A1 \lor A2) $</p>
+<h2 id="协议类">协议类</h2>
+<h3 id="串口">串口</h3>
+<p>(1)UART 串口<br>
+2440开发板与pc机通信;一条线,输出引脚;<br>
+TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
+(电平转换芯片:电压不一样,来转接)<br>
+<img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数模美赛的学习笔记</title>
+    <url>/syy.github.io/2026/01/23/%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B/</url>
+    <content><![CDATA[<h1>数模美赛</h1>
+<p>基于数学建模老哥和其他资料学习的笔记,<br>
+也可以参考一下我的思路,本人数模国赛c题省二,虽然不高;</p>
+<h2 id="1-基础思维">1.基础思维</h2>
+<h3 id="定义">定义</h3>
+<p>实际问题转成数学建模<br>
+问题分析-假设简化-模型构建-模型求解-模型检验-结果分析</p>
+<h2 id="模型">模型</h2>
+<h3 id="1-高级规划模型">1.高级规划模型</h3>
+<p>3个:非线性规划和求解, 整数规划分支定界法原理, 多目标规划(帕累托最优与权重)<br>
+<img src="/syy.github.io/img/math/002.jpg" alt=""><br>
+多目标,非线性</p>
+<h2 id="论文">论文</h2>
+<h3 id="论文题目">论文题目</h3>
+<p><img src="/syy.github.io/img/math/003.jpg" alt=""><br>
+突出赛题类型的命题和技巧,如下图所示<br>
+<img src="/syy.github.io/img/math/004.jpg" alt=""><br>
+一个赛题多个子任务,选取最据代表的一个作为题目,<br>
+<img src="/syy.github.io/img/math/005.jpg" alt=""></p>
+<h3 id="摘要和关键词">摘要和关键词</h3>
+<p>十分关键,对关键词加粗,不要出现自定义在下文呢的,不要过于绝对的说法;</p>
+<p><img src="/syy.github.io/img/math/006.jpg" alt=""><br>
+摘要的结果<br>
+<img src="/syy.github.io/img/math/007.jpg" alt=""></p>
+<h4 id="摘要的前言">摘要的前言</h4>
+<p><img src="/syy.github.io/img/math/008.jpg" alt=""></p>
+<h4 id="摘要的正文">摘要的正文</h4>
+<p>要分析问题多的部分时候分段<br>
+<img src="/syy.github.io/img/math/009.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/010.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/011.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/012.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/013.jpg" alt=""></p>
+<h4 id="摘要的结尾">摘要的结尾</h4>
+<p><img src="/syy.github.io/img/math/014.jpg" alt=""></p>
+<h3 id="关键词">关键词</h3>
+<p>3-6个,专业性,不要寓意重复</p>
+<h3 id="论文正文">论文正文</h3>
+<h4 id="问题重述">问题重述</h4>
+<p>改写的问题,声明问题的背景来源,列出必要的数据,概述任务的要解决的核心<br>
+<img src="/syy.github.io/img/math/015.jpg" alt=""><br>
+<br>内容不抄,扩充,串联,表达</p>
+<p>对于题目给出的数据,一定对数据内容和作用进行简要声明</p>
+<h4 id="问题的分析">问题的分析</h4>
+<p>从题目到模型的桥梁,<br>
+1.识别题目的已知的信息<br>
+2.明确问题<br>
+3.提出思路和方向<br>
+4.对问题的进一步理解</p>
+<blockquote>
+<p>注意事项:每一个问题要独立成段,差距,<br>
+要层层递进,不要比摘要简单,比模型复杂,<br>
+给出流程图<br>
+<img src="/syy.github.io/img/math/016.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/017.jpg" alt=""></p>
+</blockquote>
+<h1>数模美赛练习</h1>
+<h2 id="2025b">2025B</h2>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>数模</tag>
+        <tag>比赛</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>c#的学习001</title>
+    <url>/syy.github.io/2026/01/01/hash/</url>
+    <content><![CDATA[<blockquote>
+<p>命里有时终须有，命里无时莫强求</p>
+</blockquote>
+<h1>c#的学习</h1>
+<p>面向对象语言, 使用.net的框架, 使用flash(跨平台性),<br>
+<img src="/syy.github.io/img/know/one.jpg" alt="111"></p>
+<h2 id="c-基本代码">c#基本代码</h2>
+<p>一个 C# 程序主要包括以下部分：</p>
+<ul>
+<li>命名空间声明（Namespace declaration）</li>
+<li>一个 class</li>
+<li>Class 方法</li>
+<li>Class 属性</li>
+<li>一个 Main 方法</li>
+<li>语句（Statements）&amp; 表达式（Expressions）</li>
+<li>注释</li>
+</ul>
+<p>C# 文件的后缀为 .cs。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System; <span class="comment">//- using 关键字用于在程序中包含 System 命名空间。 一个程序一般有多个 using 语句。</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">one</span> <span class="comment">//命名空间</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">Program</span> <span class="comment">// 类</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 方法, 函数</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 逻辑代码</span></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;Hello, World!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="基本语法">基本语法</h2>
+<h3 id="using关键字">using关键字</h3>
+<p>以 using 关键字开头的一行代码（例如using System;）可以称为一条 using 语句，<br>
+几乎所有的 C# 程序都是以 using 语句开头的。using 语句主要用来引入程序中的命名空间，而且一个程序中可以包含多个 using 语句。</p>
+<h3 id="try和catch">try和catch</h3>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// [尝试执行的代码]</span></span><br><span class="line">    <span class="comment">// 这里放那些可能会出错的代码，比如读取文件、除以零、类型转换等</span></span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">catch</span> (Exception ex) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// [出错后的补救措施]</span></span><br><span class="line">    <span class="comment">// 如果上面的代码出错了，程序会立刻跳到这里执行</span></span><br><span class="line">    <span class="comment">// ex 变量包含了错误的详细信息（比如为什么错、哪一行错）</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// [无论对错都会执行的代码]</span></span><br><span class="line">    <span class="comment">// 比如：最后一定要关闭文件、断开数据库连接（可选部分）</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>多个 catch：你可以准备好几张“安全网”，针对不同的错误进行不同的处理：</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123; ... &#125;</span><br><span class="line"><span class="keyword">catch</span> (FileNotFoundException) &#123; <span class="comment">/* 文件没找到怎么办 */</span> &#125;</span><br><span class="line"><span class="keyword">catch</span> (UnauthorizedAccessException) &#123; <span class="comment">/* 没有权限怎么办 */</span> &#125;</span><br><span class="line"><span class="keyword">catch</span> (Exception) &#123; <span class="comment">/* 其他所有错误怎么办 */</span> &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="dynamic-动态类型">dynamic（动态类型）</h3>
+<table>
+<thead>
+<tr>
+<th>对比</th>
+<th>object</th>
+<th>dynamic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类型检查时间</td>
+<td>编译时（写代码时就检查）</td>
+<td>运行时（程序跑起来才检查）</td>
+</tr>
+<tr>
+<td>代码提示 (IntelliSense)</td>
+<td>有提示（只能看到 object 的成员）</td>
+<td>没有提示（编译器完全放任你）</td>
+</tr>
+<tr>
+<td>转换要求</td>
+<td>必须手动转换（拆箱）</td>
+<td>自动转换（不需要写括号强转）</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>较快</td>
+<td>较慢</td>
+</tr>
+</tbody>
+</table>
+<h4 id="作用">作用</h4>
+<p>处理 JSON 或 XML 数据：当你从网络上拿到一段数据，你可能不确定它的具体结构，用 dynamic 可以像写 JavaScript 一样直接读取字段。<br>
+与动态语言（如 Python）交互：如果你在 C# 里调用 Python 写的代码，dynamic 是最好的桥梁。<br>
+反射（Reflection）简化：在复杂的框架开发中，它可以极大减少那些繁琐的转换代码。</p>
+<blockquote>
+<p>能不用就不要</p>
+</blockquote>
+<h3 id="字符串-string-类型">字符串（String）类型</h3>
+<p>允许您给变量分配任何字符串值。字符串（String）类型是 System.String 类的别名。它是从对象（Object）类型派生的。<br>
+字符串（String）类型的值可以通过两种形式进行分配：引号和 @引号。<br>
+这是 @ 的另一个“神技”。如果不加 @，字符串是不能直接换行的。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> sql = <span class="string">@&quot;SELECT * FROM Users</span></span><br><span class="line"><span class="string">               WHERE ID = 1</span></span><br><span class="line"><span class="string">               ORDER BY Name ASC;&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="指针类型-pointer-types">指针类型（Pointer types）</h3>
+<p>指针类型变量存储另一种类型的内存地址。<br>
+C# 中的指针与 C 或 C++ 中的指针有相同的功能。</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="comment">//格式: type* identifier;</span></span><br><span class="line"><span class="built_in">char</span>* cptr;</span><br><span class="line"><span class="built_in">int</span>* iptr;</span><br></pre></td></tr></table></figure>
+<h3 id="c-类型转换">C# 类型转换</h3>
+<p>在 C# 中，类型转换是将一个数据类型的值转换为另一个数据类型的过程。<br>
+C# 中的类型转换可以分为两种：隐式类型转换和显式类型转换（也称为强制类型转换）。</p>
+<h4 id="隐式类型转换">隐式类型转换</h4>
+<p> 隐式转换是不需要编写代码来指定的转换，编译器会自动进行。<br>
+隐式转换是指将一个较小范围的数据类型转换为较大范围的数据类型时，<br>
+编译器会自动完成类型转换，这些转换是 C# 默认的以安全方式进行的转换,<br>
+不会导致数据丢失。<br>
+<strong>例如，从 int 到 long，从 float 到 double 等。</strong></p>
+<h4 id="显式转换">显式转换</h4>
+<p> 显式转换是指将一个较大范围的数据类型转换为较小范围的数据类型时，<br>
+或者将一个对象类型转换为另一个对象类型时，<br>
+需要使用强制类型转换符号进行显示转换，强制转换会造成数据丢失。</p>
+<h3 id="c-的类型转换的方法2">c#的类型转换的方法2</h3>
+<p><img src="/syy.github.io/img/cjj/001.jpg" alt="111"><br>
+<img src="/syy.github.io/img/cjj/002.jpg" alt="111"><br>
+ 这些方法都定义在 System.Convert 类中，使用时需要包含 System 命名空间。<br>
+它们提供了一种安全的方式来执行类型转换，<br>
+因为它们可以处理 null值，并且会抛出异常，如果转换不可能进行。<br>
+例如，使用 Convert.ToInt32 方法将字符串转换为整数：</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> str = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"><span class="built_in">int</span> number = Convert.ToInt32(str); <span class="comment">// 转换成功，number为123</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>隐式转换只能将较小范围的数据类型转换为较大范围的数据类型，不能将较大范围的数据类型转换为较小范围的数据类型；<br>
+显式转换可能会导致数据丢失或精度降低，需要进行数据类型的兼容性检查；<br>
+对于对象类型的转换，需要进行类型转换的兼容性检查和类型转换的安全性检查。</p>
+</blockquote>
+<h3 id="其他类型转换">其他类型转换</h3>
+<p> C# 提供了多种类型转换方法，例如使用 Convert 类、 Parse 方法和 TryParse 方法，<br>
+这些方法可以帮助处理不同的数据类型之间的转换。<br>
+省</p>
+<h3 id="变量">变量</h3>
+<p>C# 中提供的基本的值类型大致可以分为以下几类：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整数类型</td>
+<td>sbyte、byte、short、ushort、int、uint、long、ulong 和 char</td>
+</tr>
+<tr>
+<td>浮点型</td>
+<td>float, double</td>
+</tr>
+<tr>
+<td>十进制类型</td>
+<td>decimal</td>
+</tr>
+<tr>
+<td>布尔类型</td>
+<td>true 或 false 值，指定的值</td>
+</tr>
+<tr>
+<td>空字符串</td>
+<td>string</td>
+</tr>
+<tr>
+<td>空类型</td>
+<td>可为空值的数据类型</td>
+</tr>
+</tbody>
+</table>
+<p>C# 允许定义其他值类型的变量，比如 enum，也允许定义引用类型变量，比如 class。<br>
+在本章节中，我们只研究基本变量类型。</p>
+<h4 id="定义变量">定义变量</h4>
+<p>同c, cpp;<br>
+例子:</p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">VariableDefinition</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">short</span> a;</span><br><span class="line">            <span class="built_in">int</span> b ;</span><br><span class="line">            <span class="built_in">double</span> c;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* 实际初始化 */</span></span><br><span class="line">            a = <span class="number">10</span>;</span><br><span class="line">            b = <span class="number">20</span>;</span><br><span class="line">            c = a + b;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;a = &#123;0&#125;, b = &#123;1&#125;, c = &#123;2&#125;&quot;</span>, a, b, c);</span><br><span class="line">            Console.ReadLine();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="接受来自用户的值">接受来自用户的值</h3>
+<p><strong>System 命名空间中的 Console 类提供了一个函数 ReadLine()，用于接收来自用户的输入，并把它存储到一个变量中。</strong></p>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="built_in">int</span> num;</span><br><span class="line">num = Convert.ToInt32(Console.ReadLine());</span><br></pre></td></tr></table></figure>
+<h1>c#的项目</h1>
+<h2 id="1-学生的管理系统">1.学生的管理系统</h2>
+<p>就是在终端显示学生的成绩和输入成绩,小儿科</p>
+<details>
+<summary style="color: #f6d365; cursor: pointer;">展开查看代码</summary>
+<figure class="highlight c#"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Concurrent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">StudentSystem</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Student</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> ID &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">double</span> MathScore &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">double</span> EnglishScore &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">double</span> <span class="title">GetTotal</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> MathScore + EnglishScore;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Progarm</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//创建一个集合,存放所有学生的对象</span></span><br><span class="line">        <span class="keyword">static</span> List&lt;Student&gt; studentList = <span class="keyword">new</span> List&lt;Student&gt;();</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] <span class="keyword">args</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;\n--学生管理系统--&quot;</span>);</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;1.添加学生&quot;</span>);</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;2.显示所有学生&quot;</span>);</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;3.退出系统&quot;</span>);</span><br><span class="line">                Console.Write(<span class="string">&quot;请选择操作(1-3): &quot;</span>);</span><br><span class="line">                <span class="built_in">string</span> choice = Console.ReadLine();</span><br><span class="line">                <span class="keyword">switch</span> (choice)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;1&quot;</span>:</span><br><span class="line">                        AddStudent();</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;2&quot;</span>:</span><br><span class="line">                        ShowAll();</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&quot;3&quot;</span>:</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;退出系统。&quot;</span>);</span><br><span class="line">                        <span class="keyword">return</span>;</span><br><span class="line">                    <span class="literal">default</span>:</span><br><span class="line">                        Console.WriteLine(<span class="string">&quot;无效的选择，请重新输入。&quot;</span>);</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">AddStudent</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">try</span></span><br><span class="line">            &#123;</span><br><span class="line">                Student s = <span class="keyword">new</span> Student();</span><br><span class="line"></span><br><span class="line">                Console.Write(<span class="string">&quot;请输入姓名: &quot;</span>);</span><br><span class="line">                s.Name = Console.ReadLine();</span><br><span class="line"></span><br><span class="line">                Console.Write(<span class="string">&quot;请输入学号: &quot;</span>);</span><br><span class="line">                s.ID = Console.ReadLine();</span><br><span class="line"></span><br><span class="line">                Console.Write(<span class="string">&quot;请输入数学成绩: &quot;</span>);</span><br><span class="line">                s.MathScore = Convert.ToDouble(Console.ReadLine());</span><br><span class="line"></span><br><span class="line">                Console.Write(<span class="string">&quot;请输入英语成绩: &quot;</span>);</span><br><span class="line">                s.EnglishScore = Convert.ToDouble(Console.ReadLine());</span><br><span class="line"></span><br><span class="line">                studentList.Add(s); <span class="comment">// 将造好的学生对象放进“大箱子”List里</span></span><br><span class="line">                Console.WriteLine(<span class="string">&quot;添加成功！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;输入格式有误，添加失败！错误原因：&quot;</span> + ex.Message);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 显示所有学生逻辑</span></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ShowAll</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (studentList.Count == <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;目前没有学生记录。&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Console.WriteLine(<span class="string">&quot;\n学号\t姓名\t数学\t英语\t总分&quot;</span>);</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;------------------------------------------&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> s <span class="keyword">in</span> studentList)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 使用 \t 来对齐表格</span></span><br><span class="line">                Console.WriteLine(<span class="string">$&quot;<span class="subst">&#123;s.ID&#125;</span>\t<span class="subst">&#123;s.Name&#125;</span>\t<span class="subst">&#123;s.MathScore&#125;</span>\t<span class="subst">&#123;s.EnglishScore&#125;</span>\t<span class="subst">&#123;s.GetTotal()&#125;</span>&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+<p>实现的结果如下:<br>
+<img src="/syy.github.io/img/cjj/003.jpg" alt="result"></p>
+]]></content>
+      <categories>
+        <category>语言</category>
+      </categories>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>c#</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>植物大战僵尸制作</title>
+    <url>/syy.github.io/2025/09/12/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8%E5%88%B6%E4%BD%9C/</url>
+    <content><![CDATA[<h1>植物大战僵尸</h1>
+<p>目前打算先用cpp实现在电脑,再移植到stm32f407(lvgl,freertos)[还在实现中]</p>
+<h2 id="cpp实现植物大战僵尸-1-5">cpp实现植物大战僵尸(1.5)</h2>
+<p>目前打算实现基础功能后不再添加了;</p>
+<h3 id="视频">视频</h3>
+<p><a href="https://www.bilibili.com/video/BV1ZkpLzEEzJ/?vd_source=412f8565a7b49e67b294f55bcccff7ca">https://www.bilibili.com/video/BV1ZkpLzEEzJ/?vd_source=412f8565a7b49e67b294f55bcccff7ca</a></p>
+<h3 id="cpp实现思路">cpp实现思路</h3>
+<ul>
+<li>1.图片卡牌等静止的加载:依据计算出的图片位置的坐标,利用putimage或putimagePNG函数绘制实现;</li>
+<li>2.植物生长动画图片实现:在updateGame函数中，根据时间间隔更新植物动画帧。每次更新时，植物的frameIndex递增，若超出图片序列范围则重置为 0 ;</li>
+<li>3.阳光产生:通过rand()时间随机生成,在草坪的随机位置;其次,制作一个阳光数组,循环利用,而不是频繁生成并删除;</li>
+<li>4.收集阳光:定义初始的阳光值,确定植物的else,怎么判断阳光位置:;(1.1)</li>
+<li>5.僵尸实现:类似于阳光,实现了死亡,吃植物等功能</li>
+</ul>
+<h3 id="cpp代码实现-1-0">cpp代码实现(1.0)</h3>
+<p>cpp代码的实现思路是参考b站某up主的<br>
+由于代码太长,不能完全展示出来,我上传在GitHub:<a href="https://github.com/sdfcwfe/-cpp-">https://github.com/sdfcwfe/-cpp-</a></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _CRT_SECURE_NO_WARNINGS  </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;graphics.h&gt;</span><span class="comment">//引用图形库头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;conio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&quot;tools.h&quot;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIN_WIDTH 900 <span class="comment">//游戏窗口宽度</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> WIN_HEIGHT 600 <span class="comment">//游戏窗口高度</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum</span> &#123;WAN_DOU, XIANG_RI_KUI, ZHI_WU_COUNT&#125;;</span><br><span class="line"></span><br><span class="line">IMAGE imgBg; <span class="comment">//表示背景图片</span></span><br><span class="line">IMAGE imgBar; <span class="comment">//表示游戏中的任务栏</span></span><br><span class="line">IMAGE imgCards[ZHI_WU_COUNT];</span><br><span class="line">IMAGE* imgZhiWu[ZHI_WU_COUNT][<span class="number">20</span>]; <span class="comment">//表示植物图片</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> curX, curY; <span class="comment">//表示当前鼠标的坐标</span></span><br><span class="line"><span class="type">int</span> curZhiWu = <span class="number">0</span>; <span class="comment">//表示当前选中的植物 0未选中,1豌豆射手,2向日葵</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">zhiwu</span>&#123;</span><br><span class="line">	<span class="type">int</span> type; <span class="comment">//0:没有植物;1:有植物;</span></span><br><span class="line">	<span class="type">int</span> frameIndex; <span class="comment">//当前播放到第几帧</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">zhiwu</span> map[<span class="number">3</span>][<span class="number">9</span>]; <span class="comment">//表示游戏中的植物</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sunshineBall</span> &#123;</span><br><span class="line">	<span class="type">int</span> x, y; <span class="comment">//阳光的坐标 </span></span><br><span class="line">	<span class="type">int</span> frameIndex; <span class="comment">//当前播放到第几帧</span></span><br><span class="line">	<span class="type">int</span> destY; <span class="comment">//阳光掉落的目标y坐标</span></span><br><span class="line">	<span class="type">int</span> used; <span class="comment">//是否被使用 0:未使用 1:已使用 </span></span><br><span class="line">&#125;; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>lvgl</tag>
+        <tag>freertos</tag>
+        <tag>游戏</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贝塞尔曲线法</title>
+    <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
+    <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
+<p>局部路径规划算法</p>
+<h2 id="贝塞尔算法思想">贝塞尔算法思想</h2>
+<p>贝塞尔曲线是应用于二维图形应用程序的数学曲线，由一组称为控制点的向量来确定，给定的控制点按顺序连接构成控制多边形，<br>
+贝塞尔曲线逼近这个多边形，进而通过调整控制点坐标改变曲线的形状。<br>
+对于车辆系统,规划的轨迹应该满足以下准则:轨迹连续,轨迹曲率连续,轨迹容易被车辆跟踪,而且容易生成;<br>
+给定n+1个数据点,p0-pn,生成一条曲线,使该曲线与这些点描述的形状相符;</p>
+<h2 id="推导">推导</h2>
+<h3 id="一次贝塞尔曲线">一次贝塞尔曲线</h3>
+<p>设<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>，<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>两个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<br>
+直线<br>
+则贝塞尔曲线生成点可以表达为：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…'>\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
+t可以为时间<br>
+<img src="/syy.github.io/img/st005.jpg" alt="1"></p>
+<h3 id="二阶">二阶</h3>
+<p>设P0，P1，P2三个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>构成一阶，<br>
+<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)'>\(P_2\)</span>也构成一阶，即：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}'>\(\begin{cases}</span><br>
+$p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\\
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="mspace newline"></span></span></span>p_{1,2}(t) = (1 - t)P_1 + tP_2<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow></mrow><annotation encoding="application/x-tex">
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>\end{cases})<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</mtext></mrow><annotation encoding="application/x-tex">在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">基</span><span class="mord cjk_fallback">础</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">贝</span><span class="mord cjk_fallback">塞</span><span class="mord cjk_fallback">尔</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>(p_2(t) = (1 - t)p_{1,1} + tp_{1,2})$<br>
+<img src="/syy.github.io/img/st006.jpg" alt="1"></p>
+<h3 id="三阶">三阶</h3>
+<p><img src="/syy.github.io/img/st007.jpg" alt="1"></p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>路径规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>个人介绍</title>
     <url>/syy.github.io/about/index.html</url>
     <content><![CDATA[<div style="text-align: center; padding: 40px 0;">
@@ -929,67 +962,37 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 ]]></content>
   </entry>
   <entry>
+    <title>分类</title>
+    <url>/syy.github.io/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>diary</title>
     <url>/syy.github.io/diary/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title></title>
-    <url>/syy.github.io/js/footer_beautify.js</url>
-    <content><![CDATA[/**
- * Hexo Butterfly 页脚美化脚本
- * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
- */
-
-var footerTimer; // 全局定时器变量
-
-function updateFooterStats() {
-    // --- 配置区域 ---
-    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
-    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
-    var voyagerBase = 24264952436; // 初始距离(千米)
-    var velocity = 17; // 模拟速度 (km/s)
-
-    var now = new Date();
-
-    // 1. 本站运行时间计算
-    var diff = now.getTime() - startTime.getTime();
-    var days = Math.floor(diff / (24 * 3600 * 1000));
-    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
-    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
-    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
-
-    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
-    var runtimeEl = document.getElementById("runtime-show");
-    if (runtimeEl) {
-        runtimeEl.innerHTML = runtimeText;
+    <url>/syy.github.io/js/click_card.js</url>
+    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
+function linkAuthorCard() {
+    // 找到侧边栏作者卡片元素
+    var authorCard = document.querySelector('.card-author');
+    if (authorCard) {
+        // 修改鼠标样式为手型，提醒用户可以点击
+        authorCard.style.cursor = 'pointer';
+        // 绑定点击事件
+        authorCard.onclick = function() {
+            // 跳转到你的个人介绍页面（注意带上你的二级目录）
+            window.location.href = '/syy.github.io/about/';
+        };
     }
-
-    // 2. 旅行者 1 号距离计算
-    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
-    var currentDist = voyagerBase + (secondsPassed * velocity);
-    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
-
-    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
-    var voyagerEl = document.getElementById("voyager-show");
-    if (voyagerEl) {
-        voyagerEl.innerHTML = voyagerText;
-    }
-
-    // 3. 定时器处理
-    clearTimeout(footerTimer);
-    footerTimer = setTimeout(updateFooterStats, 1000);
 }
 
-// 首次加载初始化
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateFooterStats);
-} else {
-    updateFooterStats();
-}
-
-// 兼容 PJAX (当切换页面时重新触发)
-document.addEventListener('pjax:complete', updateFooterStats);]]></content>
+// 确保页面加载完成后执行
+document.addEventListener('DOMContentLoaded', linkAuthorCard);
+// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
+document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
   </entry>
   <entry>
     <title></title>
@@ -1159,36 +1162,66 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
 }]]></content>
   </entry>
   <entry>
-    <title>分类</title>
-    <url>/syy.github.io/categories/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>tag</title>
     <url>/syy.github.io/tags/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title></title>
-    <url>/syy.github.io/js/click_card.js</url>
-    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
-function linkAuthorCard() {
-    // 找到侧边栏作者卡片元素
-    var authorCard = document.querySelector('.card-author');
-    if (authorCard) {
-        // 修改鼠标样式为手型，提醒用户可以点击
-        authorCard.style.cursor = 'pointer';
-        // 绑定点击事件
-        authorCard.onclick = function() {
-            // 跳转到你的个人介绍页面（注意带上你的二级目录）
-            window.location.href = '/syy.github.io/about/';
-        };
+    <url>/syy.github.io/js/footer_beautify.js</url>
+    <content><![CDATA[/**
+ * Hexo Butterfly 页脚美化脚本
+ * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
+ */
+
+var footerTimer; // 全局定时器变量
+
+function updateFooterStats() {
+    // --- 配置区域 ---
+    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
+    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
+    var voyagerBase = 24264952436; // 初始距离(千米)
+    var velocity = 17; // 模拟速度 (km/s)
+
+    var now = new Date();
+
+    // 1. 本站运行时间计算
+    var diff = now.getTime() - startTime.getTime();
+    var days = Math.floor(diff / (24 * 3600 * 1000));
+    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
+    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
+    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
+
+    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
+    var runtimeEl = document.getElementById("runtime-show");
+    if (runtimeEl) {
+        runtimeEl.innerHTML = runtimeText;
     }
+
+    // 2. 旅行者 1 号距离计算
+    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
+    var currentDist = voyagerBase + (secondsPassed * velocity);
+    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
+
+    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
+    var voyagerEl = document.getElementById("voyager-show");
+    if (voyagerEl) {
+        voyagerEl.innerHTML = voyagerText;
+    }
+
+    // 3. 定时器处理
+    clearTimeout(footerTimer);
+    footerTimer = setTimeout(updateFooterStats, 1000);
 }
 
-// 确保页面加载完成后执行
-document.addEventListener('DOMContentLoaded', linkAuthorCard);
-// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
-document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
+// 首次加载初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateFooterStats);
+} else {
+    updateFooterStats();
+}
+
+// 兼容 PJAX (当切换页面时重新触发)
+document.addEventListener('pjax:complete', updateFooterStats);]]></content>
   </entry>
 </search>
