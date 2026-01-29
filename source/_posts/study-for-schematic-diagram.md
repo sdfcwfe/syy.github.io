@@ -22,7 +22,7 @@ tags:
 2.输出引脚,写值到某个寄存器里面去;
 
 GPIO:通用输出外设 
-![三极管](/syy.github.io/img/st001.jpg)
+![三极管](/syy.github.io/img/st/st001.jpg)
 上拉电阻:对于输入引脚,可以用输入电平;
 
 ## 与门,或门等门电路
@@ -38,5 +38,5 @@ GPIO:通用输出外设
 2440开发板与pc机通信;一条线,输出引脚;
 TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;
 (电平转换芯片:电压不一样,来转接)
-![三极管](/syy.github.io/img/st002.jpg)
+![三极管](/syy.github.io/img/st/st002.jpg)
 
