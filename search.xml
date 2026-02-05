@@ -954,169 +954,12 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
   <entry>
     <title></title>
     <url>/syy.github.io/css/custom.css</url>
-    <content><![CDATA[
-/* 1. 让首页标题容器强制居中 */
-#site-info {
-    text-align: center !important;
-    width: 100%;
-    padding: 0 10px;
-    position: absolute;
-    top: 43%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;         /* 提高层级，确保在遮罩上方 */
-}
-
-/* 2. 首页主标题：月光渐变色 */
-#site-title {
-    font-size: 8vw !important;
-    font-family: 'Noto Serif SC', serif !important;
-    font-weight: 900;
-    letter-spacing: 5px;
-    line-height: 1.2;
-    margin: 0;
-
-    /* 核心：月光色渐变 (灰黄到纯白) */
-    background: linear-gradient(to bottom, #e2e2e2 0%, #fff9d1 50%, #ffffff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-
-    /* 发光感 */
-    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
-}
-
-/* 3. 首页副标题样式 */
-#site-subtitle {
-    font-size: 1.8rem !important;
-    font-weight: 400;
-    margin-top: 15px;
-    display: block;
-    color: #ffffff;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-}
-
-/* 4. 响应式：手机端适配 */
-@media screen and (max-width: 768px) {
-    #site-title {
-        font-size: 3.5rem !important;
-    }
-    #site-subtitle {
-        font-size: 1.2rem !important;
-    }
-}
-
-
-/* 6. 删除了卡片向上偏移，改回正常间距 */
-#content-inner {
-    margin-top: 20px !important; /* 恢复正常间距 */
-    position: relative;
-    z-index: 10;
-}
-
-/* 7. 卡片样式微调（保留毛玻璃，但去掉重叠） */
-.recent-post-item, .aside-list-item, #aside-sidebar .card-widget {
-    border-radius: 15px !important;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05) !important;
-    transition: all 0.3s ease !important;
-    background: rgba(255, 255, 255, 0.8) !important;
-    backdrop-filter: blur(10px);
-}
-
-
-/* 8. 全局背景色（淡粉白） */
-body {
-    background: #fdf5f6 !important;
-}
-
-/* 9. 顶部背景图整体调暗一点点（可选） */
-#page-header.full_page::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.15);
-    z-index: 1;
-}
-/* 3. 首页副标题：打字机文字颜色 */
-#subtitle {
-    font-size: 1.5rem !important;
-    color: #fff5e6 !important; /* 奶油米黄色 */
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 500;
-}
-
-/* 4. 打字机光标颜色：调成暖橘色 */
-.typed-cursor {
-    color: #fda085 !important; /* 朝阳的暖橙色 */
-    font-size: 1.5rem !important;
-}
-/* 强制更换全局鼠标指针 */
-/* 默认状态 */
-html, body {
-    cursor: url('/syy.github.io/img/001.svg'), auto !important;
-}
-
-/* 悬停在链接、按钮、文章卡片、侧边栏上的状态 */
-a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
-    cursor: url('/syy.github.io/img/002.svg'), auto !important;
-}
-
-
-
-
-#footer {
-    background: transparent !important; /* 配合你背景图的丝滑过渡 */
-}
-
-#runtime-show, #voyager-show {
-    color: #ffffff; /* 文字颜色 */
-    font-size: 13px;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* 防止背景太杂看不清字 */
-    margin: 5px 0;
-}
-
-/* 截图右侧那个 127.0.0.1 的云朵效果 */
-/* 这是一个典型的“小工具”或悬浮卡片 */
-.ip-cloud {
-    background: white;
-    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; /* 模拟云朵不规则形状 */
-    padding: 10px 20px;
-    color: #00dbde;
-    font-weight: bold;
-}
-
-
-
-
-/* 确保侧边栏卡片能装下两个按钮 */
-.card-author {
-    padding: 20px 10px !important; /* 增加一点内边距 */
-    height: auto !important;       /* 高度设为自动 */
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-/* 按钮的强制样式 */
-#custom-about-btn {
-    background: linear-gradient(to right, #f6d365 0%, #fda085 100%) !important;
-    color: white !important;
-    width: 90% !important;
-    text-align: center !important;
-    padding: 6px 0 !important;
-    border-radius: 8px !important;
-    text-decoration: none !important;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-}
-
-/* 确保它在移动端也能看见 */
-.button--animated {
-    margin-bottom: 5px !important;
-}]]></content>
+    <content><![CDATA[#site-info{text-align:center!important;width:100%;padding:0 10px;position:absolute;top:43%;left:50%;transform:translate(-50%,-50%);z-index:5}#site-title{font-size:8vw!important;font-family:'Noto Serif SC',serif!important;font-weight:900;letter-spacing:5px;line-height:1.2;margin:0;background:linear-gradient(to bottom,#e2e2e2 0,#fff9d1 50%,#fff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(2px 4px 6px rgba(0,0,0,.3))}#site-subtitle{font-size:1.8rem!important;font-weight:400;margin-top:15px;display:block;color:#fff;text-shadow:1px 1px 5px rgba(0,0,0,.5)}@media screen and (max-width:768px){#site-title{font-size:3.5rem!important}#site-subtitle{font-size:1.2rem!important}}#content-inner{margin-top:20px!important;position:relative;z-index:10}#aside-sidebar .card-widget,.aside-list-item,.recent-post-item{border-radius:15px!important;box-shadow:0 5px 15px rgba(0,0,0,.05)!important;transition:all .3s ease!important;background:rgba(255,255,255,.8)!important;backdrop-filter:blur(10px)}body{background:#fdf5f6!important}#page-header.full_page::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.15);z-index:1}#subtitle{font-size:1.5rem!important;color:#fff5e6!important;text-shadow:1px 1px 5px rgba(0,0,0,.3);font-family:Quicksand,sans-serif;font-weight:500}.typed-cursor{color:#fda085!important;font-size:1.5rem!important}body,html{cursor:url('/syy.github.io/img/001.svg'),auto!important}#site-name,.aside-list-item,.card-widget,.recent-post-item,a,button,i{cursor:url('/syy.github.io/img/002.svg'),auto!important}#footer{background:0 0!important}#runtime-show,#voyager-show{color:#fff;font-size:13px;font-weight:700;text-shadow:1px 1px 2px rgba(0,0,0,.5);margin:5px 0}.ip-cloud{background:#fff;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;padding:10px 20px;color:#00dbde;font-weight:700}.card-author{padding:20px 10px!important;height:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important}#custom-about-btn{background:linear-gradient(to right,#f6d365 0,#fda085 100%)!important;color:#fff!important;width:90%!important;text-align:center!important;padding:6px 0!important;border-radius:8px!important;text-decoration:none!important;display:flex!important;justify-content:center;align-items:center}.button--animated{margin-bottom:5px!important}]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/click_card.js</url>
+    <content><![CDATA[function linkAuthorCard(){var t=document.querySelector(".card-author");t&&(t.style.cursor="pointer",t.onclick=function(){window.location.href="/syy.github.io/about/"})}document.addEventListener("DOMContentLoaded",linkAuthorCard),document.addEventListener("pjax:complete",linkAuthorCard);]]></content>
   </entry>
   <entry>
     <title>diary</title>
@@ -1124,89 +967,13 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/syy.github.io/js/click_card.js</url>
-    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
-function linkAuthorCard() {
-    // 找到侧边栏作者卡片元素
-    var authorCard = document.querySelector('.card-author');
-    if (authorCard) {
-        // 修改鼠标样式为手型，提醒用户可以点击
-        authorCard.style.cursor = 'pointer';
-        // 绑定点击事件
-        authorCard.onclick = function() {
-            // 跳转到你的个人介绍页面（注意带上你的二级目录）
-            window.location.href = '/syy.github.io/about/';
-        };
-    }
-}
-
-// 确保页面加载完成后执行
-document.addEventListener('DOMContentLoaded', linkAuthorCard);
-// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
-document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
+    <title>tag</title>
+    <url>/syy.github.io/tags/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title></title>
     <url>/syy.github.io/js/footer_beautify.js</url>
-    <content><![CDATA[/**
- * Hexo Butterfly 页脚美化脚本
- * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
- */
-
-var footerTimer; // 全局定时器变量
-
-function updateFooterStats() {
-    // --- 配置区域 ---
-    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
-    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
-    var voyagerBase = 24264952436; // 初始距离(千米)
-    var velocity = 17; // 模拟速度 (km/s)
-
-    var now = new Date();
-
-    // 1. 本站运行时间计算
-    var diff = now.getTime() - startTime.getTime();
-    var days = Math.floor(diff / (24 * 3600 * 1000));
-    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
-    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
-    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
-
-    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
-    var runtimeEl = document.getElementById("runtime-show");
-    if (runtimeEl) {
-        runtimeEl.innerHTML = runtimeText;
-    }
-
-    // 2. 旅行者 1 号距离计算
-    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
-    var currentDist = voyagerBase + (secondsPassed * velocity);
-    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
-
-    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
-    var voyagerEl = document.getElementById("voyager-show");
-    if (voyagerEl) {
-        voyagerEl.innerHTML = voyagerText;
-    }
-
-    // 3. 定时器处理
-    clearTimeout(footerTimer);
-    footerTimer = setTimeout(updateFooterStats, 1000);
-}
-
-// 首次加载初始化
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateFooterStats);
-} else {
-    updateFooterStats();
-}
-
-// 兼容 PJAX (当切换页面时重新触发)
-document.addEventListener('pjax:complete', updateFooterStats);]]></content>
-  </entry>
-  <entry>
-    <title>tag</title>
-    <url>/syy.github.io/tags/index.html</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[var footerTimer;function updateFooterStats(){var e=new Date("2025/09/08 00:00:00"),t=new Date("2025/09/08 00:00:00"),o=new Date,e=o.getTime()-e.getTime(),e="本站居然运行了 "+Math.floor(e/864e5)+" 天 "+Math.floor(e%864e5/36e5)+" 小时 "+Math.floor(e%864e5%36e5/6e4)+" 分 "+Math.floor(e%864e5%36e5%6e4/1e3)+" 秒 ❤️",a=document.getElementById("runtime-show");a&&(a.innerHTML=e);a=24264952436+17*((o.getTime()-t.getTime())/1e3),e=(a/149597870.7).toFixed(6),o="旅行者 1 号当前距离地球 "+Math.floor(a).toLocaleString()+" 千米，约为 "+e+" 个天文单位 🚀",t=document.getElementById("voyager-show");t&&(t.innerHTML=o),clearTimeout(footerTimer),footerTimer=setTimeout(updateFooterStats,1e3)}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",updateFooterStats):updateFooterStats(),document.addEventListener("pjax:complete",updateFooterStats);]]></content>
   </entry>
 </search>
