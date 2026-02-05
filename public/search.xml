@@ -138,119 +138,6 @@ stringstream：双向流 → 既可读又可写。</p>
       </tags>
   </entry>
   <entry>
-    <title>cmake_study</title>
-    <url>/syy.github.io/2025/12/30/cmake-study/</url>
-    <content><![CDATA[<blockquote>
-<p>世界上最遥远的距离，不是从源码到二进制，而是 CMake 说 “找不到头文件”，但文件明明就在眼前</p>
-</blockquote>
-<p><img src="/syy.github.io/img/a001.jpg" alt="111"></p>
-<h2 id="目录">目录</h2>
-<ul>
-<li><a href="#%E4%BB%8B%E7%BB%8D">1. 介绍</a></li>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">2. 基本语法</a></li>
-<li><a href="#%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91">3. 如何编译</a></li>
-</ul>
-<h2 id="介绍-a-id-介绍-a">介绍 <a id="介绍"></a></h2>
-<p>预处理-&gt;编译-&gt;汇编-&gt;链接-&gt;可执行程序<br>
-创建一个脚本文件,makefile<br>
-还有一种,cmake,比makefile更高级,根据不同平台直接生成makefile<br>
-有两种库,动态库和静态库,引入第三方现目使用</p>
-<h2 id="基本语法-a-id-基本语法-a">基本语法 <a id="基本语法"></a></h2>
-<h3 id="1-指定-cmake-的最低版本要求：">1、指定 CMake 的最低版本要求：</h3>
-<p>cmake_minimum_required(VERSION <version>)</p>
-<h3 id="2-定义项目的名称和使用的编程语言：">2、定义项目的名称和使用的编程语言：</h3>
-<p>project(&lt;project_name&gt; [<language>…])<br>
-例如： project(MyProject CXX)</p>
-<h3 id="3-指定要生成的可执行文件和其源文件：">3、指定要生成的可执行文件和其源文件：</h3>
-<p>add_executable(<target> &lt;source_files&gt;…)<br>
-例如： add_executable(MyExecutable main.cpp other_file.cpp)</p>
-<h3 id="4-创建一个库-静态库或动态库-及其源文件：">4、创建一个库（静态库或动态库）及其源文件：***</h3>
-<p>add_library(<target> &lt;source_files&gt;…)<br>
-这条指令告诉 CMake：“目标 A (target) 的运行或编译依赖于库 B (library)。”<br>
-例如：<br>
-add_library(MyLibrary STATIC library.cpp)</p>
-<h3 id="5-链接目标文件与其他库：">5、链接目标文件与其他库：</h3>
-<p>target_link_libraries(<target> <libraries>…)<br>
-例如：<br>
-target_link_libraries(MyExecutable MyLibrary)</p>
-<h3 id="6-添加头文件搜索路径：">6、添加头文件搜索路径：</h3>
-<p>include_directories(<dirs>…)<br>
-例如：<br>
-include_directories(${PROJECT_SOURCE_DIR}/include)<br>
-现代 CMake 的替代方案：target_include_directories (强烈推荐)<br>
-在现代 CMake 实践中，我们更倾向于使用 target_include_directories。<br>
-为什么？<br>
-include_directories 像是一个“全局开关”，而 target_include_directories 是“点对点设置”。<br>
-示例对比：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># --- 旧方式 (全局) ---</span><br><span class="line">include_directories(include/)</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">add_executable(App main.cpp) # App 也会被迫搜索 include/，即使它不需要</span><br><span class="line"></span><br><span class="line"># --- 新方式 (目标关联) ---</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">target_include_directories(LibA PUBLIC include/)</span><br></pre></td></tr></table></figure>
-<p>PRIVATE (私有)：<br>
-含义：只有 LibA 自己的源文件（.cpp）在编译时会用到这个目录。<br>
-外部影响：如果另一个程序 App 链接了 LibA，App 不会自动获得这个头文件路径。<br>
-INTERFACE (接口)：<br>
-含义：LibA 自己的源文件在编译时不使用这个目录。<br>
-外部影响：谁链接了 LibA，谁才会获得这个路径。常用于“纯头文件库”（Header-only library）。<br>
-PUBLIC (公开)：<br>
-含义：PRIVATE + INTERFACE。<br>
-效果：LibA 自己编译时要用这个路径，而且任何链接到 LibA 的目标也必须自动带上这个路径。</p>
-<h3 id="7-设置变量的值：">7、设置变量的值：</h3>
-<p>set(-variable  -value…)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.16) # 最低要求的版本号</span><br><span class="line">project(test)</span><br><span class="line">set(SRC_LIST one.cpp)</span><br><span class="line">add_executable(app  $&#123;SRC_LIST&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="8-设置目标属性：">8、设置目标属性：</h3>
-<p>target_include_directories(TARGET target_name<br>
-[BEFORE | AFTER]<br>
-[SYSTEM] [PUBLIC | PRIVATE | INTERFACE]<br>
-[items1…])<br>
-例如： target_include_directories(MyExecutable PRIVATE ${PROJECT_SOURCE_DIR}/include)<br>
-解释; target_include_directories(目标名称 关键字 路径)<br>
-假设你的项目文件夹是这样的：</p>
-<blockquote>
-<p>/MyProject<br>
-├── main.cpp<br>
-├── /include (放公开的头文件)<br>
-│     └── my_lib.h<br>
-├── /src     (放内部的头文件)<br>
-│     └── internal.h<br>
-└── /third_party/bad_code (别人写的烂代码库)</p>
-</blockquote>
-<p>你的 CMakeLists.txt 应该这么写：<br>
-code<br>
-Cmake<br>
-add_executable(MyApp main.cpp)</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(MyApp main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(MyApp </span><br><span class="line">    <span class="comment"># 1. 自己的内部头文件，设置为 PRIVATE</span></span><br><span class="line">    <span class="comment"># 只有 MyApp 能搜到 internal.h</span></span><br><span class="line">    PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 对外的接口头文件，设置为 PUBLIC</span></span><br><span class="line">    <span class="comment"># 如果以后有人链接了 MyApp，他们也能搜到 my_lib.h</span></span><br><span class="line">    PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 第三方库，设置为 SYSTEM</span></span><br><span class="line">    <span class="comment"># 哪怕这个库里有一万个警告，编译时也不会弹出来烦你</span></span><br><span class="line">    SYSTEM PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/third_party/bad_code</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h2 id="如何编译-a-id-如何编译-a">如何编译 <a id="如何编译"></a></h2>
-<h3 id="第一步：进入项目文件夹">第一步：进入项目文件夹</h3>
-<p>首先，确保你在包含 CMakeLists.txt 的那个目录下。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/code</span><br></pre></td></tr></table></figure>
-<h3 id="第二步：创建并进入-build-目录-外部构建">第二步：创建并进入 build 目录（外部构建）</h3>
-<p>为了不让编译产生的临时文件弄乱你的源代码，我们通常创建一个专门的 build 文件夹。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
-<h3 id="第三步：运行-cmake-进行配置">第三步：运行 CMake 进行配置</h3>
-<p>这一步 CMake 会检查你的系统环境，并生成 Makefile 文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake ..</span><br></pre></td></tr></table></figure>
-<h3 id="第四步：执行编译">第四步：执行编译</h3>
-<p>使用 make 命令（或者 cmake --build .）来正式调用编译器（g++）。<br>
-就一个make;</p>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>cmake</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>freertos</title>
-    <url>/syy.github.io/2025/09/11/hello-world/</url>
-    <content><![CDATA[<h1>freertos002</h1>
-<p>测试中</p>
-<h2 id="1-硬件初始化">1.硬件初始化</h2>
-<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>cpp项目之线程池</title>
     <url>/syy.github.io/2026/01/27/cpp%E9%A1%B9%E7%9B%AE%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
     <content><![CDATA[<h1>线程池</h1>
@@ -314,385 +201,17 @@ add_executable(MyApp main.cpp)</p>
 ]]></content>
   </entry>
   <entry>
-    <title>前端学习</title>
-    <url>/syy.github.io/2025/09/20/web-study/</url>
-    <content><![CDATA[<blockquote>
-<p>用代码为世界增添一抹独特的色彩，开启一扇通往无限可能的创意之门 。</p>
-</blockquote>
-<h2 id="html">HTML</h2>
-<h3 id="基本介绍">基本介绍</h3>
-<p>HTML是超文本标记语言,是描述网页的语言<br>
-超文本是标签,带尖括号是标签标记;</p>
-<p>标签语言<br>
-开头 需要加粗的文字 结尾</p>
-<ul>
-<li>标签成对出现,中间是内容</li>
-<li>&lt;&gt;里面放英文字母</li>
-<li>结束标签比开始多/<br>
-例如: <strong>文字内容加粗</strong></li>
-<li>单标签:<br>换行; <hr>水平线</li>
-</ul>
-<h3 id="标签的关系">标签的关系</h3>
-<p>明确代码的书写位置</p>
-<ul>
-<li>父子关系(嵌套关系)</li>
-<li>兄弟关系(并列关系)</li>
-</ul>
-<h3 id="注释">注释</h3>
-<p>对代码的解释说明,和md一样,</p>
-<!-- 你 -->或者
-<h3 id="标题标签">标题标签</h3>
-<p>标题文字<br>
-标签名字:h1-h6(双标签 ),h1一个网页只用一次</p>
-<h3 id="段落标签">段落标签</h3>
-<p>一段文字的标签<br>
-标签<p>双标签</p>
-<h3 id="换行和水平线标签">换行和水平线标签</h3>
-<p>单标签:<br>换行; <hr> 水平线</p>
-<h3 id="文本格式化标签">文本格式化标签</h3>
-<p><img src="/syy.github.io/img/st004.jpg" alt=""><br>
-strong-加粗; em-倾斜;ins-下划线;del-删除线; 工作中推荐<br>
-b-加粗; l-倾斜;u-下划线;s-删除线;</p>
-<h3 id="图像标签">图像标签</h3>
-<p>&lt;img src=&quot;&quot;,四个属性&gt;<br>
-网络插入图片;图片的url(位置和名字)<br>
-alt=&quot;&quot;&quot;替换文本<br>
-title=&quot;1&quot;提示文本<br>
-width=&quot;1&quot;图片宽度<br>
-height = ''图片的高度<br>
-浏览器缩放默认是等比例的,除非两个都描述了</p>
-<h3 id="路径">路径</h3>
-<h4 id="相对路径">相对路径</h4>
-<p>网页和文件分开,路径指的是查找文件时，从起点到终点经历的路线。<br>
-1.当前文件:&quot;./xxx.jpg&quot;<br>
-2.下一级文件:&quot;./xxx/xxx.jpg&quot;<br>
-3.上一级文件:&quot;…/xxx.jpg&quot;</p>
-<h4 id="绝对路径">绝对路径</h4>
-<p>看电脑,window,linux等等;<br>
-window从盘符出发<br>
-例如:img src=“C\image\xxx.jpg”(&lt;和&gt;取消了)<br>
-window默认,其他是/(window二者都可以,推荐这个)</p>
-<p>在线网址也是绝对路径<br>
-友情链接;跳到对应的网站</p>
-<h3 id="超链接标签">超链接标签</h3>
-<p>点击字或者图跳到其他页面;<br>
-公式为<br>
-<img src="/syy.github.io/img/st008.jpg" alt=""></p>
-<p>如何是自己的链接,就换成相对路劲的值来换,<br>
-跳转后原网址已经关闭;<br>
-加属性,在href=“xx” target= “_blank”(同一个&lt;和.),打开新窗口,旧网址保留有<br>
-开发的初期,不知道地址,href可以填#</p>
-<h3 id="音频标签和视频标签">音频标签和视频标签</h3>
-<p>1.音频<br>
-公式;<br>
-<img src="/syy.github.io/img/st009.jpg" alt=""><br>
-2.视频<br>
-公式:<br>
-<img src="/syy.github.io/img/st010.jpg" alt=""><br>
-muted control loop autoplay</p>
-<h3 id="综合案例一">综合案例一;</h3>
-<p>从上到下,先整体再局部;</p>
-<p>补充:如果文字里面要插入标签<br>
-打一个空格,a加herf…</p>
-<h3 id="列表">列表</h3>
-<p>布局内容排列整齐是区域<br>
-分类;无序列表,有序列表,定义列表</p>
-<h4 id="无序列表">无序列表</h4>
-<p>布局排列整齐的不需要归定顺序的区域<br>
-ul嵌套li,ul为无序<br>
-<img src="/syy.github.io/img/st011.jpg" alt=""><br>
-ul标签里面只能包裹li;<br>
-li里面可以包裹任何内容;</p>
-<h4 id="有序列表">有序列表</h4>
-<p>布局排列整齐的需要归定顺序的区域<br>
-ol嵌套li,ol为无序</p>
-<h4 id="定义列表">定义列表</h4>
-<p>标签: dl 嵌套 dt 和 dd, dl 是定义列表, dt 是定义列表的标题, dd 是定义列表的描述/详情。</p>
-<h3 id="表格">表格</h3>
-<p>和execl类似<br>
-标签: table嵌套tr, tr嵌套td / th。</p>
-<h2 id="html5的补充">html5的补充</h2>
-<h3 id="doctype">DOCTYPE</h3>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE&gt;</span></span><br></pre></td></tr></table></figure>
-<p>一般在第一行,是html5的声明,在标签的前面,避免浏览器的怪异模式;</p>
-<h3 id="基本骨架">基本骨架</h3>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>网页标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    这里存放展示给用户看的内容</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>html:整个网络<br>
-head;网络的头部,各种文档的属性和信息,存放给浏览器看的代码,例如css<br>
-body:网络的主体,可直观看见的,存放用户看的代码,例如图片,文本,超链接<br>
-head和body同级<br>
-title:网络标题,是head必须包含的标签<br>
-!是快速生成基本骨架<br>
-meta:写给浏览器、搜索引擎和社交媒体看的“说明书”;<b>单标签</b></p>
-<blockquote>
-<p>SEO 就是通过一系列技术手段和内容优化，让你的网站（博客）在百度、谷歌、必应等搜索引擎中排名更高、更容易被搜到。</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 防止乱码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 适配手机端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;零一的技术博客，分享嵌入式开发、STM32机器人及前端美学。&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- SEO 专用--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;嵌入式, STM32, 考研, 前端, Hexo&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 社交媒体优化--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:title&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Zero One 的个人主页&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:image&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://xxx/img/cover.jpg&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;来看看考研选手的嵌入式作品展吧。&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 自动刷新/跳转--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 5秒后自动刷新页面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;5&quot;</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!-- 3秒后跳转到指定网址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;3;url=https://baidu.com&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="标题">标题</h3>
-<p>h1到h6,是双标签,写在body部分的;</p>
-<h3 id="几个">几个</h3>
-<p>align,=,left | center | right ,调整标签位置,默认是左边;,可以放在h1里;</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>不推荐,使用css来调整更好<br>
- p,双标签,一个段落;<br>
- br,不产生一个新段落换行;<br>
- hr,单标签,<br>
-<img src="/syy.github.io/img/web/001.jpg" alt="hr属性"></p>
-<h3 id="图片">图片</h3>
-<p>img src = “xxx”(在一个文件夹下的情况下)<br>
-是单标签</p>
-<h4 id="属性">属性</h4>
-<p>src :路径<br>
-alt: 文本定义(无法显示才看到的)<br>
-width=xxxx px 控制宽度<br>
-height = xxx px 高度<br>
-一般只设置一个就成比例放大缩小<br>
-title = xxx(鼠标右键出现)</p>
-<h4 id="路径">路径</h4>
-<p>1.绝对路径<br>
-d:xxxxx,从盘符开始<br>
-2.相对路径<br>
-在同一个文件夹下,…/是前一个文件夹,./是同极,/是子集</p>
-<h3 id="超文本链接">超文本链接</h3>
-<p>用示双标签a来表示,<br>
-使用href= xxxx(地址)<br>
-才能实现<br>
-不然不可以,地址要完整,<br>
-啊中间可以是文本,图片</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;xxx&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span> = <span class="string">&quot;xxx&quot;</span>?</span></span><br><span class="line"><span class="tag">&lt;/<span class="attr">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="文本标签">文本标签</h3>
-<p><img src="/syy.github.io/img/web/002.jpg" alt="文本标签"><br>
-del:删除<br>
-em:加重,斜体<br>
-b:加粗<br>
-<strong>标签可以嵌套</strong></p>
-<h3 id="有序列表">有序列表</h3>
-<p>外层ol<br>
-内层li,按顺序,多个<br>
-<strong>均是双标签</strong></p>
-<h4 id="ol的属性">ol的属性</h4>
-<p><img src="/syy.github.io/img/web/003.jpg" alt="属性"></p>
-<h4 id="嵌套">嵌套</h4>
-<p>有序列表可以嵌套,ol里面还可以有ol<br>
-也可以嵌套</p>
-<h3 id="无序列表">无序列表</h3>
-<p>双标签,外层是ul,内层是li</p>
-<h4 id="属性type">属性type</h4>
-<p>disc:默认<br>
-circle:原<br>
-square:方块<br>
-none:无;<br>
-<img src="/syy.github.io/img/web/004.jpg" alt="属性"></p>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>proteus下写汇编</title>
-    <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<blockquote>
-<p>微机大作业时候,在想可以不靠keil实现proteus</p>
-</blockquote>
-<style>
-  /* 修改正文字体大小和字体 */
-  .post-content {
-    font-size: 20px !important; /* 你想要的大小 */
-    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
-    line-height: 2.0 !important; /* 行间距 */
-  }
-
-  /*!* 如果你也想改这篇博客的标题大小 *!*/
-  /*.post-content h1, .post-content h2, .post-content h3 {*/
-  /*  font-family: 'Microsoft YaHei' !important;*/
-  /*  color: #fda085 !important;*/
-  /*}*/
-</style>
-<h1>如何在proteus下汇编</h1>
-<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
-<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
-2.放置主控芯片如at89c52,后点击source code的图标<br>
-<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
-3.点击vsm后再点击project创建新工程<br>
-<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
-4.取消勾选项<br>
-<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
-5.选择project的project settings，取消勾选嵌入式文件<br>
-<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
-6.选择project的add new file，创建对应汇编文件<br>
-<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
-7.然后就可以在上面编程了<br>
-<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>应用</category>
-      </categories>
-      <tags>
-        <tag>嵌入式</tag>
-        <tag>解决实际问题</tag>
-        <tag>汇编</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>信号与系统</title>
-    <url>/syy.github.io/2025/09/08/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<!--
-![美女压图](/img/002.jpg)
--->
-<h1>信号与系统001</h1>
-<p>目前还是测试的,具体内容往后再看看;</p>
-<h2 id="卷积">卷积</h2>
-<h3 id="卷积的性质">卷积的性质</h3>
-<ul>
-<li>1.分配律</li>
-<li>2.交换律</li>
-<li>3.两个信号卷积后的微分，等于其中一个信号的微分与另一个信号的卷积</li>
-<li>4.<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ h(t+t_0) * x(t…'>\( h(t+t_0) * x(t-t_0) = h(t) * x(t) \)</span></li>
-<li>LTI 系统稳定的充要条件是<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></msubsup><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo><mi mathvariant="normal">∣</mi><mtext> </mtext><mi>d</mi><mi>t</mi><mo>&lt;</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\int_{-\infty}^{+\infty} |h(t)| \, dt &lt; +\infty 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.491512em;vertical-align:-0.970281em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right:0.44445em;position:relative;top:-0.0011249999999999316em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.5212310000000002em;"><span style="top:-1.7880500000000001em;margin-left:-0.44445em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.8129000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.970281em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathdefault">h</span><span class="mopen">(</span><span class="mord mathdefault">t</span><span class="mclose">)</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span></span></p>
-或<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munderover><mi mathvariant="normal">∣</mi><mi>h</mi><mo stretchy="false">[</mo><mi>k</mi><mo stretchy="false">]</mo><mi mathvariant="normal">∣</mi><mo>&lt;</mo><mo>+</mo><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">\sum_{k=-\infty}^{+\infty} |h[k]| &lt; +\infty 
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.11878em;vertical-align:-1.360444em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7583360000000003em;"><span style="top:-1.8478869999999998em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">=</span><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.360444em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">∣</span><span class="mord mathdefault">h</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord">+</span><span class="mord">∞</span></span></span></span></span></p>
-</li>
-</ul>
-<h3 id="lti系统的因果充要条件">LTI系统的因果充要条件</h3>
-<ul>
-<li>h(t)=0,当t&lt;0时,或者h[n]=0,当n&lt;0时</li>
-<li>因果的定义：输出 <span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ y(t) \)'>\( y(t) \)</span>在 $( t_0 ) $时刻的 <span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲ y(t_0) \)'>\( y(t_0) \)</span>，只有$ ( t \leq t_0 ) $时刻的 $( x(t) ) $决定。</li>
-</ul>
-<hr>
-<blockquote>
-<p>学习是一个持续的过程，每一小步都是进步。</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>专业课</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
-    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
-    <content><![CDATA[<blockquote>
-<p>写大作业遇到的问题有感,天生无才</p>
-</blockquote>
-<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
-发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
-<p>调查的时候,在终端调用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
-<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
-<h2 id="解决方法">解决方法</h2>
-<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
-<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
-]]></content>
-      <tags>
-        <tag>解决实际问题</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>读原理图</title>
-    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
-    <content><![CDATA[<h1>硬件</h1>
-<blockquote>
-<p>study for schematic diagram</p>
-</blockquote>
-<h2 id="gpio">GPIO</h2>
-<!-- 
-    ![111](/syy.github.io/img/img.jpg) 
--->
-<p>输出引脚{高点平:1;低电平:0;} ,用万用表读取高低电平;</p>
-<p>怎么用:<br>
-1.配置引脚功能;<br>
-2.输出引脚,写值到某个寄存器里面去;</p>
-<p>GPIO:通用输出外设<br>
-<img src="/syy.github.io/img/st001.jpg" alt="三极管"><br>
-上拉电阻:对于输入引脚,可以用输入电平;</p>
-<h2 id="与门-或门等门电路">与门,或门等门电路</h2>
-<p>非门: B != A;<br>
-与门: B = A1 &amp; A2;<br>
-或门: B = A1 || A2;<br>
-或非门: $ B = \neg(A1 &amp; A2) $<br>
-与非门: $ B = \neg(A1 \lor A2) $</p>
-<h2 id="协议类">协议类</h2>
-<h3 id="串口">串口</h3>
-<p>(1)UART 串口<br>
-2440开发板与pc机通信;一条线,输出引脚;<br>
-TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
-(电平转换芯片:电压不一样,来转接)<br>
-<img src="/syy.github.io/img/st002.jpg" alt="三极管"></p>
+    <title>freertos</title>
+    <url>/syy.github.io/2025/09/11/hello-world/</url>
+    <content><![CDATA[<h1>freertos002</h1>
+<p>测试中</p>
+<h2 id="1-硬件初始化">1.硬件初始化</h2>
+<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
         <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数模美赛的学习笔记</title>
-    <url>/syy.github.io/2026/01/23/%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B/</url>
-    <content><![CDATA[<h1>数模美赛</h1>
-<p>基于数学建模老哥和其他资料学习的笔记,<br>
-也可以参考一下我的思路,本人数模国赛c题省二,虽然不高;</p>
-<h2 id="1-基础思维">1.基础思维</h2>
-<h3 id="定义">定义</h3>
-<p>实际问题转成数学建模<br>
-问题分析-假设简化-模型构建-模型求解-模型检验-结果分析</p>
-<h2 id="模型">模型</h2>
-<h3 id="1-高级规划模型">1.高级规划模型</h3>
-<p>3个:非线性规划和求解, 整数规划分支定界法原理, 多目标规划(帕累托最优与权重)<br>
-<img src="/syy.github.io/img/math/002.jpg" alt=""><br>
-多目标,非线性</p>
-<h2 id="论文">论文</h2>
-<h3 id="论文题目">论文题目</h3>
-<p><img src="/syy.github.io/img/math/003.jpg" alt=""><br>
-突出赛题类型的命题和技巧,如下图所示<br>
-<img src="/syy.github.io/img/math/004.jpg" alt=""><br>
-一个赛题多个子任务,选取最据代表的一个作为题目,<br>
-<img src="/syy.github.io/img/math/005.jpg" alt=""></p>
-<h3 id="摘要和关键词">摘要和关键词</h3>
-<p>十分关键,对关键词加粗,不要出现自定义在下文呢的,不要过于绝对的说法;</p>
-<p><img src="/syy.github.io/img/math/006.jpg" alt=""><br>
-摘要的结果<br>
-<img src="/syy.github.io/img/math/007.jpg" alt=""></p>
-<h4 id="摘要的前言">摘要的前言</h4>
-<p><img src="/syy.github.io/img/math/008.jpg" alt=""></p>
-<h4 id="摘要的正文">摘要的正文</h4>
-<p>要分析问题多的部分时候分段<br>
-<img src="/syy.github.io/img/math/009.jpg" alt=""><br>
-<img src="/syy.github.io/img/math/010.jpg" alt=""><br>
-<img src="/syy.github.io/img/math/011.jpg" alt=""><br>
-<img src="/syy.github.io/img/math/012.jpg" alt=""><br>
-<img src="/syy.github.io/img/math/013.jpg" alt=""></p>
-<h4 id="摘要的结尾">摘要的结尾</h4>
-<p><img src="/syy.github.io/img/math/014.jpg" alt=""></p>
-<h3 id="关键词">关键词</h3>
-<p>3-6个,专业性,不要寓意重复</p>
-<h3 id="论文正文">论文正文</h3>
-<h4 id="问题重述">问题重述</h4>
-<p>改写的问题,声明问题的背景来源,列出必要的数据,概述任务的要解决的核心<br>
-<img src="/syy.github.io/img/math/015.jpg" alt=""><br>
-<br>内容不抄,扩充,串联,表达</p>
-<p>对于题目给出的数据,一定对数据内容和作用进行简要声明</p>
-<h4 id="问题的分析">问题的分析</h4>
-<p>从题目到模型的桥梁,<br>
-1.识别题目的已知的信息<br>
-2.明确问题<br>
-3.提出思路和方向<br>
-4.对问题的进一步理解</p>
-<blockquote>
-<p>注意事项:每一个问题要独立成段,差距,<br>
-要层层递进,不要比摘要简单,比模型复杂,<br>
-给出流程图<br>
-<img src="/syy.github.io/img/math/016.jpg" alt=""><br>
-<img src="/syy.github.io/img/math/017.jpg" alt=""></p>
-</blockquote>
-<h1>数模美赛练习</h1>
-<h2 id="2025b">2025B</h2>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>数模</tag>
-        <tag>比赛</tag>
       </tags>
   </entry>
   <entry>
@@ -867,6 +386,228 @@ C# 中的类型转换可以分为两种：隐式类型转换和显式类型转�
       </tags>
   </entry>
   <entry>
+    <title>proteus下写汇编</title>
+    <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<blockquote>
+<p>微机大作业时候,在想可以不靠keil实现proteus</p>
+</blockquote>
+<style>
+  /* 修改正文字体大小和字体 */
+  .post-content {
+    font-size: 20px !important; /* 你想要的大小 */
+    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
+    line-height: 2.0 !important; /* 行间距 */
+  }
+
+  /*!* 如果你也想改这篇博客的标题大小 *!*/
+  /*.post-content h1, .post-content h2, .post-content h3 {*/
+  /*  font-family: 'Microsoft YaHei' !important;*/
+  /*  color: #fda085 !important;*/
+  /*}*/
+</style>
+<h1>如何在proteus下汇编</h1>
+<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
+<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
+2.放置主控芯片如at89c52,后点击source code的图标<br>
+<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
+3.点击vsm后再点击project创建新工程<br>
+<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
+4.取消勾选项<br>
+<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
+5.选择project的project settings，取消勾选嵌入式文件<br>
+<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
+6.选择project的add new file，创建对应汇编文件<br>
+<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
+7.然后就可以在上面编程了<br>
+<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>应用</category>
+      </categories>
+      <tags>
+        <tag>嵌入式</tag>
+        <tag>解决实际问题</tag>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
+    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
+    <content><![CDATA[<blockquote>
+<p>写大作业遇到的问题有感,天生无才</p>
+</blockquote>
+<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
+发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
+<p>调查的时候,在终端调用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
+<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
+<h2 id="解决方法">解决方法</h2>
+<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
+<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
+]]></content>
+      <tags>
+        <tag>解决实际问题</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>读原理图</title>
+    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
+    <content><![CDATA[<h1>硬件</h1>
+<blockquote>
+<p>study for schematic diagram</p>
+</blockquote>
+<h2 id="gpio">GPIO</h2>
+<!-- 
+    ![111](/syy.github.io/img/img.jpg) 
+-->
+<p>输出引脚{高点平:1;低电平:0;} ,用万用表读取高低电平;</p>
+<p>怎么用:<br>
+1.配置引脚功能;<br>
+2.输出引脚,写值到某个寄存器里面去;</p>
+<p>GPIO:通用输出外设<br>
+<img src="/syy.github.io/img/st/st001.jpg" alt="三极管"><br>
+上拉电阻:对于输入引脚,可以用输入电平;</p>
+<h2 id="与门-或门等门电路">与门,或门等门电路</h2>
+<p>非门: B != A;<br>
+与门: B = A1 &amp; A2;<br>
+或门: B = A1 || A2;<br>
+或非门: $ B = \neg(A1 &amp; A2) $<br>
+与非门: $ B = \neg(A1 \lor A2) $</p>
+<h2 id="协议类">协议类</h2>
+<h3 id="串口">串口</h3>
+<p>(1)UART 串口<br>
+2440开发板与pc机通信;一条线,输出引脚;<br>
+TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接到pc;<br>
+(电平转换芯片:电压不一样,来转接)<br>
+<img src="/syy.github.io/img/st/st002.jpg" alt="三极管"></p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>嵌入式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>qt</title>
+    <url>/syy.github.io/2026/01/28/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h1>qt</h1>
+<p>使用cpp或者py会更好<br>
+qt widgets xxxx;可视化<br>
+qt console xxx:控制台<br>
+后面两个;移动端</p>
+<h2 id="文件的创建">文件的创建</h2>
+<p><img src="/syy.github.io/img/qt/001.jpg" alt=""><br>
+业务逻辑在cpp写,<br>
+界面在ui写<br>
+h为头文件, 个事件关联</p>
+<p><img src="/syy.github.io/img/qt/002.jpg" alt=""><br>
+点击ui文件进入设计界面,</p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>专业课</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cmake_study</title>
+    <url>/syy.github.io/2025/12/30/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/cmake-study/</url>
+    <content><![CDATA[<blockquote>
+<p>世界上最遥远的距离，不是从源码到二进制，而是 CMake 说 “找不到头文件”，但文件明明就在眼前</p>
+</blockquote>
+<p><img src="/syy.github.io/img/a001.jpg" alt="111"></p>
+<h2 id="目录">目录</h2>
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">1. 介绍</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">2. 基本语法</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91">3. 如何编译</a></li>
+</ul>
+<h2 id="介绍-a-id-介绍-a">介绍 <a id="介绍"></a></h2>
+<p>预处理-&gt;编译-&gt;汇编-&gt;链接-&gt;可执行程序<br>
+创建一个脚本文件,makefile<br>
+还有一种,cmake,比makefile更高级,根据不同平台直接生成makefile<br>
+有两种库,动态库和静态库,引入第三方现目使用</p>
+<h2 id="基本语法-a-id-基本语法-a">基本语法 <a id="基本语法"></a></h2>
+<h3 id="1-指定-cmake-的最低版本要求：">1、指定 CMake 的最低版本要求：</h3>
+<p>cmake_minimum_required(VERSION <version>)</p>
+<h3 id="2-定义项目的名称和使用的编程语言：">2、定义项目的名称和使用的编程语言：</h3>
+<p>project(&lt;project_name&gt; [<language>…])<br>
+例如： project(MyProject CXX)</p>
+<h3 id="3-指定要生成的可执行文件和其源文件：">3、指定要生成的可执行文件和其源文件：</h3>
+<p>add_executable(<target> &lt;source_files&gt;…)<br>
+例如： add_executable(MyExecutable main.cpp other_file.cpp)</p>
+<h3 id="4-创建一个库-静态库或动态库-及其源文件：">4、创建一个库（静态库或动态库）及其源文件：***</h3>
+<p>add_library(<target> &lt;source_files&gt;…)<br>
+这条指令告诉 CMake：“目标 A (target) 的运行或编译依赖于库 B (library)。”<br>
+例如：<br>
+add_library(MyLibrary STATIC library.cpp)</p>
+<h3 id="5-链接目标文件与其他库：">5、链接目标文件与其他库：</h3>
+<p>target_link_libraries(<target> <libraries>…)<br>
+例如：<br>
+target_link_libraries(MyExecutable MyLibrary)</p>
+<h3 id="6-添加头文件搜索路径：">6、添加头文件搜索路径：</h3>
+<p>include_directories(<dirs>…)<br>
+例如：<br>
+include_directories(${PROJECT_SOURCE_DIR}/include)<br>
+现代 CMake 的替代方案：target_include_directories (强烈推荐)<br>
+在现代 CMake 实践中，我们更倾向于使用 target_include_directories。<br>
+为什么？<br>
+include_directories 像是一个“全局开关”，而 target_include_directories 是“点对点设置”。<br>
+示例对比：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># --- 旧方式 (全局) ---</span><br><span class="line">include_directories(include/)</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">add_executable(App main.cpp) # App 也会被迫搜索 include/，即使它不需要</span><br><span class="line"></span><br><span class="line"># --- 新方式 (目标关联) ---</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">target_include_directories(LibA PUBLIC include/)</span><br></pre></td></tr></table></figure>
+<p>PRIVATE (私有)：<br>
+含义：只有 LibA 自己的源文件（.cpp）在编译时会用到这个目录。<br>
+外部影响：如果另一个程序 App 链接了 LibA，App 不会自动获得这个头文件路径。<br>
+INTERFACE (接口)：<br>
+含义：LibA 自己的源文件在编译时不使用这个目录。<br>
+外部影响：谁链接了 LibA，谁才会获得这个路径。常用于“纯头文件库”（Header-only library）。<br>
+PUBLIC (公开)：<br>
+含义：PRIVATE + INTERFACE。<br>
+效果：LibA 自己编译时要用这个路径，而且任何链接到 LibA 的目标也必须自动带上这个路径。</p>
+<h3 id="7-设置变量的值：">7、设置变量的值：</h3>
+<p>set(-variable  -value…)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.16) # 最低要求的版本号</span><br><span class="line">project(test)</span><br><span class="line">set(SRC_LIST one.cpp)</span><br><span class="line">add_executable(app  $&#123;SRC_LIST&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="8-设置目标属性：">8、设置目标属性：</h3>
+<p>target_include_directories(TARGET target_name<br>
+[BEFORE | AFTER]<br>
+[SYSTEM] [PUBLIC | PRIVATE | INTERFACE]<br>
+[items1…])<br>
+例如： target_include_directories(MyExecutable PRIVATE ${PROJECT_SOURCE_DIR}/include)<br>
+解释; target_include_directories(目标名称 关键字 路径)<br>
+假设你的项目文件夹是这样的：</p>
+<blockquote>
+<p>/MyProject<br>
+├── main.cpp<br>
+├── /include (放公开的头文件)<br>
+│     └── my_lib.h<br>
+├── /src     (放内部的头文件)<br>
+│     └── internal.h<br>
+└── /third_party/bad_code (别人写的烂代码库)</p>
+</blockquote>
+<p>你的 CMakeLists.txt 应该这么写：<br>
+code<br>
+Cmake<br>
+add_executable(MyApp main.cpp)</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(MyApp main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(MyApp </span><br><span class="line">    <span class="comment"># 1. 自己的内部头文件，设置为 PRIVATE</span></span><br><span class="line">    <span class="comment"># 只有 MyApp 能搜到 internal.h</span></span><br><span class="line">    PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 对外的接口头文件，设置为 PUBLIC</span></span><br><span class="line">    <span class="comment"># 如果以后有人链接了 MyApp，他们也能搜到 my_lib.h</span></span><br><span class="line">    PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 第三方库，设置为 SYSTEM</span></span><br><span class="line">    <span class="comment"># 哪怕这个库里有一万个警告，编译时也不会弹出来烦你</span></span><br><span class="line">    SYSTEM PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/third_party/bad_code</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="如何编译-a-id-如何编译-a">如何编译 <a id="如何编译"></a></h2>
+<h3 id="第一步：进入项目文件夹">第一步：进入项目文件夹</h3>
+<p>首先，确保你在包含 CMakeLists.txt 的那个目录下。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/code</span><br></pre></td></tr></table></figure>
+<h3 id="第二步：创建并进入-build-目录-外部构建">第二步：创建并进入 build 目录（外部构建）</h3>
+<p>为了不让编译产生的临时文件弄乱你的源代码，我们通常创建一个专门的 build 文件夹。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
+<h3 id="第三步：运行-cmake-进行配置">第三步：运行 CMake 进行配置</h3>
+<p>这一步 CMake 会检查你的系统环境，并生成 Makefile 文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake ..</span><br></pre></td></tr></table></figure>
+<h3 id="第四步：执行编译">第四步：执行编译</h3>
+<p>使用 make 命令（或者 cmake --build .）来正式调用编译器（g++）。<br>
+就一个make;</p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>cmake</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>植物大战僵尸制作</title>
     <url>/syy.github.io/2025/09/12/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8%E5%88%B6%E4%BD%9C/</url>
     <content><![CDATA[<h1>植物大战僵尸</h1>
@@ -896,6 +637,182 @@ C# 中的类型转换可以分为两种：隐式类型转换和显式类型转�
       </tags>
   </entry>
   <entry>
+    <title>前端学习</title>
+    <url>/syy.github.io/2025/09/20/web-study/</url>
+    <content><![CDATA[<blockquote>
+<p>用代码为世界增添一抹独特的色彩，开启一扇通往无限可能的创意之门 。</p>
+</blockquote>
+<h2 id="html">HTML</h2>
+<h3 id="基本介绍">基本介绍</h3>
+<p>HTML是超文本标记语言,是描述网页的语言<br>
+超文本是标签,带尖括号是标签标记;</p>
+<p>标签语言<br>
+开头 需要加粗的文字 结尾</p>
+<ul>
+<li>标签成对出现,中间是内容</li>
+<li>&lt;&gt;里面放英文字母</li>
+<li>结束标签比开始多/<br>
+例如: <strong>文字内容加粗</strong></li>
+<li>单标签:<br>换行; <hr>水平线</li>
+</ul>
+<h3 id="标签的关系">标签的关系</h3>
+<p>明确代码的书写位置</p>
+<ul>
+<li>父子关系(嵌套关系)</li>
+<li>兄弟关系(并列关系)</li>
+</ul>
+<h3 id="注释">注释</h3>
+<p>对代码的解释说明,和md一样,</p>
+<!-- 你 -->或者
+<h3 id="标题标签">标题标签</h3>
+<p>标题文字<br>
+标签名字:h1-h6(双标签 ),h1一个网页只用一次</p>
+<h3 id="段落标签">段落标签</h3>
+<p>一段文字的标签<br>
+标签<p>双标签</p>
+<h3 id="换行和水平线标签">换行和水平线标签</h3>
+<p>单标签:<br>换行; <hr> 水平线</p>
+<h3 id="文本格式化标签">文本格式化标签</h3>
+<p><img src="/syy.github.io/img/st/st004.jpg" alt=""><br>
+strong-加粗; em-倾斜;ins-下划线;del-删除线; 工作中推荐<br>
+b-加粗; l-倾斜;u-下划线;s-删除线;</p>
+<h3 id="图像标签">图像标签</h3>
+<p>&lt;img src=&quot;&quot;,四个属性&gt;<br>
+网络插入图片;图片的url(位置和名字)<br>
+alt=&quot;&quot;&quot;替换文本<br>
+title=&quot;1&quot;提示文本<br>
+width=&quot;1&quot;图片宽度<br>
+height = ''图片的高度<br>
+浏览器缩放默认是等比例的,除非两个都描述了</p>
+<h3 id="路径">路径</h3>
+<h4 id="相对路径">相对路径</h4>
+<p>网页和文件分开,路径指的是查找文件时，从起点到终点经历的路线。<br>
+1.当前文件:&quot;./xxx.jpg&quot;<br>
+2.下一级文件:&quot;./xxx/xxx.jpg&quot;<br>
+3.上一级文件:&quot;…/xxx.jpg&quot;</p>
+<h4 id="绝对路径">绝对路径</h4>
+<p>看电脑,window,linux等等;<br>
+window从盘符出发<br>
+例如:img src=“C\image\xxx.jpg”(&lt;和&gt;取消了)<br>
+window默认,其他是/(window二者都可以,推荐这个)</p>
+<p>在线网址也是绝对路径<br>
+友情链接;跳到对应的网站</p>
+<h3 id="超链接标签">超链接标签</h3>
+<p>点击字或者图跳到其他页面;<br>
+公式为<br>
+<img src="/syy.github.io/img/st/st008.jpg" alt=""></p>
+<p>如何是自己的链接,就换成相对路劲的值来换,<br>
+跳转后原网址已经关闭;<br>
+加属性,在href=“xx” target= “_blank”(同一个&lt;和.),打开新窗口,旧网址保留有<br>
+开发的初期,不知道地址,href可以填#</p>
+<h3 id="音频标签和视频标签">音频标签和视频标签</h3>
+<p>1.音频<br>
+公式;<br>
+<img src="/syy.github.io/img/st/st009.jpg" alt=""><br>
+2.视频<br>
+公式:<br>
+<img src="/syy.github.io/img/st/st010.jpg" alt=""><br>
+muted control loop autoplay</p>
+<h3 id="综合案例一">综合案例一;</h3>
+<p>从上到下,先整体再局部;</p>
+<p>补充:如果文字里面要插入标签<br>
+打一个空格,a加herf…</p>
+<h3 id="列表">列表</h3>
+<p>布局内容排列整齐是区域<br>
+分类;无序列表,有序列表,定义列表</p>
+<h4 id="无序列表">无序列表</h4>
+<p>布局排列整齐的不需要归定顺序的区域<br>
+ul嵌套li,ul为无序<br>
+<img src="/syy.github.io/img/st/st011.jpg" alt=""><br>
+ul标签里面只能包裹li;<br>
+li里面可以包裹任何内容;</p>
+<h4 id="有序列表">有序列表</h4>
+<p>布局排列整齐的需要归定顺序的区域<br>
+ol嵌套li,ol为无序</p>
+<h4 id="定义列表">定义列表</h4>
+<p>标签: dl 嵌套 dt 和 dd, dl 是定义列表, dt 是定义列表的标题, dd 是定义列表的描述/详情。</p>
+<h3 id="表格">表格</h3>
+<p>和execl类似<br>
+标签: table嵌套tr, tr嵌套td / th。</p>
+<h2 id="html5的补充">html5的补充</h2>
+<h3 id="doctype">DOCTYPE</h3>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE&gt;</span></span><br></pre></td></tr></table></figure>
+<p>一般在第一行,是html5的声明,在标签的前面,避免浏览器的怪异模式;</p>
+<h3 id="基本骨架">基本骨架</h3>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>网页标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    这里存放展示给用户看的内容</span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>html:整个网络<br>
+head;网络的头部,各种文档的属性和信息,存放给浏览器看的代码,例如css<br>
+body:网络的主体,可直观看见的,存放用户看的代码,例如图片,文本,超链接<br>
+head和body同级<br>
+title:网络标题,是head必须包含的标签<br>
+!是快速生成基本骨架<br>
+meta:写给浏览器、搜索引擎和社交媒体看的“说明书”;<b>单标签</b></p>
+<blockquote>
+<p>SEO 就是通过一系列技术手段和内容优化，让你的网站（博客）在百度、谷歌、必应等搜索引擎中排名更高、更容易被搜到。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 防止乱码 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 适配手机端 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;零一的技术博客，分享嵌入式开发、STM32机器人及前端美学。&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- SEO 专用--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;嵌入式, STM32, 考研, 前端, Hexo&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 社交媒体优化--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:title&quot;</span> <span class="attr">content</span>=<span class="string">&quot;Zero One 的个人主页&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:image&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://xxx/img/cover.jpg&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">property</span>=<span class="string">&quot;og:description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;来看看考研选手的嵌入式作品展吧。&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 自动刷新/跳转--&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 5秒后自动刷新页面 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;5&quot;</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!-- 3秒后跳转到指定网址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;3;url=https://baidu.com&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="标题">标题</h3>
+<p>h1到h6,是双标签,写在body部分的;</p>
+<h3 id="几个">几个</h3>
+<p>align,=,left | center | right ,调整标签位置,默认是左边;,可以放在h1里;</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>不推荐,使用css来调整更好<br>
+ p,双标签,一个段落;<br>
+ br,不产生一个新段落换行;<br>
+ hr,单标签,<br>
+<img src="/syy.github.io/img/web/001.jpg" alt="hr属性"></p>
+<h3 id="图片">图片</h3>
+<p>img src = “xxx”(在一个文件夹下的情况下)<br>
+是单标签</p>
+<h4 id="属性">属性</h4>
+<p>src :路径<br>
+alt: 文本定义(无法显示才看到的)<br>
+width=xxxx px 控制宽度<br>
+height = xxx px 高度<br>
+一般只设置一个就成比例放大缩小<br>
+title = xxx(鼠标右键出现)</p>
+<h4 id="路径">路径</h4>
+<p>1.绝对路径<br>
+d:xxxxx,从盘符开始<br>
+2.相对路径<br>
+在同一个文件夹下,…/是前一个文件夹,./是同极,/是子集</p>
+<h3 id="超文本链接">超文本链接</h3>
+<p>用示双标签a来表示,<br>
+使用href= xxxx(地址)<br>
+才能实现<br>
+不然不可以,地址要完整,<br>
+啊中间可以是文本,图片</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;xxx&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span> = <span class="string">&quot;xxx&quot;</span>?</span></span><br><span class="line"><span class="tag">&lt;/<span class="attr">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="文本标签">文本标签</h3>
+<p><img src="/syy.github.io/img/web/002.jpg" alt="文本标签"><br>
+del:删除<br>
+em:加重,斜体<br>
+b:加粗<br>
+<strong>标签可以嵌套</strong></p>
+<h3 id="有序列表">有序列表</h3>
+<p>外层ol<br>
+内层li,按顺序,多个<br>
+<strong>均是双标签</strong></p>
+<h4 id="ol的属性">ol的属性</h4>
+<p><img src="/syy.github.io/img/web/003.jpg" alt="属性"></p>
+<h4 id="嵌套">嵌套</h4>
+<p>有序列表可以嵌套,ol里面还可以有ol<br>
+也可以嵌套</p>
+<h3 id="无序列表">无序列表</h3>
+<p>双标签,外层是ul,内层是li</p>
+<h4 id="属性type">属性type</h4>
+<p>disc:默认<br>
+circle:原<br>
+square:方块<br>
+none:无;<br>
+<img src="/syy.github.io/img/web/004.jpg" alt="属性"></p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>贝塞尔曲线法</title>
     <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
     <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
@@ -911,21 +828,94 @@ C# 中的类型转换可以分为两种：隐式类型转换和显式类型转�
 直线<br>
 则贝塞尔曲线生成点可以表达为：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲p_1(t) = (1 - t…'>\(p_1(t) = (1 - t)P_0 + tP_1\)</span><br>
 t可以为时间<br>
-<img src="/syy.github.io/img/st005.jpg" alt="1"></p>
+<img src="/syy.github.io/img/st/st005.jpg" alt="1"></p>
 <h3 id="二阶">二阶</h3>
 <p>设P0，P1，P2三个控制点，t取值范围为<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲[0,1]\)'>\([0,1]\)</span>。<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_0\)'>\(P_0\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>构成一阶，<br>
 <span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_1\)'>\(P_1\)</span>和<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲P_2\)'>\(P_2\)</span>也构成一阶，即：<span class='katex-error' title='ParseError: KaTeX parse error: Can&#039;t use function &#039;\(&#039; in math mode at position 1: \̲(̲\begin{cases}'>\(\begin{cases}</span><br>
 $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\\
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="mspace newline"></span></span></span>p_{1,2}(t) = (1 - t)P_1 + tP_2<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow></mrow><annotation encoding="application/x-tex">
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span>\end{cases})<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</mtext></mrow><annotation encoding="application/x-tex">在生成的两个一阶点基础上，可以生成二阶贝塞尔点：</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">两</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">基</span><span class="mord cjk_fallback">础</span><span class="mord cjk_fallback">上</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">成</span><span class="mord cjk_fallback">二</span><span class="mord cjk_fallback">阶</span><span class="mord cjk_fallback">贝</span><span class="mord cjk_fallback">塞</span><span class="mord cjk_fallback">尔</span><span class="mord cjk_fallback">点</span><span class="mord cjk_fallback">：</span></span></span></span>(p_2(t) = (1 - t)p_{1,1} + tp_{1,2})$<br>
-<img src="/syy.github.io/img/st006.jpg" alt="1"></p>
+<img src="/syy.github.io/img/st/st006.jpg" alt="1"></p>
 <h3 id="三阶">三阶</h3>
-<p><img src="/syy.github.io/img/st007.jpg" alt="1"></p>
+<p><img src="/syy.github.io/img/st/st007.jpg" alt="1"></p>
 ]]></content>
       <tags>
         <tag>理论学习</tag>
         <tag>路径规划</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>数模美赛的学习笔记</title>
+    <url>/syy.github.io/2026/01/23/%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B/</url>
+    <content><![CDATA[<h1>数模美赛</h1>
+<p>基于数学建模老哥和其他资料学习的笔记,<br>
+也可以参考一下我的思路,本人数模国赛c题省二,虽然不高;</p>
+<h2 id="1-基础思维">1.基础思维</h2>
+<h3 id="定义">定义</h3>
+<p>实际问题转成数学建模<br>
+问题分析-假设简化-模型构建-模型求解-模型检验-结果分析</p>
+<h2 id="模型">模型</h2>
+<h3 id="1-高级规划模型">1.高级规划模型</h3>
+<p>3个:非线性规划和求解, 整数规划分支定界法原理, 多目标规划(帕累托最优与权重)<br>
+<img src="/syy.github.io/img/math/002.jpg" alt=""><br>
+多目标,非线性</p>
+<h2 id="论文">论文</h2>
+<h3 id="论文题目">论文题目</h3>
+<p><img src="/syy.github.io/img/math/003.jpg" alt=""><br>
+突出赛题类型的命题和技巧,如下图所示<br>
+<img src="/syy.github.io/img/math/004.jpg" alt=""><br>
+一个赛题多个子任务,选取最据代表的一个作为题目,<br>
+<img src="/syy.github.io/img/math/005.jpg" alt=""></p>
+<h3 id="摘要和关键词">摘要和关键词</h3>
+<p>十分关键,对关键词加粗,不要出现自定义在下文呢的,不要过于绝对的说法;</p>
+<p><img src="/syy.github.io/img/math/006.jpg" alt=""><br>
+摘要的结果<br>
+<img src="/syy.github.io/img/math/007.jpg" alt=""></p>
+<h4 id="摘要的前言">摘要的前言</h4>
+<p><img src="/syy.github.io/img/math/008.jpg" alt=""></p>
+<h4 id="摘要的正文">摘要的正文</h4>
+<p>要分析问题多的部分时候分段<br>
+<img src="/syy.github.io/img/math/009.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/010.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/011.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/012.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/013.jpg" alt=""></p>
+<h4 id="摘要的结尾">摘要的结尾</h4>
+<p><img src="/syy.github.io/img/math/014.jpg" alt=""></p>
+<h3 id="关键词">关键词</h3>
+<p>3-6个,专业性,不要寓意重复</p>
+<h3 id="论文正文">论文正文</h3>
+<h4 id="问题重述">问题重述</h4>
+<p>改写的问题,声明问题的背景来源,列出必要的数据,概述任务的要解决的核心<br>
+<img src="/syy.github.io/img/math/015.jpg" alt=""><br>
+<br>内容不抄,扩充,串联,表达</p>
+<p>对于题目给出的数据,一定对数据内容和作用进行简要声明</p>
+<h4 id="问题的分析">问题的分析</h4>
+<p>从题目到模型的桥梁,<br>
+1.识别题目的已知的信息<br>
+2.明确问题<br>
+3.提出思路和方向<br>
+4.对问题的进一步理解</p>
+<blockquote>
+<p>注意事项:每一个问题要独立成段,差距,<br>
+要层层递进,不要比摘要简单,比模型复杂,<br>
+给出流程图<br>
+<img src="/syy.github.io/img/math/016.jpg" alt=""><br>
+<img src="/syy.github.io/img/math/017.jpg" alt=""></p>
+</blockquote>
+<h1>数模美赛练习</h1>
+<h2 id="2025b">2025B</h2>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>数模</tag>
+        <tag>比赛</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>分类</title>
+    <url>/syy.github.io/categories/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>个人介绍</title>
@@ -962,204 +952,14 @@ $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><
 ]]></content>
   </entry>
   <entry>
-    <title>分类</title>
-    <url>/syy.github.io/categories/index.html</url>
-    <content><![CDATA[]]></content>
+    <title></title>
+    <url>/syy.github.io/css/custom.css</url>
+    <content><![CDATA[#site-info{text-align:center!important;width:100%;padding:0 10px;position:absolute;top:43%;left:50%;transform:translate(-50%,-50%);z-index:5}#site-title{font-size:8vw!important;font-family:'Noto Serif SC',serif!important;font-weight:900;letter-spacing:5px;line-height:1.2;margin:0;background:linear-gradient(to bottom,#e2e2e2 0,#fff9d1 50%,#fff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(2px 4px 6px rgba(0,0,0,.3))}#site-subtitle{font-size:1.8rem!important;font-weight:400;margin-top:15px;display:block;color:#fff;text-shadow:1px 1px 5px rgba(0,0,0,.5)}@media screen and (max-width:768px){#site-title{font-size:3.5rem!important}#site-subtitle{font-size:1.2rem!important}}#content-inner{margin-top:20px!important;position:relative;z-index:10}#aside-sidebar .card-widget,.aside-list-item,.recent-post-item{border-radius:15px!important;box-shadow:0 5px 15px rgba(0,0,0,.05)!important;transition:all .3s ease!important;background:rgba(255,255,255,.8)!important;backdrop-filter:blur(10px)}body{background:#fdf5f6!important}#page-header.full_page::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.15);z-index:1}#subtitle{font-size:1.5rem!important;color:#fff5e6!important;text-shadow:1px 1px 5px rgba(0,0,0,.3);font-family:Quicksand,sans-serif;font-weight:500}.typed-cursor{color:#fda085!important;font-size:1.5rem!important}body,html{cursor:url('/syy.github.io/img/001.svg'),auto!important}#site-name,.aside-list-item,.card-widget,.recent-post-item,a,button,i{cursor:url('/syy.github.io/img/002.svg'),auto!important}#footer{background:0 0!important}#runtime-show,#voyager-show{color:#fff;font-size:13px;font-weight:700;text-shadow:1px 1px 2px rgba(0,0,0,.5);margin:5px 0}.ip-cloud{background:#fff;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;padding:10px 20px;color:#00dbde;font-weight:700}.card-author{padding:20px 10px!important;height:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important}#custom-about-btn{background:linear-gradient(to right,#f6d365 0,#fda085 100%)!important;color:#fff!important;width:90%!important;text-align:center!important;padding:6px 0!important;border-radius:8px!important;text-decoration:none!important;display:flex!important;justify-content:center;align-items:center}.button--animated{margin-bottom:5px!important}]]></content>
   </entry>
   <entry>
     <title>diary</title>
     <url>/syy.github.io/diary/index.html</url>
     <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/syy.github.io/js/click_card.js</url>
-    <content><![CDATA[// 让侧边栏作者卡片点击跳转到关于页
-function linkAuthorCard() {
-    // 找到侧边栏作者卡片元素
-    var authorCard = document.querySelector('.card-author');
-    if (authorCard) {
-        // 修改鼠标样式为手型，提醒用户可以点击
-        authorCard.style.cursor = 'pointer';
-        // 绑定点击事件
-        authorCard.onclick = function() {
-            // 跳转到你的个人介绍页面（注意带上你的二级目录）
-            window.location.href = '/syy.github.io/about/';
-        };
-    }
-}
-
-// 确保页面加载完成后执行
-document.addEventListener('DOMContentLoaded', linkAuthorCard);
-// 如果使用了 PJAX（Butterfly 默认开启），还需要在 pjax:complete 时执行
-document.addEventListener('pjax:complete', linkAuthorCard);]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/syy.github.io/css/custom.css</url>
-    <content><![CDATA[
-/* 1. 让首页标题容器强制居中 */
-#site-info {
-    text-align: center !important;
-    width: 100%;
-    padding: 0 10px;
-    position: absolute;
-    top: 43%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;         /* 提高层级，确保在遮罩上方 */
-}
-
-/* 2. 首页主标题：月光渐变色 */
-#site-title {
-    font-size: 8vw !important;
-    font-family: 'Noto Serif SC', serif !important;
-    font-weight: 900;
-    letter-spacing: 5px;
-    line-height: 1.2;
-    margin: 0;
-
-    /* 核心：月光色渐变 (灰黄到纯白) */
-    background: linear-gradient(to bottom, #e2e2e2 0%, #fff9d1 50%, #ffffff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-
-    /* 发光感 */
-    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));
-}
-
-/* 3. 首页副标题样式 */
-#site-subtitle {
-    font-size: 1.8rem !important;
-    font-weight: 400;
-    margin-top: 15px;
-    display: block;
-    color: #ffffff;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-}
-
-/* 4. 响应式：手机端适配 */
-@media screen and (max-width: 768px) {
-    #site-title {
-        font-size: 3.5rem !important;
-    }
-    #site-subtitle {
-        font-size: 1.2rem !important;
-    }
-}
-
-
-/* 6. 删除了卡片向上偏移，改回正常间距 */
-#content-inner {
-    margin-top: 20px !important; /* 恢复正常间距 */
-    position: relative;
-    z-index: 10;
-}
-
-/* 7. 卡片样式微调（保留毛玻璃，但去掉重叠） */
-.recent-post-item, .aside-list-item, #aside-sidebar .card-widget {
-    border-radius: 15px !important;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05) !important;
-    transition: all 0.3s ease !important;
-    background: rgba(255, 255, 255, 0.8) !important;
-    backdrop-filter: blur(10px);
-}
-
-
-/* 8. 全局背景色（淡粉白） */
-body {
-    background: #fdf5f6 !important;
-}
-
-/* 9. 顶部背景图整体调暗一点点（可选） */
-#page-header.full_page::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.15);
-    z-index: 1;
-}
-/* 3. 首页副标题：打字机文字颜色 */
-#subtitle {
-    font-size: 1.5rem !important;
-    color: #fff5e6 !important; /* 奶油米黄色 */
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
-    font-family: 'Quicksand', sans-serif;
-    font-weight: 500;
-}
-
-/* 4. 打字机光标颜色：调成暖橘色 */
-.typed-cursor {
-    color: #fda085 !important; /* 朝阳的暖橙色 */
-    font-size: 1.5rem !important;
-}
-/* 强制更换全局鼠标指针 */
-/* 默认状态 */
-html, body {
-    cursor: url('/syy.github.io/img/001.svg'), auto !important;
-}
-
-/* 悬停在链接、按钮、文章卡片、侧边栏上的状态 */
-a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
-    cursor: url('/syy.github.io/img/002.svg'), auto !important;
-}
-
-
-
-
-#footer {
-    background: transparent !important; /* 配合你背景图的丝滑过渡 */
-}
-
-#runtime-show, #voyager-show {
-    color: #ffffff; /* 文字颜色 */
-    font-size: 13px;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* 防止背景太杂看不清字 */
-    margin: 5px 0;
-}
-
-/* 截图右侧那个 127.0.0.1 的云朵效果 */
-/* 这是一个典型的“小工具”或悬浮卡片 */
-.ip-cloud {
-    background: white;
-    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%; /* 模拟云朵不规则形状 */
-    padding: 10px 20px;
-    color: #00dbde;
-    font-weight: bold;
-}
-
-
-
-
-/* 确保侧边栏卡片能装下两个按钮 */
-.card-author {
-    padding: 20px 10px !important; /* 增加一点内边距 */
-    height: auto !important;       /* 高度设为自动 */
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-/* 按钮的强制样式 */
-#custom-about-btn {
-    background: linear-gradient(to right, #f6d365 0%, #fda085 100%) !important;
-    color: white !important;
-    width: 90% !important;
-    text-align: center !important;
-    padding: 6px 0 !important;
-    border-radius: 8px !important;
-    text-decoration: none !important;
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-}
-
-/* 确保它在移动端也能看见 */
-.button--animated {
-    margin-bottom: 5px !important;
-}]]></content>
   </entry>
   <entry>
     <title>tag</title>
@@ -1169,59 +969,11 @@ a, button, .recent-post-item, #site-name, .aside-list-item, .card-widget, i {
   <entry>
     <title></title>
     <url>/syy.github.io/js/footer_beautify.js</url>
-    <content><![CDATA[/**
- * Hexo Butterfly 页脚美化脚本
- * 功能：建站运行时间统计 & 旅行者 1 号实时距离模拟
- */
-
-var footerTimer; // 全局定时器变量
-
-function updateFooterStats() {
-    // --- 配置区域 ---
-    var startTime = new Date("2025/09/08 00:00:00"); // 你的建站时间
-    var voyagerStart = new Date("2025/09/08 00:00:00"); // 距离计算参考点
-    var voyagerBase = 24264952436; // 初始距离(千米)
-    var velocity = 17; // 模拟速度 (km/s)
-
-    var now = new Date();
-
-    // 1. 本站运行时间计算
-    var diff = now.getTime() - startTime.getTime();
-    var days = Math.floor(diff / (24 * 3600 * 1000));
-    var hours = Math.floor((diff % (24 * 3600 * 1000)) / (3600 * 1000));
-    var mins = Math.floor(((diff % (24 * 3600 * 1000)) % (3600 * 1000)) / (60 * 1000));
-    var secs = Math.floor((((diff % (24 * 3600 * 1000)) % (3600 * 1000)) % (60 * 1000)) / 1000);
-
-    var runtimeText = "本站居然运行了 " + days + " 天 " + hours + " 小时 " + mins + " 分 " + secs + " 秒 ❤️";
-    var runtimeEl = document.getElementById("runtime-show");
-    if (runtimeEl) {
-        runtimeEl.innerHTML = runtimeText;
-    }
-
-    // 2. 旅行者 1 号距离计算
-    var secondsPassed = (now.getTime() - voyagerStart.getTime()) / 1000;
-    var currentDist = voyagerBase + (secondsPassed * velocity);
-    var auDist = (currentDist / 149597870.7).toFixed(6); // 转化为天文单位(AU)
-
-    var voyagerText = "旅行者 1 号当前距离地球 " + Math.floor(currentDist).toLocaleString() + " 千米，约为 " + auDist + " 个天文单位 🚀";
-    var voyagerEl = document.getElementById("voyager-show");
-    if (voyagerEl) {
-        voyagerEl.innerHTML = voyagerText;
-    }
-
-    // 3. 定时器处理
-    clearTimeout(footerTimer);
-    footerTimer = setTimeout(updateFooterStats, 1000);
-}
-
-// 首次加载初始化
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', updateFooterStats);
-} else {
-    updateFooterStats();
-}
-
-// 兼容 PJAX (当切换页面时重新触发)
-document.addEventListener('pjax:complete', updateFooterStats);]]></content>
+    <content><![CDATA[var footerTimer;function updateFooterStats(){var e=new Date("2025/09/08 00:00:00"),t=new Date("2025/09/08 00:00:00"),o=new Date,e=o.getTime()-e.getTime(),e="本站居然运行了 "+Math.floor(e/864e5)+" 天 "+Math.floor(e%864e5/36e5)+" 小时 "+Math.floor(e%864e5%36e5/6e4)+" 分 "+Math.floor(e%864e5%36e5%6e4/1e3)+" 秒 ❤️",a=document.getElementById("runtime-show");a&&(a.innerHTML=e);a=24264952436+17*((o.getTime()-t.getTime())/1e3),e=(a/149597870.7).toFixed(6),o="旅行者 1 号当前距离地球 "+Math.floor(a).toLocaleString()+" 千米，约为 "+e+" 个天文单位 🚀",t=document.getElementById("voyager-show");t&&(t.innerHTML=o),clearTimeout(footerTimer),footerTimer=setTimeout(updateFooterStats,1e3)}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",updateFooterStats):updateFooterStats(),document.addEventListener("pjax:complete",updateFooterStats);]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/click_card.js</url>
+    <content><![CDATA[function linkAuthorCard(){var t=document.querySelector(".card-author");t&&(t.style.cursor="pointer",t.onclick=function(){window.location.href="/syy.github.io/about/"})}document.addEventListener("DOMContentLoaded",linkAuthorCard),document.addEventListener("pjax:complete",linkAuthorCard);]]></content>
   </entry>
 </search>

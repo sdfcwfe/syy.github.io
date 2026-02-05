@@ -18,8 +18,8 @@ root: /syy.github.io/  # 与 url 中的二级目录一致
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
-  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
-  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+  trailing_index: true # Set too false to remove trailing 'index.html' from permalinks
+  trailing_html: true # Set too false to remove trailing '.html' from permalinks
 
 # Directory
 source_dir: source
@@ -116,3 +116,29 @@ search:
 # Sitemap 自动生成
 baidusitemap:
   path: baidusitemap.xml
+
+  # hexo-all-minifier 资源压缩配置
+  all_minifier: true
+  html_minifier:
+    enable: true
+    ignore_error: false
+    exclude:
+  css_minifier:
+    enable: true
+    exclude:
+      - '*.min.css'
+  js_minifier:
+    enable: true
+    mangle: true
+    output:
+    compress:
+    exclude:
+      - '*.min.js'
+  image_minifier:
+    enable: true
+    interlaced: false
+    multipass: false
+    optimizationLevel: 2
+    pngquant: false
+    progressive: false
+    webp: true
