@@ -1,166 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>cpp</title>
-    <url>/syy.github.io/2026/01/27/cpp-linux/</url>
-    <content><![CDATA[<h1>cpp的基础</h1>
-<h2 id="main的函数">main的函数</h2>
-<p>遵循顺序的结构, 从上往下</p>
-<p>基本的结构如下:</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="c语言的string">c语言的string</h2>
-<p>特别的库,string.h<br>
-有很多函数;</p>
-<h3 id="fgets">fgets</h3>
-<p>fgets(buf, 100, stdin); 变量名, 最大读取数, 输入流,stdin是键盘, 或者从文件读取</p>  
-如果没有输入,就初始化为\0
-<h3 id="strlen">strlen</h3>
-<p>strlen();是返回一个int的类型数据,就是字符串的长度</p>
-<h3 id="strcmp-a-b">strcmp(a, b)</h3>
-<p>返回int, 两个字符串相等时候,为0,a&gt;b,为1;a&lt;b,返回-1;</p>
-<h3 id="strcpy-a-b">strcpy(a, b)</h3>
-<p>把一个 C 风格字符串（以 \0 结尾的字符数组）完整拷贝到另一个字符数组中，<br>
-是 C 语言中操作字符串的基础函数。</p>
-<h3 id="strcat-a-b">strcat(a, b)</h3>
-<p>把b接在a的后面 ,有扩容的功能</p>
-<h2 id="cpp的字符串-includ-e-string-h">cpp的字符串,includ’e &lt;string.h&gt;</h2>
-<p>cpp和c语言的字符串<br>
-string就是个特殊的数据结构, stl容器当中的一员</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">string <span class="title">s</span><span class="params">(<span class="number">5</span>,<span class="string">&quot;a&quot;</span>)</span></span>;<span class="comment">//aaaaaa</span></span><br><span class="line">string arr = <span class="string">&quot;xxxxx&quot;</span></span><br><span class="line">string <span class="built_in">s1</span>(<span class="string">&#x27;xxxx&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="字符串的拼接">字符串的拼接</h3>
-<p>使用+号,</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">string a = <span class="string">&quot;xxxx&quot;</span>;</span><br><span class="line">a = a + <span class="string">&quot;ssss&quot;</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="输入">输入</h3>
-<p>cin不能读入空格<br>
-<strong>getline读取一行的数据,可以读一行</strong><br>
-getline(cin, str);<br>
-cin是输入流,找到打字找到存入文件,输入流就是把这个下到这个文件,</p>
-<h3 id="replace">replace</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">string&amp; <span class="title">replace</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">size_t</span> pos,        <span class="comment">// 原字符串中替换的起始位置</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">size_t</span> len,        <span class="comment">// 原字符串中要删除的字符数</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> <span class="type">char</span>* s,     <span class="comment">// 源字符串（C风格字符串，如&quot;abcd&quot;）</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">size_t</span> subpos,     <span class="comment">// 源字符串中截取子串的起始位置</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">size_t</span> sublen      <span class="comment">// 源字符串中截取子串的长度</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line">str.<span class="built_in">repalce</span>(<span class="number">2</span>,<span class="number">3</span> <span class="string">&quot;abcd&quot;</span>, <span class="number">2</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="erase">erase</h3>
-<p>删除,pos起始位置,len是删除的长度;</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">str.<span class="built_in">erase</span>(pos, len);</span><br></pre></td></tr></table></figure>
-<h3 id="查找">查找</h3>
-<p>下表法, 如str[x]</p>
-<h3 id="字符数组和string">字符数组和string</h3>
-<h4 id="字符数组：">字符数组：</h4>
-<p>栈上的数组（char arr[10];）：长度固定，超出长度赋值会导致缓冲区溢出；<br>
-堆上的数组（char* arr = new char[10];）：需手动 delete[] arr;，否则内存泄漏。</p>
-<h4 id="string-类：">string 类：</h4>
-<p>底层是动态分配的字符数组，当字符串长度超过当前容量时，会自动分配更大的内存空间，拷贝原有内容，释放旧内存 ——全程无需手动干预。<br>
-需用 str.c_str() 转换为 C 风格字符串才能传给 C 函数</p>
-<h4 id="字符数组转string">字符数组转string</h4>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> hh[] = <span class="string">&quot;hjhhh&quot;</span></span><br><span class="line">string sss = hh;</span><br></pre></td></tr></table></figure>
-<h4 id="string转字符数组">string转字符数组</h4>
-<p>string不能直接转成字符数组,只能转const char[]</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string ssss = <span class="string">&quot;hello&quot;</span>;          <span class="comment">// 定义string对象</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* const_p = ssss.<span class="built_in">c_str</span>();  <span class="comment">// 正确：获取只读的C风格字符串</span></span><br><span class="line">    <span class="type">char</span>* p = (<span class="type">char</span>*)ssss.<span class="built_in">c_str</span>();  <span class="comment">// 你问的代码：强制转换为可写的char*</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="sstream字符串流">sstream字符串流</h2>
-<p>把字符串当作 “输入 / 输出流” 来处理<br>
-（类似 cin/cout 处理控制台输入输出），实现「字符串 ↔ 各种数据类型」的便捷转换 / 解析。<br>
-istringstream：字符串输入流 → 从字符串中读取数据（解析字符串）；<br>
-ostringstream：字符串输出流 → 把各种类型数据写入字符串（拼接 / 格式化字符串）；<br>
-stringstream：双向流 → 既可读又可写。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span>  <span class="comment">// 必须包含字符串流头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 错误1：src后少了等号 → string src = &quot;hello 123 3.4 T&quot;;</span></span><br><span class="line">    string src = <span class="string">&quot;hello 123 3.4 T&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function">istringstream <span class="title">is</span><span class="params">(src)</span></span>; <span class="comment">// 建立字符串的输入流</span></span><br><span class="line">    </span><br><span class="line">    string s1;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">double</span> b;</span><br><span class="line">    <span class="type">char</span> c;</span><br><span class="line">    <span class="comment">// 按空格分隔，依次读取到对应类型的变量中</span></span><br><span class="line">    is &gt;&gt; s1 &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印结果，验证解析是否成功</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;s1: &quot;</span> &lt;&lt; s1 &lt;&lt; endl;  <span class="comment">// hello</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; endl;    <span class="comment">// 123</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;b: &quot;</span> &lt;&lt; b &lt;&lt; endl;    <span class="comment">// 3.4</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;c: &quot;</span> &lt;&lt; c &lt;&lt; endl;    <span class="comment">// T</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="for-each">for each</h2>
-<p>for的增强版,专门用来遍历,</p>
-<h3 id="格式">格式</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line"><span class="comment">// 待输出的变量,用来装遍历的元素;</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> x : arr)&#123;<span class="comment">//待遍历的序列,不一定是数组</span></span><br><span class="line">    cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="auto">auto</h2>
-<p>c++ 新引进的,自适应类型关键字 var let<br>
-就是弱类型<br>
-可能会判断错误;</p>
-<h2 id="引用符号">引用符号</h2>
-<p>/&amp;/符号, 多功能<br>
-是运算符的重载</p>
-<p>共享同一块的空间 ,取别名</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">2</span></span><br><span class="line"><span class="type">int</span>&amp; b =a; <span class="comment">//a和b共用一块空间</span></span><br><span class="line">cout &lt;&lt; b &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
-<p>使用<br>
-<img src="/syy.github.io/img/cpp/001.jpg" alt=""></p>
-<h2 id="结构体">结构体</h2>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">xxxx</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a; <span class="comment">//成员表</span></span><br><span class="line">    <span class="comment">//成员函数</span></span><br><span class="line">&#125;a[<span class="number">100</span>];<span class="comment">//结构体变量表</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">xxxx</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a; <span class="comment">//成员表</span></span><br><span class="line">    <span class="comment">//成员函数</span></span><br><span class="line">&#125;;<span class="comment">//结构体变量表</span></span><br><span class="line">xxxx a[<span class="number">100</span>];</span><br></pre></td></tr></table></figure>
-<p><img src="/syy.github.io/img/cpp/002.jpg" alt=""></p>
-<h3 id="结构体的调用">结构体的调用</h3>
-<p>xxx.成员表<br>
-案例1:<br>
-<img src="/syy.github.io/img/cpp/003.jpg" alt=""></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="链表">链表</h2>
-<p>链表（linked list）是一种这样的数据结构，其中的各对象按线性顺序排列。<br>
-数组的线性顺序是由数组下标决定的，然而与数组不同的是，链表的顺序是由各个对象里的指针决定的。<br>
-<img src="/syy.github.io/img/cpp/004.jpg" alt=""></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span>&#123;</span><br><span class="line">	<span class="type">int</span> data;</span><br><span class="line">	ListNode *next;</span><br><span class="line">&#125;listnode;</span><br></pre></td></tr></table></figure>
-<p>data存储数据，next指针指向下一个节点</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Birthday</span>&#123;</span><br><span class="line">	<span class="type">int</span> year;</span><br><span class="line">	<span class="type">int</span> month;</span><br><span class="line">	<span class="type">int</span> day;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span>&#123;</span><br><span class="line">	string name;</span><br><span class="line">	<span class="type">int</span> Student_number;</span><br><span class="line">	Birthday birth;</span><br><span class="line">	ListNode *next;</span><br><span class="line">	ListNode *last;</span><br><span class="line">&#125;listnode;</span><br></pre></td></tr></table></figure>
-<p>创建链表<br>
-一个单向链表是有一个头和一个尾的</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">ListCreate</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	ListNode *head,*p1,*end;</span><br><span class="line">	head=<span class="keyword">new</span> ListNode;</span><br><span class="line">	end=head;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">		p1=<span class="keyword">new</span> ListNode;</span><br><span class="line">		p1-&gt;data=i;</span><br><span class="line">		end-&gt;next=p1;</span><br><span class="line">		end=p1;</span><br><span class="line">	&#125;</span><br><span class="line">	end-&gt;next=<span class="literal">NULL</span>; <span class="comment">//链表的尾部next指向空</span></span><br><span class="line">	<span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="遍历链表">遍历链表</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">(ListNode *head)</span></span>&#123;		<span class="comment">//将链表的头作为参数</span></span><br><span class="line">	ListNode *temp;</span><br><span class="line">	temp=head-&gt;next;</span><br><span class="line">	<span class="keyword">while</span>(temp!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">		cout&lt;&lt;temp-&gt;data&lt;&lt;<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">		temp=temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="查找某个节点">查找某个节点</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">Find</span><span class="params">(ListNode *head,<span class="type">int</span> n)</span></span>&#123;	<span class="comment">//n表示查找第n个节点</span></span><br><span class="line">	ListNode *p=head;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n&amp;&amp;p!=<span class="literal">NULL</span>;i++)&#123;</span><br><span class="line">		p=p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(p==<span class="literal">NULL</span>)&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;找不到/(ㄒoㄒ)/~~&quot;</span>&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="修改某节点的数据">修改某节点的数据</h3>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ListChange</span><span class="params">(ListNode *head,<span class="type">int</span> n,<span class="type">int</span> temp)</span></span>&#123;</span><br><span class="line">	ListNode *p=head;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n&amp;&amp;p!=<span class="literal">NULL</span>;i++)&#123;</span><br><span class="line">		p=p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">		p-&gt;data=temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> cout&lt;&lt;<span class="string">&quot;找不到节点/(ㄒoㄒ)/~~&quot;</span>&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1>定时器</h1>
-<h2 id="实现方式">实现方式</h2>
-<p>前后端均有;<br>
-组织的方式:<br>
-1.时间序(时间排序)<br>
- 红黑树-nginx<br>
- 最小堆-go,libev…<br>
-2.执行序<br>
- 时间轮-netty,skynet,内核,kafka</p>
-<p>应用方式:<br>
-1,单线程<br>
-2.多线程</p>
-<h2 id="与其他模块的关系">与其他模块的关系</h2>
-<p>通常会与网络模块协同处理,异步<br>
-基于事件驱动业务的开展<br>
-除了协同网络处理,复用系统调用</p>
-<h2 id="定时器的基础接口设计">定时器的基础接口设计</h2>
-<p>1,最近触发的定时任务离当前还要多久-协同处理网络事件</p>
-<ul>2.获取当前时间的接口
-<li>steady_clock--系统启动到当前的时间,也可以计算程序运行时间</li>
-<li>system_clock--时间戳,可以修改的</li>
-<li>high_resolution_clcok--高精度的steady_clock,效率低</li>
-</ul>
-## 参考代码
-<details>
-<summary style="color: #f6d365; cursor: pointer;">展开查看代码</summary>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;sys/epoll.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;   // 提供close、read等函数</span><br><span class="line">#include &lt;stdio.h&gt;    // 提供printf、perror</span><br><span class="line">#include &lt;errno.h&gt;    // 提供错误码errno</span><br><span class="line">#include &lt;fcntl.h&gt;    // 提供fcntl（设置非阻塞）</span><br><span class="line">#include &lt;string.h&gt;   // 提供memset、strlen</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    // 1. 创建epoll实例 + 错误处理</span><br><span class="line">    int epfd = epoll_create(1);</span><br><span class="line">    if (epfd == -1) &#123;</span><br><span class="line">        perror(&quot;epoll_create failed&quot;);  // 打印错误原因</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 2. 准备要监听的文件描述符：这里选标准输入（fd=0）</span><br><span class="line">    int listen_fd = 0;  // stdin的文件描述符固定为0</span><br><span class="line">    // 设置标准输入为非阻塞（epoll常用模式，避免read阻塞）</span><br><span class="line">    int flags = fcntl(listen_fd, F_GETFL);</span><br><span class="line">    fcntl(listen_fd, F_SETFL, flags | O_NONBLOCK);</span><br><span class="line"></span><br><span class="line">    // 3. 注册事件到epoll实例：监听标准输入的&quot;可读事件（EPOLLIN）&quot;</span><br><span class="line">    epoll_event reg_ev;</span><br><span class="line">    reg_ev.events = EPOLLIN;  // 监听&quot;可读&quot;事件</span><br><span class="line">    reg_ev.data.fd = listen_fd;  // 绑定文件描述符，方便后续识别</span><br><span class="line">    if (epoll_ctl(epfd, EPOLL_CTL_ADD, listen_fd, &amp;reg_ev) == -1) &#123;</span><br><span class="line">        perror(&quot;epoll_ctl add failed&quot;);</span><br><span class="line">        close(epfd);  // 失败时先关闭epfd，避免泄漏</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 4. 定义接收就绪事件的数组</span><br><span class="line">    epoll_event ev[64] = &#123;0&#125;;</span><br><span class="line">    printf(&quot;等待键盘输入（输入q退出）...\n&quot;);</span><br><span class="line"></span><br><span class="line">    // 5. 循环监听事件</span><br><span class="line">    while (true) &#123;</span><br><span class="line">        // 阻塞等待事件（-1=永久阻塞）</span><br><span class="line">        int n = epoll_wait(epfd, ev, 64, -1);</span><br><span class="line">        if (n == -1) &#123;</span><br><span class="line">            perror(&quot;epoll_wait failed&quot;);</span><br><span class="line">            break;  // 出错时退出循环</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 6. 遍历所有就绪事件并处理</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            // 只处理&quot;可读事件&quot;（这里仅监听了EPOLLIN）</span><br><span class="line">            if (ev[i].events &amp; EPOLLIN) &#123;</span><br><span class="line">                char buf[1024] = &#123;0&#125;;</span><br><span class="line">                // 读取标准输入的内容（非阻塞，无数据时read返回-1）</span><br><span class="line">                ssize_t len = read(ev[i].data.fd, buf, sizeof(buf)-1);</span><br><span class="line">                if (len &gt; 0) &#123;</span><br><span class="line">                    printf(&quot;收到输入：%s&quot;, buf);</span><br><span class="line">                    // 输入q则退出程序</span><br><span class="line">                    if (strstr(buf, &quot;q&quot;) != NULL) &#123;</span><br><span class="line">                        printf(&quot;退出程序...\n&quot;);</span><br><span class="line">                        goto exit_loop;  // 跳转到释放资源的逻辑</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else if (len == 0) &#123;</span><br><span class="line">                    printf(&quot;输入流关闭\n&quot;);</span><br><span class="line">                    goto exit_loop;</span><br><span class="line">                &#125; else if (errno != EAGAIN) &#123;  // EAGAIN是&quot;无数据&quot;，非错误</span><br><span class="line">                    perror(&quot;read failed&quot;);</span><br><span class="line">                    goto exit_loop;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">exit_loop:</span><br><span class="line">    // 7. 释放资源：关闭epoll实例和监听的fd</span><br><span class="line">    close(listen_fd);</span><br><span class="line">    close(epfd);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</details>
-]]></content>
-      <categories>
-        <category>理论</category>
-      </categories>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>cpp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cpp项目之线程池</title>
-    <url>/syy.github.io/2026/01/27/cpp%E9%A1%B9%E7%9B%AE%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
-    <content><![CDATA[<h1>线程池</h1>
-<p>是一个池性结构,临时创建来管理数据,再删除是比较麻烦的,<br>
-所用线程池管理和维持固定数量的</p>
-<h2 id="原理">原理</h2>
-<p>预创建线程：程序启动时，就创建一批固定或可动态调整数量的线程，让它们处于空闲等待状态。<br>
-任务队列缓冲：所有待执行的任务会被放入一个线程安全的队列中。<br>
-线程复用：空闲线程会主动从任务队列中取出任务执行，任务完成后不会立即销毁，而是回到池中继续等待下一个任务。<br>
-动态调度：部分线程池可以根据任务负载动态增减线程数量，在低负载时释放资源，高负载时扩容。</p>
-<h2 id="作用">作用</h2>
-<p>1.某类任务特别耗时,问题,丢给其他线程<br>
-2.并行作用</p>
-<h2 id="耗时操作">耗时操作</h2>
-<p>1.耗时等待<br>
-2.耗时计算</p>
+    <title>proteus下写汇编</title>
+    <url>/syy.github.io/2026/01/22/problem/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<blockquote>
+<p>微机大作业时候,在想可以不靠keil实现proteus</p>
+</blockquote>
+<style>
+  /* 修改正文字体大小和字体 */
+  .post-content {
+    font-size: 20px !important; /* 你想要的大小 */
+    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
+    line-height: 2.0 !important; /* 行间距 */
+  }
+
+  /*!* 如果你也想改这篇博客的标题大小 *!*/
+  /*.post-content h1, .post-content h2, .post-content h3 {*/
+  /*  font-family: 'Microsoft YaHei' !important;*/
+  /*  color: #fda085 !important;*/
+  /*}*/
+</style>
+<h1>如何在proteus下汇编</h1>
+<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
+<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
+2.放置主控芯片如at89c52,后点击source code的图标<br>
+<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
+3.点击vsm后再点击project创建新工程<br>
+<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
+4.取消勾选项<br>
+<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
+5.选择project的project settings，取消勾选嵌入式文件<br>
+<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
+6.选择project的add new file，创建对应汇编文件<br>
+<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
+7.然后就可以在上面编程了<br>
+<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
 ]]></content>
       <categories>
         <category>应用</category>
       </categories>
       <tags>
-        <tag>cpp</tag>
-        <tag>应用</tag>
+        <tag>解决实际问题</tag>
+        <tag>汇编</tag>
+        <tag>嵌入式</tag>
       </tags>
   </entry>
   <entry>
@@ -201,22 +83,59 @@ stringstream：双向流 → 既可读又可写。</p>
 ]]></content>
   </entry>
   <entry>
-    <title>freertos</title>
-    <url>/syy.github.io/2025/09/11/hello-world/</url>
-    <content><![CDATA[<h1>freertos002</h1>
-<p>测试中</p>
-<h2 id="1-硬件初始化">1.硬件初始化</h2>
-<p>为了方便以后统一管理板级外设的初始化，我们在 main.c 文件中创建一个 BSP_Init()函数， 专门用于存放板级外设初始化函数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/***********************************************************************</span></span><br><span class="line"><span class="comment">* @ 函数名  ： BSP_Init</span></span><br><span class="line"><span class="comment">* @ 功能说明： 板级外设初始化，所有板子上的初始化均可放在这个函数里面</span></span><br><span class="line"><span class="comment">* @ 参数    ：</span></span><br><span class="line"><span class="comment">* @ 返回值  ： 无</span></span><br><span class="line"><span class="comment">  *********************************************************************/</span></span><br><span class="line">  <span class="type">static</span> <span class="type">void</span> <span class="title function_">BSP_Init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">  &#123;</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    * STM32中断优先级分组为4，即4bit都用来表示抢占优先级，范围为：0~15</span></span><br><span class="line"><span class="comment">    * 优先级分组只需要分组一次即可，以后如果有其他的任务需要用到中断，</span></span><br><span class="line"><span class="comment">    * 都统一用这个优先级分组，千万不要再分组，切忌。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 );</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* LED 初始化 */</span></span><br><span class="line">  LED_GPIO_Config();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 串口初始化	*/</span></span><br><span class="line">  USART_Config();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
+    <url>/syy.github.io/2025/12/29/problem/pycharm-problem/</url>
+    <content><![CDATA[<blockquote>
+<p>写大作业遇到的问题有感,天生无才</p>
+</blockquote>
+<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
+发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
+<p>调查的时候,在终端调用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
+<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
+<h2 id="解决方法">解决方法</h2>
+<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
+<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
 ]]></content>
       <tags>
-        <tag>理论学习</tag>
-        <tag>嵌入式</tag>
+        <tag>解决实际问题</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>openocd</title>
+    <url>/syy.github.io/2026/02/05/openocd/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>cpp项目之线程池</title>
+    <url>/syy.github.io/2026/01/27/programming/cpp%E9%A1%B9%E7%9B%AE%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
+    <content><![CDATA[<h1>线程池</h1>
+<p>是一个池性结构,临时创建来管理数据,再删除是比较麻烦的,<br>
+所用线程池管理和维持固定数量的</p>
+<h2 id="原理">原理</h2>
+<p>预创建线程：程序启动时，就创建一批固定或可动态调整数量的线程，让它们处于空闲等待状态。<br>
+任务队列缓冲：所有待执行的任务会被放入一个线程安全的队列中。<br>
+线程复用：空闲线程会主动从任务队列中取出任务执行，任务完成后不会立即销毁，而是回到池中继续等待下一个任务。<br>
+动态调度：部分线程池可以根据任务负载动态增减线程数量，在低负载时释放资源，高负载时扩容。</p>
+<h2 id="作用">作用</h2>
+<p>1.某类任务特别耗时,问题,丢给其他线程<br>
+2.并行作用</p>
+<h2 id="耗时操作">耗时操作</h2>
+<p>1.耗时等待<br>
+2.耗时计算</p>
+]]></content>
+      <categories>
+        <category>应用</category>
+      </categories>
+      <tags>
+        <tag>cpp</tag>
+        <tag>应用</tag>
       </tags>
   </entry>
   <entry>
     <title>c#的学习001</title>
-    <url>/syy.github.io/2026/01/01/hash/</url>
+    <url>/syy.github.io/2026/01/01/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/hash/</url>
     <content><![CDATA[<blockquote>
 <p>命里有时终须有，命里无时莫强求</p>
 </blockquote>
@@ -386,73 +305,19 @@ C# 中的类型转换可以分为两种：隐式类型转换和显式类型转�
       </tags>
   </entry>
   <entry>
-    <title>proteus下写汇编</title>
-    <url>/syy.github.io/2026/01/22/proteus%E4%B8%8B%E5%86%99%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<blockquote>
-<p>微机大作业时候,在想可以不靠keil实现proteus</p>
-</blockquote>
-<style>
-  /* 修改正文字体大小和字体 */
-  .post-content {
-    font-size: 20px !important; /* 你想要的大小 */
-    font-family: 'STKaiti', '楷体', serif !important; /* 你想要的字体 */
-    line-height: 2.0 !important; /* 行间距 */
-  }
-
-  /*!* 如果你也想改这篇博客的标题大小 *!*/
-  /*.post-content h1, .post-content h2, .post-content h3 {*/
-  /*  font-family: 'Microsoft YaHei' !important;*/
-  /*  color: #fda085 !important;*/
-  /*}*/
-</style>
-<h1>如何在proteus下汇编</h1>
-<p>1.在proteus创建新的项目,如下图所示,后面默认即可;<br>
-<img src="/syy.github.io/img/know/proteus/1.jpeg" alt=""><br>
-2.放置主控芯片如at89c52,后点击source code的图标<br>
-<img src="/syy.github.io/img/know/proteus/2.png" alt=""><br>
-3.点击vsm后再点击project创建新工程<br>
-<img src="/syy.github.io/img/know/proteus/3.png" alt=""><br>
-4.取消勾选项<br>
-<img src="/syy.github.io/img/know/proteus/4.png" alt=""><br>
-5.选择project的project settings，取消勾选嵌入式文件<br>
-<img src="/syy.github.io/img/know/proteus/5.png" alt=""><br>
-6.选择project的add new file，创建对应汇编文件<br>
-<img src="/syy.github.io/img/know/proteus/6.png" alt=""><br>
-7.然后就可以在上面编程了<br>
-<img src="/syy.github.io/img/know/proteus/7.png" alt=""></p>
+    <title>lvgl</title>
+    <url>/syy.github.io/2026/02/10/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/hello-world/</url>
+    <content><![CDATA[<h1>lvgl</h1>
+<p>测试中</p>
 ]]></content>
-      <categories>
-        <category>应用</category>
-      </categories>
       <tags>
         <tag>嵌入式</tag>
-        <tag>解决实际问题</tag>
-        <tag>汇编</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>关于pycharm终端和解释器不是同一个的解决方法</title>
-    <url>/syy.github.io/2025/12/29/pycharm-problem/</url>
-    <content><![CDATA[<blockquote>
-<p>写大作业遇到的问题有感,天生无才</p>
-</blockquote>
-<p>我在写现场总线大作业时候,使用很久没使用的pycharm,<br>
-发现一个问题,就是我在设置下载对应的库,然后生成的却显示没有对应的库;</p>
-<p>调查的时候,在终端调用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 查看当前 Python 解释器的绝对路径</span><br><span class="line">python -c &quot;import sys; print(sys.executable)&quot;</span><br></pre></td></tr></table></figure>
-<p>发现终端显示的使用的python的解释器和我在pycharm设置不一样</p>
-<h2 id="解决方法">解决方法</h2>
-<p>无非就是把pycharm解释器改换成路径这个,无疑是最简单的;</p>
-<p>其次可以参考<a href="https://blog.csdn.net/2302_76798031/article/details/149160986">CSDN 上关于 Python 环境配置的教程</a>。</p>
-]]></content>
-      <tags>
-        <tag>解决实际问题</tag>
-        <tag>python</tag>
+        <tag>理论学习</tag>
       </tags>
   </entry>
   <entry>
     <title>读原理图</title>
-    <url>/syy.github.io/2025/09/16/study-for-schematic-diagram/</url>
+    <url>/syy.github.io/2025/09/16/problem/study-for-schematic-diagram/</url>
     <content><![CDATA[<h1>硬件</h1>
 <blockquote>
 <p>study for schematic diagram</p>
@@ -483,133 +348,13 @@ TXD0的引脚接电平转换芯片,再出来到RST0接到串口座,串口线接�
 <img src="/syy.github.io/img/st/st002.jpg" alt="三极管"></p>
 ]]></content>
       <tags>
-        <tag>理论学习</tag>
         <tag>嵌入式</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>qt</title>
-    <url>/syy.github.io/2026/01/28/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
-    <content><![CDATA[<h1>qt</h1>
-<p>使用cpp或者py会更好<br>
-qt widgets xxxx;可视化<br>
-qt console xxx:控制台<br>
-后面两个;移动端</p>
-<h2 id="文件的创建">文件的创建</h2>
-<p><img src="/syy.github.io/img/qt/001.jpg" alt=""><br>
-业务逻辑在cpp写,<br>
-界面在ui写<br>
-h为头文件, 个事件关联</p>
-<p><img src="/syy.github.io/img/qt/002.jpg" alt=""><br>
-点击ui文件进入设计界面,</p>
-]]></content>
-      <tags>
         <tag>理论学习</tag>
-        <tag>专业课</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>cmake_study</title>
-    <url>/syy.github.io/2025/12/30/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/cmake-study/</url>
-    <content><![CDATA[<blockquote>
-<p>世界上最遥远的距离，不是从源码到二进制，而是 CMake 说 “找不到头文件”，但文件明明就在眼前</p>
-</blockquote>
-<p><img src="/syy.github.io/img/a001.jpg" alt="111"></p>
-<h2 id="目录">目录</h2>
-<ul>
-<li><a href="#%E4%BB%8B%E7%BB%8D">1. 介绍</a></li>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">2. 基本语法</a></li>
-<li><a href="#%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91">3. 如何编译</a></li>
-</ul>
-<h2 id="介绍-a-id-介绍-a">介绍 <a id="介绍"></a></h2>
-<p>预处理-&gt;编译-&gt;汇编-&gt;链接-&gt;可执行程序<br>
-创建一个脚本文件,makefile<br>
-还有一种,cmake,比makefile更高级,根据不同平台直接生成makefile<br>
-有两种库,动态库和静态库,引入第三方现目使用</p>
-<h2 id="基本语法-a-id-基本语法-a">基本语法 <a id="基本语法"></a></h2>
-<h3 id="1-指定-cmake-的最低版本要求：">1、指定 CMake 的最低版本要求：</h3>
-<p>cmake_minimum_required(VERSION <version>)</p>
-<h3 id="2-定义项目的名称和使用的编程语言：">2、定义项目的名称和使用的编程语言：</h3>
-<p>project(&lt;project_name&gt; [<language>…])<br>
-例如： project(MyProject CXX)</p>
-<h3 id="3-指定要生成的可执行文件和其源文件：">3、指定要生成的可执行文件和其源文件：</h3>
-<p>add_executable(<target> &lt;source_files&gt;…)<br>
-例如： add_executable(MyExecutable main.cpp other_file.cpp)</p>
-<h3 id="4-创建一个库-静态库或动态库-及其源文件：">4、创建一个库（静态库或动态库）及其源文件：***</h3>
-<p>add_library(<target> &lt;source_files&gt;…)<br>
-这条指令告诉 CMake：“目标 A (target) 的运行或编译依赖于库 B (library)。”<br>
-例如：<br>
-add_library(MyLibrary STATIC library.cpp)</p>
-<h3 id="5-链接目标文件与其他库：">5、链接目标文件与其他库：</h3>
-<p>target_link_libraries(<target> <libraries>…)<br>
-例如：<br>
-target_link_libraries(MyExecutable MyLibrary)</p>
-<h3 id="6-添加头文件搜索路径：">6、添加头文件搜索路径：</h3>
-<p>include_directories(<dirs>…)<br>
-例如：<br>
-include_directories(${PROJECT_SOURCE_DIR}/include)<br>
-现代 CMake 的替代方案：target_include_directories (强烈推荐)<br>
-在现代 CMake 实践中，我们更倾向于使用 target_include_directories。<br>
-为什么？<br>
-include_directories 像是一个“全局开关”，而 target_include_directories 是“点对点设置”。<br>
-示例对比：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># --- 旧方式 (全局) ---</span><br><span class="line">include_directories(include/)</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">add_executable(App main.cpp) # App 也会被迫搜索 include/，即使它不需要</span><br><span class="line"></span><br><span class="line"># --- 新方式 (目标关联) ---</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">target_include_directories(LibA PUBLIC include/)</span><br></pre></td></tr></table></figure>
-<p>PRIVATE (私有)：<br>
-含义：只有 LibA 自己的源文件（.cpp）在编译时会用到这个目录。<br>
-外部影响：如果另一个程序 App 链接了 LibA，App 不会自动获得这个头文件路径。<br>
-INTERFACE (接口)：<br>
-含义：LibA 自己的源文件在编译时不使用这个目录。<br>
-外部影响：谁链接了 LibA，谁才会获得这个路径。常用于“纯头文件库”（Header-only library）。<br>
-PUBLIC (公开)：<br>
-含义：PRIVATE + INTERFACE。<br>
-效果：LibA 自己编译时要用这个路径，而且任何链接到 LibA 的目标也必须自动带上这个路径。</p>
-<h3 id="7-设置变量的值：">7、设置变量的值：</h3>
-<p>set(-variable  -value…)</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.16) # 最低要求的版本号</span><br><span class="line">project(test)</span><br><span class="line">set(SRC_LIST one.cpp)</span><br><span class="line">add_executable(app  $&#123;SRC_LIST&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="8-设置目标属性：">8、设置目标属性：</h3>
-<p>target_include_directories(TARGET target_name<br>
-[BEFORE | AFTER]<br>
-[SYSTEM] [PUBLIC | PRIVATE | INTERFACE]<br>
-[items1…])<br>
-例如： target_include_directories(MyExecutable PRIVATE ${PROJECT_SOURCE_DIR}/include)<br>
-解释; target_include_directories(目标名称 关键字 路径)<br>
-假设你的项目文件夹是这样的：</p>
-<blockquote>
-<p>/MyProject<br>
-├── main.cpp<br>
-├── /include (放公开的头文件)<br>
-│     └── my_lib.h<br>
-├── /src     (放内部的头文件)<br>
-│     └── internal.h<br>
-└── /third_party/bad_code (别人写的烂代码库)</p>
-</blockquote>
-<p>你的 CMakeLists.txt 应该这么写：<br>
-code<br>
-Cmake<br>
-add_executable(MyApp main.cpp)</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(MyApp main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(MyApp </span><br><span class="line">    <span class="comment"># 1. 自己的内部头文件，设置为 PRIVATE</span></span><br><span class="line">    <span class="comment"># 只有 MyApp 能搜到 internal.h</span></span><br><span class="line">    PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 对外的接口头文件，设置为 PUBLIC</span></span><br><span class="line">    <span class="comment"># 如果以后有人链接了 MyApp，他们也能搜到 my_lib.h</span></span><br><span class="line">    PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 第三方库，设置为 SYSTEM</span></span><br><span class="line">    <span class="comment"># 哪怕这个库里有一万个警告，编译时也不会弹出来烦你</span></span><br><span class="line">    SYSTEM PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/third_party/bad_code</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h2 id="如何编译-a-id-如何编译-a">如何编译 <a id="如何编译"></a></h2>
-<h3 id="第一步：进入项目文件夹">第一步：进入项目文件夹</h3>
-<p>首先，确保你在包含 CMakeLists.txt 的那个目录下。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/code</span><br></pre></td></tr></table></figure>
-<h3 id="第二步：创建并进入-build-目录-外部构建">第二步：创建并进入 build 目录（外部构建）</h3>
-<p>为了不让编译产生的临时文件弄乱你的源代码，我们通常创建一个专门的 build 文件夹。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
-<h3 id="第三步：运行-cmake-进行配置">第三步：运行 CMake 进行配置</h3>
-<p>这一步 CMake 会检查你的系统环境，并生成 Makefile 文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake ..</span><br></pre></td></tr></table></figure>
-<h3 id="第四步：执行编译">第四步：执行编译</h3>
-<p>使用 make 命令（或者 cmake --build .）来正式调用编译器（g++）。<br>
-就一个make;</p>
-]]></content>
-      <tags>
-        <tag>理论学习</tag>
-        <tag>cmake</tag>
       </tags>
   </entry>
   <entry>
     <title>植物大战僵尸制作</title>
-    <url>/syy.github.io/2025/09/12/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8%E5%88%B6%E4%BD%9C/</url>
+    <url>/syy.github.io/2025/09/12/programming/%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8%E5%88%B6%E4%BD%9C/</url>
     <content><![CDATA[<h1>植物大战僵尸</h1>
 <p>目前打算先用cpp实现在电脑,再移植到stm32f407(lvgl,freertos)[还在实现中]</p>
 <h2 id="cpp实现植物大战僵尸-1-5">cpp实现植物大战僵尸(1.5)</h2>
@@ -638,7 +383,7 @@ add_executable(MyApp main.cpp)</p>
   </entry>
   <entry>
     <title>前端学习</title>
-    <url>/syy.github.io/2025/09/20/web-study/</url>
+    <url>/syy.github.io/2025/09/20/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/web-study/</url>
     <content><![CDATA[<blockquote>
 <p>用代码为世界增添一抹独特的色彩，开启一扇通往无限可能的创意之门 。</p>
 </blockquote>
@@ -814,7 +559,7 @@ none:无;<br>
   </entry>
   <entry>
     <title>贝塞尔曲线法</title>
-    <url>/syy.github.io/2025/09/21/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
+    <url>/syy.github.io/2025/09/21/problem/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF%E6%B3%95/</url>
     <content><![CDATA[<h1>贝塞尔曲线(植物大战僵尸的补充)</h1>
 <p>局部路径规划算法</p>
 <h2 id="贝塞尔算法思想">贝塞尔算法思想</h2>
@@ -846,7 +591,7 @@ $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><
   </entry>
   <entry>
     <title>数模美赛的学习笔记</title>
-    <url>/syy.github.io/2026/01/23/%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B/</url>
+    <url>/syy.github.io/2026/01/23/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%A8%A1%E7%BE%8E%E8%B5%9B/</url>
     <content><![CDATA[<h1>数模美赛</h1>
 <p>基于数学建模老哥和其他资料学习的笔记,<br>
 也可以参考一下我的思路,本人数模国赛c题省二,虽然不高;</p>
@@ -913,9 +658,261 @@ $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><
       </tags>
   </entry>
   <entry>
-    <title>分类</title>
-    <url>/syy.github.io/categories/index.html</url>
-    <content><![CDATA[]]></content>
+    <title>qt</title>
+    <url>/syy.github.io/2026/01/28/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/</url>
+    <content><![CDATA[<h1>qt</h1>
+<p>使用cpp或者py会更好<br>
+qt widgets xxxx;可视化<br>
+qt console xxx:控制台<br>
+后面两个;移动端</p>
+<h2 id="文件的创建">文件的创建</h2>
+<p><img src="/syy.github.io/img/qt/001.jpg" alt=""><br>
+业务逻辑在cpp写,<br>
+界面在ui写<br>
+h为头文件, 个事件关联</p>
+<p><img src="/syy.github.io/img/qt/002.jpg" alt=""><br>
+点击ui文件进入设计界面,</p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>专业课</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cpp</title>
+    <url>/syy.github.io/2026/01/27/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/cpp-linux/</url>
+    <content><![CDATA[<h1>cpp的基础</h1>
+<h2 id="main的函数">main的函数</h2>
+<p>遵循顺序的结构, 从上往下</p>
+<p>基本的结构如下:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;hello world&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="c语言的string">c语言的string</h2>
+<p>特别的库,string.h<br>
+有很多函数;</p>
+<h3 id="fgets">fgets</h3>
+<p>fgets(buf, 100, stdin); 变量名, 最大读取数, 输入流,stdin是键盘, 或者从文件读取</p>  
+如果没有输入,就初始化为\0
+<h3 id="strlen">strlen</h3>
+<p>strlen();是返回一个int的类型数据,就是字符串的长度</p>
+<h3 id="strcmp-a-b">strcmp(a, b)</h3>
+<p>返回int, 两个字符串相等时候,为0,a&gt;b,为1;a&lt;b,返回-1;</p>
+<h3 id="strcpy-a-b">strcpy(a, b)</h3>
+<p>把一个 C 风格字符串（以 \0 结尾的字符数组）完整拷贝到另一个字符数组中，<br>
+是 C 语言中操作字符串的基础函数。</p>
+<h3 id="strcat-a-b">strcat(a, b)</h3>
+<p>把b接在a的后面 ,有扩容的功能</p>
+<h2 id="cpp的字符串-includ-e-string-h">cpp的字符串,includ’e &lt;string.h&gt;</h2>
+<p>cpp和c语言的字符串<br>
+string就是个特殊的数据结构, stl容器当中的一员</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">string <span class="title">s</span><span class="params">(<span class="number">5</span>,<span class="string">&quot;a&quot;</span>)</span></span>;<span class="comment">//aaaaaa</span></span><br><span class="line">string arr = <span class="string">&quot;xxxxx&quot;</span></span><br><span class="line">string <span class="built_in">s1</span>(<span class="string">&#x27;xxxx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="字符串的拼接">字符串的拼接</h3>
+<p>使用+号,</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">string a = <span class="string">&quot;xxxx&quot;</span>;</span><br><span class="line">a = a + <span class="string">&quot;ssss&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="输入">输入</h3>
+<p>cin不能读入空格<br>
+<strong>getline读取一行的数据,可以读一行</strong><br>
+getline(cin, str);<br>
+cin是输入流,找到打字找到存入文件,输入流就是把这个下到这个文件,</p>
+<h3 id="replace">replace</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">string&amp; <span class="title">replace</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">size_t</span> pos,        <span class="comment">// 原字符串中替换的起始位置</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">size_t</span> len,        <span class="comment">// 原字符串中要删除的字符数</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> <span class="type">char</span>* s,     <span class="comment">// 源字符串（C风格字符串，如&quot;abcd&quot;）</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">size_t</span> subpos,     <span class="comment">// 源字符串中截取子串的起始位置</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">size_t</span> sublen      <span class="comment">// 源字符串中截取子串的长度</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line">str.<span class="built_in">repalce</span>(<span class="number">2</span>,<span class="number">3</span> <span class="string">&quot;abcd&quot;</span>, <span class="number">2</span>, <span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="erase">erase</h3>
+<p>删除,pos起始位置,len是删除的长度;</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">str.<span class="built_in">erase</span>(pos, len);</span><br></pre></td></tr></table></figure>
+<h3 id="查找">查找</h3>
+<p>下表法, 如str[x]</p>
+<h3 id="字符数组和string">字符数组和string</h3>
+<h4 id="字符数组：">字符数组：</h4>
+<p>栈上的数组（char arr[10];）：长度固定，超出长度赋值会导致缓冲区溢出；<br>
+堆上的数组（char* arr = new char[10];）：需手动 delete[] arr;，否则内存泄漏。</p>
+<h4 id="string-类：">string 类：</h4>
+<p>底层是动态分配的字符数组，当字符串长度超过当前容量时，会自动分配更大的内存空间，拷贝原有内容，释放旧内存 ——全程无需手动干预。<br>
+需用 str.c_str() 转换为 C 风格字符串才能传给 C 函数</p>
+<h4 id="字符数组转string">字符数组转string</h4>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> hh[] = <span class="string">&quot;hjhhh&quot;</span></span><br><span class="line">string sss = hh;</span><br></pre></td></tr></table></figure>
+<h4 id="string转字符数组">string转字符数组</h4>
+<p>string不能直接转成字符数组,只能转const char[]</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    string ssss = <span class="string">&quot;hello&quot;</span>;          <span class="comment">// 定义string对象</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>* const_p = ssss.<span class="built_in">c_str</span>();  <span class="comment">// 正确：获取只读的C风格字符串</span></span><br><span class="line">    <span class="type">char</span>* p = (<span class="type">char</span>*)ssss.<span class="built_in">c_str</span>();  <span class="comment">// 你问的代码：强制转换为可写的char*</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="sstream字符串流">sstream字符串流</h2>
+<p>把字符串当作 “输入 / 输出流” 来处理<br>
+（类似 cin/cout 处理控制台输入输出），实现「字符串 ↔ 各种数据类型」的便捷转换 / 解析。<br>
+istringstream：字符串输入流 → 从字符串中读取数据（解析字符串）；<br>
+ostringstream：字符串输出流 → 把各种类型数据写入字符串（拼接 / 格式化字符串）；<br>
+stringstream：双向流 → 既可读又可写。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span>  <span class="comment">// 必须包含字符串流头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 错误1：src后少了等号 → string src = &quot;hello 123 3.4 T&quot;;</span></span><br><span class="line">    string src = <span class="string">&quot;hello 123 3.4 T&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function">istringstream <span class="title">is</span><span class="params">(src)</span></span>; <span class="comment">// 建立字符串的输入流</span></span><br><span class="line">    </span><br><span class="line">    string s1;</span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">double</span> b;</span><br><span class="line">    <span class="type">char</span> c;</span><br><span class="line">    <span class="comment">// 按空格分隔，依次读取到对应类型的变量中</span></span><br><span class="line">    is &gt;&gt; s1 &gt;&gt; a &gt;&gt; b &gt;&gt; c;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打印结果，验证解析是否成功</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;s1: &quot;</span> &lt;&lt; s1 &lt;&lt; endl;  <span class="comment">// hello</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;a: &quot;</span> &lt;&lt; a &lt;&lt; endl;    <span class="comment">// 123</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;b: &quot;</span> &lt;&lt; b &lt;&lt; endl;    <span class="comment">// 3.4</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;c: &quot;</span> &lt;&lt; c &lt;&lt; endl;    <span class="comment">// T</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="for-each">for each</h2>
+<p>for的增强版,专门用来遍历,</p>
+<h3 id="格式">格式</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> arr[] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;;</span><br><span class="line"><span class="comment">// 待输出的变量,用来装遍历的元素;</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> x : arr)&#123;<span class="comment">//待遍历的序列,不一定是数组</span></span><br><span class="line">    cout &lt;&lt; x &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="auto">auto</h2>
+<p>c++ 新引进的,自适应类型关键字 var let<br>
+就是弱类型<br>
+可能会判断错误;</p>
+<h2 id="引用符号">引用符号</h2>
+<p>/&amp;/符号, 多功能<br>
+是运算符的重载</p>
+<p>共享同一块的空间 ,取别名</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">2</span></span><br><span class="line"><span class="type">int</span>&amp; b =a; <span class="comment">//a和b共用一块空间</span></span><br><span class="line">cout &lt;&lt; b &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<p>使用<br>
+<img src="/syy.github.io/img/cpp/001.jpg" alt=""></p>
+<h2 id="结构体">结构体</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">xxxx</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a; <span class="comment">//成员表</span></span><br><span class="line">    <span class="comment">//成员函数</span></span><br><span class="line">&#125;a[<span class="number">100</span>];<span class="comment">//结构体变量表</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">xxxx</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a; <span class="comment">//成员表</span></span><br><span class="line">    <span class="comment">//成员函数</span></span><br><span class="line">&#125;;<span class="comment">//结构体变量表</span></span><br><span class="line">xxxx a[<span class="number">100</span>];</span><br></pre></td></tr></table></figure>
+<p><img src="/syy.github.io/img/cpp/002.jpg" alt=""></p>
+<h3 id="结构体的调用">结构体的调用</h3>
+<p>xxx.成员表<br>
+案例1:<br>
+<img src="/syy.github.io/img/cpp/003.jpg" alt=""></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="链表">链表</h2>
+<p>链表（linked list）是一种这样的数据结构，其中的各对象按线性顺序排列。<br>
+数组的线性顺序是由数组下标决定的，然而与数组不同的是，链表的顺序是由各个对象里的指针决定的。<br>
+<img src="/syy.github.io/img/cpp/004.jpg" alt=""></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span>&#123;</span><br><span class="line">	<span class="type">int</span> data;</span><br><span class="line">	ListNode *next;</span><br><span class="line">&#125;listnode;</span><br></pre></td></tr></table></figure>
+<p>data存储数据，next指针指向下一个节点</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Birthday</span>&#123;</span><br><span class="line">	<span class="type">int</span> year;</span><br><span class="line">	<span class="type">int</span> month;</span><br><span class="line">	<span class="type">int</span> day;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">ListNode</span>&#123;</span><br><span class="line">	string name;</span><br><span class="line">	<span class="type">int</span> Student_number;</span><br><span class="line">	Birthday birth;</span><br><span class="line">	ListNode *next;</span><br><span class="line">	ListNode *last;</span><br><span class="line">&#125;listnode;</span><br></pre></td></tr></table></figure>
+<p>创建链表<br>
+一个单向链表是有一个头和一个尾的</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">ListCreate</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">	ListNode *head,*p1,*end;</span><br><span class="line">	head=<span class="keyword">new</span> ListNode;</span><br><span class="line">	end=head;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">		p1=<span class="keyword">new</span> ListNode;</span><br><span class="line">		p1-&gt;data=i;</span><br><span class="line">		end-&gt;next=p1;</span><br><span class="line">		end=p1;</span><br><span class="line">	&#125;</span><br><span class="line">	end-&gt;next=<span class="literal">NULL</span>; <span class="comment">//链表的尾部next指向空</span></span><br><span class="line">	<span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="遍历链表">遍历链表</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">(ListNode *head)</span></span>&#123;		<span class="comment">//将链表的头作为参数</span></span><br><span class="line">	ListNode *temp;</span><br><span class="line">	temp=head-&gt;next;</span><br><span class="line">	<span class="keyword">while</span>(temp!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">		cout&lt;&lt;temp-&gt;data&lt;&lt;<span class="string">&#x27; &#x27;</span>;</span><br><span class="line">		temp=temp-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="查找某个节点">查找某个节点</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ListNode* <span class="title">Find</span><span class="params">(ListNode *head,<span class="type">int</span> n)</span></span>&#123;	<span class="comment">//n表示查找第n个节点</span></span><br><span class="line">	ListNode *p=head;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n&amp;&amp;p!=<span class="literal">NULL</span>;i++)&#123;</span><br><span class="line">		p=p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(p==<span class="literal">NULL</span>)&#123;</span><br><span class="line">		cout&lt;&lt;<span class="string">&quot;找不到/(ㄒoㄒ)/~~&quot;</span>&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="修改某节点的数据">修改某节点的数据</h3>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ListChange</span><span class="params">(ListNode *head,<span class="type">int</span> n,<span class="type">int</span> temp)</span></span>&#123;</span><br><span class="line">	ListNode *p=head;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n&amp;&amp;p!=<span class="literal">NULL</span>;i++)&#123;</span><br><span class="line">		p=p-&gt;next;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(p!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">		p-&gt;data=temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> cout&lt;&lt;<span class="string">&quot;找不到节点/(ㄒoㄒ)/~~&quot;</span>&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1>定时器</h1>
+<h2 id="实现方式">实现方式</h2>
+<p>前后端均有;<br>
+组织的方式:<br>
+1.时间序(时间排序)<br>
+ 红黑树-nginx<br>
+ 最小堆-go,libev…<br>
+2.执行序<br>
+ 时间轮-netty,skynet,内核,kafka</p>
+<p>应用方式:<br>
+1,单线程<br>
+2.多线程</p>
+<h2 id="与其他模块的关系">与其他模块的关系</h2>
+<p>通常会与网络模块协同处理,异步<br>
+基于事件驱动业务的开展<br>
+除了协同网络处理,复用系统调用</p>
+<h2 id="定时器的基础接口设计">定时器的基础接口设计</h2>
+<p>1,最近触发的定时任务离当前还要多久-协同处理网络事件</p>
+<ul>2.获取当前时间的接口
+<li>steady_clock--系统启动到当前的时间,也可以计算程序运行时间</li>
+<li>system_clock--时间戳,可以修改的</li>
+<li>high_resolution_clcok--高精度的steady_clock,效率低</li>
+</ul>
+## 参考代码
+<details>
+<summary style="color: #f6d365; cursor: pointer;">展开查看代码</summary>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#include &lt;sys/epoll.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;   // 提供close、read等函数</span><br><span class="line">#include &lt;stdio.h&gt;    // 提供printf、perror</span><br><span class="line">#include &lt;errno.h&gt;    // 提供错误码errno</span><br><span class="line">#include &lt;fcntl.h&gt;    // 提供fcntl（设置非阻塞）</span><br><span class="line">#include &lt;string.h&gt;   // 提供memset、strlen</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    // 1. 创建epoll实例 + 错误处理</span><br><span class="line">    int epfd = epoll_create(1);</span><br><span class="line">    if (epfd == -1) &#123;</span><br><span class="line">        perror(&quot;epoll_create failed&quot;);  // 打印错误原因</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 2. 准备要监听的文件描述符：这里选标准输入（fd=0）</span><br><span class="line">    int listen_fd = 0;  // stdin的文件描述符固定为0</span><br><span class="line">    // 设置标准输入为非阻塞（epoll常用模式，避免read阻塞）</span><br><span class="line">    int flags = fcntl(listen_fd, F_GETFL);</span><br><span class="line">    fcntl(listen_fd, F_SETFL, flags | O_NONBLOCK);</span><br><span class="line"></span><br><span class="line">    // 3. 注册事件到epoll实例：监听标准输入的&quot;可读事件（EPOLLIN）&quot;</span><br><span class="line">    epoll_event reg_ev;</span><br><span class="line">    reg_ev.events = EPOLLIN;  // 监听&quot;可读&quot;事件</span><br><span class="line">    reg_ev.data.fd = listen_fd;  // 绑定文件描述符，方便后续识别</span><br><span class="line">    if (epoll_ctl(epfd, EPOLL_CTL_ADD, listen_fd, &amp;reg_ev) == -1) &#123;</span><br><span class="line">        perror(&quot;epoll_ctl add failed&quot;);</span><br><span class="line">        close(epfd);  // 失败时先关闭epfd，避免泄漏</span><br><span class="line">        return -1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 4. 定义接收就绪事件的数组</span><br><span class="line">    epoll_event ev[64] = &#123;0&#125;;</span><br><span class="line">    printf(&quot;等待键盘输入（输入q退出）...\n&quot;);</span><br><span class="line"></span><br><span class="line">    // 5. 循环监听事件</span><br><span class="line">    while (true) &#123;</span><br><span class="line">        // 阻塞等待事件（-1=永久阻塞）</span><br><span class="line">        int n = epoll_wait(epfd, ev, 64, -1);</span><br><span class="line">        if (n == -1) &#123;</span><br><span class="line">            perror(&quot;epoll_wait failed&quot;);</span><br><span class="line">            break;  // 出错时退出循环</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // 6. 遍历所有就绪事件并处理</span><br><span class="line">        for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">            // 只处理&quot;可读事件&quot;（这里仅监听了EPOLLIN）</span><br><span class="line">            if (ev[i].events &amp; EPOLLIN) &#123;</span><br><span class="line">                char buf[1024] = &#123;0&#125;;</span><br><span class="line">                // 读取标准输入的内容（非阻塞，无数据时read返回-1）</span><br><span class="line">                ssize_t len = read(ev[i].data.fd, buf, sizeof(buf)-1);</span><br><span class="line">                if (len &gt; 0) &#123;</span><br><span class="line">                    printf(&quot;收到输入：%s&quot;, buf);</span><br><span class="line">                    // 输入q则退出程序</span><br><span class="line">                    if (strstr(buf, &quot;q&quot;) != NULL) &#123;</span><br><span class="line">                        printf(&quot;退出程序...\n&quot;);</span><br><span class="line">                        goto exit_loop;  // 跳转到释放资源的逻辑</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else if (len == 0) &#123;</span><br><span class="line">                    printf(&quot;输入流关闭\n&quot;);</span><br><span class="line">                    goto exit_loop;</span><br><span class="line">                &#125; else if (errno != EAGAIN) &#123;  // EAGAIN是&quot;无数据&quot;，非错误</span><br><span class="line">                    perror(&quot;read failed&quot;);</span><br><span class="line">                    goto exit_loop;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">exit_loop:</span><br><span class="line">    // 7. 释放资源：关闭epoll实例和监听的fd</span><br><span class="line">    close(listen_fd);</span><br><span class="line">    close(epfd);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>
+]]></content>
+      <categories>
+        <category>理论</category>
+      </categories>
+      <tags>
+        <tag>cpp</tag>
+        <tag>理论学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>cmake_study</title>
+    <url>/syy.github.io/2025/12/30/%E7%90%86%E8%AE%BA%E5%AD%A6%E4%B9%A0/cmake-study/</url>
+    <content><![CDATA[<blockquote>
+<p>世界上最遥远的距离，不是从源码到二进制，而是 CMake 说 “找不到头文件”，但文件明明就在眼前</p>
+</blockquote>
+<p><img src="/syy.github.io/img/a001.jpg" alt="111"></p>
+<h2 id="目录">目录</h2>
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">1. 介绍</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">2. 基本语法</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E7%BC%96%E8%AF%91">3. 如何编译</a></li>
+</ul>
+<h2 id="介绍-a-id-介绍-a">介绍 <a id="介绍"></a></h2>
+<p>预处理-&gt;编译-&gt;汇编-&gt;链接-&gt;可执行程序<br>
+创建一个脚本文件,makefile<br>
+还有一种,cmake,比makefile更高级,根据不同平台直接生成makefile<br>
+有两种库,动态库和静态库,引入第三方现目使用</p>
+<h2 id="基本语法-a-id-基本语法-a">基本语法 <a id="基本语法"></a></h2>
+<h3 id="1-指定-cmake-的最低版本要求：">1、指定 CMake 的最低版本要求：</h3>
+<p>cmake_minimum_required(VERSION <version>)</p>
+<h3 id="2-定义项目的名称和使用的编程语言：">2、定义项目的名称和使用的编程语言：</h3>
+<p>project(&lt;project_name&gt; [<language>…])<br>
+例如： project(MyProject CXX)</p>
+<h3 id="3-指定要生成的可执行文件和其源文件：">3、指定要生成的可执行文件和其源文件：</h3>
+<p>add_executable(<target> &lt;source_files&gt;…)<br>
+例如： add_executable(MyExecutable main.cpp other_file.cpp)</p>
+<h3 id="4-创建一个库-静态库或动态库-及其源文件：">4、创建一个库（静态库或动态库）及其源文件：***</h3>
+<p>add_library(<target> &lt;source_files&gt;…)<br>
+这条指令告诉 CMake：“目标 A (target) 的运行或编译依赖于库 B (library)。”<br>
+例如：<br>
+add_library(MyLibrary STATIC library.cpp)</p>
+<h3 id="5-链接目标文件与其他库：">5、链接目标文件与其他库：</h3>
+<p>target_link_libraries(<target> <libraries>…)<br>
+例如：<br>
+target_link_libraries(MyExecutable MyLibrary)</p>
+<h3 id="6-添加头文件搜索路径：">6、添加头文件搜索路径：</h3>
+<p>include_directories(<dirs>…)<br>
+例如：<br>
+include_directories(${PROJECT_SOURCE_DIR}/include)<br>
+现代 CMake 的替代方案：target_include_directories (强烈推荐)<br>
+在现代 CMake 实践中，我们更倾向于使用 target_include_directories。<br>
+为什么？<br>
+include_directories 像是一个“全局开关”，而 target_include_directories 是“点对点设置”。<br>
+示例对比：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># --- 旧方式 (全局) ---</span><br><span class="line">include_directories(include/)</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">add_executable(App main.cpp) # App 也会被迫搜索 include/，即使它不需要</span><br><span class="line"></span><br><span class="line"># --- 新方式 (目标关联) ---</span><br><span class="line">add_library(LibA liba.cpp)</span><br><span class="line">target_include_directories(LibA PUBLIC include/)</span><br></pre></td></tr></table></figure>
+<p>PRIVATE (私有)：<br>
+含义：只有 LibA 自己的源文件（.cpp）在编译时会用到这个目录。<br>
+外部影响：如果另一个程序 App 链接了 LibA，App 不会自动获得这个头文件路径。<br>
+INTERFACE (接口)：<br>
+含义：LibA 自己的源文件在编译时不使用这个目录。<br>
+外部影响：谁链接了 LibA，谁才会获得这个路径。常用于“纯头文件库”（Header-only library）。<br>
+PUBLIC (公开)：<br>
+含义：PRIVATE + INTERFACE。<br>
+效果：LibA 自己编译时要用这个路径，而且任何链接到 LibA 的目标也必须自动带上这个路径。</p>
+<h3 id="7-设置变量的值：">7、设置变量的值：</h3>
+<p>set(-variable  -value…)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake_minimum_required(VERSION 3.16) # 最低要求的版本号</span><br><span class="line">project(test)</span><br><span class="line">set(SRC_LIST one.cpp)</span><br><span class="line">add_executable(app  $&#123;SRC_LIST&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="8-设置目标属性：">8、设置目标属性：</h3>
+<p>target_include_directories(TARGET target_name<br>
+[BEFORE | AFTER]<br>
+[SYSTEM] [PUBLIC | PRIVATE | INTERFACE]<br>
+[items1…])<br>
+例如： target_include_directories(MyExecutable PRIVATE ${PROJECT_SOURCE_DIR}/include)<br>
+解释; target_include_directories(目标名称 关键字 路径)<br>
+假设你的项目文件夹是这样的：</p>
+<blockquote>
+<p>/MyProject<br>
+├── main.cpp<br>
+├── /include (放公开的头文件)<br>
+│     └── my_lib.h<br>
+├── /src     (放内部的头文件)<br>
+│     └── internal.h<br>
+└── /third_party/bad_code (别人写的烂代码库)</p>
+</blockquote>
+<p>你的 CMakeLists.txt 应该这么写：<br>
+code<br>
+Cmake<br>
+add_executable(MyApp main.cpp)</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(MyApp main.cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(MyApp </span><br><span class="line">    <span class="comment"># 1. 自己的内部头文件，设置为 PRIVATE</span></span><br><span class="line">    <span class="comment"># 只有 MyApp 能搜到 internal.h</span></span><br><span class="line">    PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/src</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 2. 对外的接口头文件，设置为 PUBLIC</span></span><br><span class="line">    <span class="comment"># 如果以后有人链接了 MyApp，他们也能搜到 my_lib.h</span></span><br><span class="line">    PUBLIC <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/<span class="keyword">include</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 3. 第三方库，设置为 SYSTEM</span></span><br><span class="line">    <span class="comment"># 哪怕这个库里有一万个警告，编译时也不会弹出来烦你</span></span><br><span class="line">    SYSTEM PRIVATE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/third_party/bad_code</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="如何编译-a-id-如何编译-a">如何编译 <a id="如何编译"></a></h2>
+<h3 id="第一步：进入项目文件夹">第一步：进入项目文件夹</h3>
+<p>首先，确保你在包含 CMakeLists.txt 的那个目录下。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd ~/code</span><br></pre></td></tr></table></figure>
+<h3 id="第二步：创建并进入-build-目录-外部构建">第二步：创建并进入 build 目录（外部构建）</h3>
+<p>为了不让编译产生的临时文件弄乱你的源代码，我们通常创建一个专门的 build 文件夹。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir build</span><br><span class="line">cd build</span><br></pre></td></tr></table></figure>
+<h3 id="第三步：运行-cmake-进行配置">第三步：运行 CMake 进行配置</h3>
+<p>这一步 CMake 会检查你的系统环境，并生成 Makefile 文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cmake ..</span><br></pre></td></tr></table></figure>
+<h3 id="第四步：执行编译">第四步：执行编译</h3>
+<p>使用 make 命令（或者 cmake --build .）来正式调用编译器（g++）。<br>
+就一个make;</p>
+]]></content>
+      <tags>
+        <tag>理论学习</tag>
+        <tag>cmake</tag>
+      </tags>
   </entry>
   <entry>
     <title>个人介绍</title>
@@ -952,14 +949,14 @@ $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><
 ]]></content>
   </entry>
   <entry>
+    <title>分类</title>
+    <url>/syy.github.io/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title></title>
     <url>/syy.github.io/css/custom.css</url>
     <content><![CDATA[#site-info{text-align:center!important;width:100%;padding:0 10px;position:absolute;top:43%;left:50%;transform:translate(-50%,-50%);z-index:5}#site-title{font-size:8vw!important;font-family:'Noto Serif SC',serif!important;font-weight:900;letter-spacing:5px;line-height:1.2;margin:0;background:linear-gradient(to bottom,#e2e2e2 0,#fff9d1 50%,#fff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(2px 4px 6px rgba(0,0,0,.3))}#site-subtitle{font-size:1.8rem!important;font-weight:400;margin-top:15px;display:block;color:#fff;text-shadow:1px 1px 5px rgba(0,0,0,.5)}@media screen and (max-width:768px){#site-title{font-size:3.5rem!important}#site-subtitle{font-size:1.2rem!important}}#content-inner{margin-top:20px!important;position:relative;z-index:10}#aside-sidebar .card-widget,.aside-list-item,.recent-post-item{border-radius:15px!important;box-shadow:0 5px 15px rgba(0,0,0,.05)!important;transition:all .3s ease!important;background:rgba(255,255,255,.8)!important;backdrop-filter:blur(10px)}body{background:#fdf5f6!important}#page-header.full_page::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.15);z-index:1}#subtitle{font-size:1.5rem!important;color:#fff5e6!important;text-shadow:1px 1px 5px rgba(0,0,0,.3);font-family:Quicksand,sans-serif;font-weight:500}.typed-cursor{color:#fda085!important;font-size:1.5rem!important}body,html{cursor:url('/syy.github.io/img/001.svg'),auto!important}#site-name,.aside-list-item,.card-widget,.recent-post-item,a,button,i{cursor:url('/syy.github.io/img/002.svg'),auto!important}#footer{background:0 0!important}#runtime-show,#voyager-show{color:#fff;font-size:13px;font-weight:700;text-shadow:1px 1px 2px rgba(0,0,0,.5);margin:5px 0}.ip-cloud{background:#fff;border-radius:50% 50% 50% 50%/40% 40% 60% 60%;padding:10px 20px;color:#00dbde;font-weight:700}.card-author{padding:20px 10px!important;height:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important}#custom-about-btn{background:linear-gradient(to right,#f6d365 0,#fda085 100%)!important;color:#fff!important;width:90%!important;text-align:center!important;padding:6px 0!important;border-radius:8px!important;text-decoration:none!important;display:flex!important;justify-content:center;align-items:center}.button--animated{margin-bottom:5px!important}]]></content>
-  </entry>
-  <entry>
-    <title>diary</title>
-    <url>/syy.github.io/diary/index.html</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>tag</title>
@@ -967,13 +964,18 @@ $p_{1,1}(t) = (1 - t)P_0 + tP_1 <span class="katex"><span class="katex-mathml"><
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title></title>
-    <url>/syy.github.io/js/footer_beautify.js</url>
-    <content><![CDATA[var footerTimer;function updateFooterStats(){var e=new Date("2025/09/08 00:00:00"),t=new Date("2025/09/08 00:00:00"),o=new Date,e=o.getTime()-e.getTime(),e="本站居然运行了 "+Math.floor(e/864e5)+" 天 "+Math.floor(e%864e5/36e5)+" 小时 "+Math.floor(e%864e5%36e5/6e4)+" 分 "+Math.floor(e%864e5%36e5%6e4/1e3)+" 秒 ❤️",a=document.getElementById("runtime-show");a&&(a.innerHTML=e);a=24264952436+17*((o.getTime()-t.getTime())/1e3),e=(a/149597870.7).toFixed(6),o="旅行者 1 号当前距离地球 "+Math.floor(a).toLocaleString()+" 千米，约为 "+e+" 个天文单位 🚀",t=document.getElementById("voyager-show");t&&(t.innerHTML=o),clearTimeout(footerTimer),footerTimer=setTimeout(updateFooterStats,1e3)}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",updateFooterStats):updateFooterStats(),document.addEventListener("pjax:complete",updateFooterStats);]]></content>
+    <title>diary</title>
+    <url>/syy.github.io/diary/index.html</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title></title>
     <url>/syy.github.io/js/click_card.js</url>
     <content><![CDATA[function linkAuthorCard(){var t=document.querySelector(".card-author");t&&(t.style.cursor="pointer",t.onclick=function(){window.location.href="/syy.github.io/about/"})}document.addEventListener("DOMContentLoaded",linkAuthorCard),document.addEventListener("pjax:complete",linkAuthorCard);]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/syy.github.io/js/footer_beautify.js</url>
+    <content><![CDATA[var footerTimer;function updateFooterStats(){var e=new Date("2025/09/08 00:00:00"),t=new Date("2025/09/08 00:00:00"),o=new Date,e=o.getTime()-e.getTime(),e="本站居然运行了 "+Math.floor(e/864e5)+" 天 "+Math.floor(e%864e5/36e5)+" 小时 "+Math.floor(e%864e5%36e5/6e4)+" 分 "+Math.floor(e%864e5%36e5%6e4/1e3)+" 秒 ❤️",a=document.getElementById("runtime-show");a&&(a.innerHTML=e);a=24264952436+17*((o.getTime()-t.getTime())/1e3),e=(a/149597870.7).toFixed(6),o="旅行者 1 号当前距离地球 "+Math.floor(a).toLocaleString()+" 千米，约为 "+e+" 个天文单位 🚀",t=document.getElementById("voyager-show");t&&(t.innerHTML=o),clearTimeout(footerTimer),footerTimer=setTimeout(updateFooterStats,1e3)}"loading"===document.readyState?document.addEventListener("DOMContentLoaded",updateFooterStats):updateFooterStats(),document.addEventListener("pjax:complete",updateFooterStats);]]></content>
   </entry>
 </search>
